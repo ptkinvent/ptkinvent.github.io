@@ -1,155 +1,304 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Prateek Sahay | Home</title>
+		<title>Home | Prateek Sahay</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<link href="css/bootstrap.min.css" rel="stylesheet"> 
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet"> 
- 		<link type="text/css" rel="stylesheet" href="css/stylesheet.css"/> 
+		<meta name="description" content="Welcome to the personal website of Prateek Sahay. I'm an undergraduate robotics design engineer in MA. View all my projects here.">
+		<link href="bootstrap.css" rel="stylesheet">
+		<!--<link href='http://fonts.googleapis.com/css?family=Raleway:400,600' rel='stylesheet' type='text/css'>-->
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300|Exo+2:400,200' rel='stylesheet' type='text/css'>
 		<style type="text/css">
-			.jumbotron{
-				background-image:url('img/ABB1.jpg');
-				background-color: #dddddd;
-				background-size: cover;
-				background-position: 75% 50%; // adjusts how the image shows up on mobile screens
+			html, body {
+				height: 100%;
+				//background-color: #4f4f4f; //f7f7f7;
+			}
+			
+			.jumbotron-main {
+				background-position: 50% 50%; // adjusts how the image shows up on mobile screens
 				background-repeat: no-repeat;
-				padding-top: 100px;
-				padding-bottom: 100px;
+				//font-family: 'Raleway', sans-serif;
+				font-family: 'Source Sans Pro', sans-serif;
+				font-weight: 700;
+				color: white;
+				text-align: center;
+				text-transform: uppercase; 
 			}
-			.description {
-				padding: 30px;
-				margin-bottom: 30px;
-				color: inherit;
-				background-color: #eeeeee;
+			
+			.center-xs {
+				width:300px;
+				height:1.9em;
+				position:absolute;
+				left:50%;
+				margin:-0.75em 0 0 -150px; 
+				letter-spacing: 5px; 
 			}
-			.description p {
-				margin-top: 15px;
-				margin-bottom: 15px;
-				font-size: 21px;
-				font-weight: 200;
+			
+			.center {
+				width:550px;
+				height:1.75em;
+				position:absolute;
+				left:50%;
+				margin:-0.75em 0 0 -275px;
+				letter-spacing: 8px; 
+			}
+			
+			.middle {
+				top:50%;
+				font-size: 24px;
+				background-color: black;
+				border: 5px solid black;
+			}
+			
+			.above {
+				top:35%;
+				font-size: 18px;
+			}
+			
+			.below{
+				top:65%;
+				font-size: 18px;
+			}
+			
+			#thumbnail-assembly{
+			  background-image: url('img/Assemblysquare-b.jpg');
+			}
+			
+			#thumbnail-assembly:hover {
+			  background-image: url('img/Assemblysquare.jpg');
+			}
+			
+			#thumbnail-musicbot {
+			  background-image: url('img/Musicbotsquare-b.jpg');
+			}
+			
+			#thumbnail-musicbot:hover {
+			  background-image: url('img/Musicbotsquare.jpg');
+			}
+			
+			#thumbnail-iqp {
+			  background-image: url('img/Iqp-b.jpg');
+			}
+			
+			#thumbnail-iqp:hover {
+			  background-image: url('img/Iqp.jpg');
+			}
+			
+			#thumbnail-cht4{
+			  background-image: url('img/Cht4square-b.jpg');
+			}
+			
+			#thumbnail-cht4:hover {
+			  background-image: url('img/Cht4square.jpg');
+			}
+			
+			#thumbnail-abb {
+			  background-image: url('img/Abbsquare-b.jpg');
+			}
+			
+			#thumbnail-abb:hover {
+			  background-image: url('img/Abbsquare.jpg');
+			}
+			
+			#thumbnail-windowwashing{
+			  background-image: url('img/Windowwashingsquare-b.jpg');
+			}
+			
+			#thumbnail-windowwashing:hover {
+			  background-image: url('img/Windowwashingsquare.jpg');
+			}
+			
+			#thumbnail-sw{
+			  background-image: url('img/Swsquare-b.jpg');
+			}
+			
+			#thumbnail-sw:hover {
+			  background-image: url('img/Swsquare.jpg');
+			}
+			
+			#thumbnail-art{
+			  background-image: url('img/Artsquare-b2.jpg');
+			}
+			
+			#thumbnail-art:hover {
+			  background-image: url('img/Artsquare2.jpg');
 			}
 		</style>
 	</head>
+
+
+
+
+
+
 	
 
 	<body>
-<!-- Navbar -->
-
-	
-		<div class="navbar navbar-default navbar-fixed-top">
+<!-- Navbar -->	<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
-				<a href="#" class = "navbar-brand">Prateek Sahay</a>
+				<a href="#" class = "navbar-brand" id="logo">Prateek Sahay</a>
 				<button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				</button>
-			
+				
 				<div class="collapse navbar-collapse navHeaderCollapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active"><a href="#">Home</a></li>
-<!--											<li class="dropdown">
-												<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects</a>
-												<ul class="dropdown-menu">
-													<li><a href="#">Musical Robot</a></li>
-													<li><a href="#">Ceiling Robot</a></li>
-													<li><a href="#">Window Washing Robot</a></li>
-												</ul>
-											</li>
--->						<li><a href="/projects.html">Projects</a></li>
-						<li><a href="/about.html">About</a></li>
-						<li><a href="/ResumePrateekSahay.pdf" target="_blank">R&eacute;sum&eacute;</a></li>
-						<li><a href="mailto:psahay@wpi.edu">Email Me</a></li>
+						<li><a href="/about.html">Info</a></li>
 					</ul>
-				</div>
-				
-				
+				</div>	
 			</div>
 		</div>
 		
-
-
-
 		
-<!-- Jumbotron -->		
-		<div class="jumbotron">
+		
+		
+
+<!-- Jumbotron full-page view MD+ -->
+		<div class="full-height jumbotron-main hidden-xs" style="background-size:cover; background-image:url('img/Bg-md-arrow.jpg');">
 			<div class="container">
-				<div class="text-center">
-					<h1>Prateek Sahay</h1>
-					<p>Creative technology. Design. And robots.</p>
-					<br>
-					<br>
+				<div class="center above" style="font-size:24px">
+					<p>Design</p>
+				</div> 
+				
+				<div class="center middle" style="font-size:48px">
+					<p>Prateek Sahay</p>
+				</div>
+				
+				<div class="center below" style="font-size:24px">
+					<p>Engineering</p>
+				</div> 
+			</div>
+		</div>
+		
+		
+<!-- Jumbotron full-page view XS -->
+		<div class="full-height jumbotron-main visible-xs" style="background-size:cover; background-image:url('img/Bg-md-arrow.jpg');">
+			<div class="container">
+				<div class="center-xs above">
+					<p>Design</p>
+				</div> 
+				
+				<div class="center-xs middle">
+					<p>Prateek Sahay</p>
+				</div>
+				
+				<div class="center-xs below">
+					<p>Engineering</p>
 				</div>
 			</div>
 		</div>
 		
 		
-
-
-<!-- Description -->	
-		<div class="description">
-			<div class="row"> 
-				<div class="col-md-6 col-md-offset-3">
-						<div class="text-center">
-						<p>I'm an aspiring Robotics and Mechanical Engineer at WPI graduating this spring. I'm passionate about robotics design engineering and I use my skills to create human-friendly robots. Check out some of my <a href="/projects.html">projects</a> or learn more <a href="/about.html">about me</a>.</p>
+		
+		
+		
+		
+		
+		
+		
+<!-- Portfolio -->
+		<div class="container">
+			<div class="row">
+				<h2 class="text-center" style="margin:40px">Portfolio</h2>
+				
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-10 col-xs-offset-1">
+					<div class="col-sm-3  col-xs-12">
+						<a href="assembly.html">
+							<div class="icon" id="thumbnail-assembly"></div>
+						</a>
+						<p class="thumbnail-caption"><span class="text-secondary">01 </span>Assembly Line Robot</p>
+						
+					</div>
+					
+					<div class="col-sm-3  col-xs-12">
+						<a href="musicbot.html">
+							<div class="icon" id="thumbnail-musicbot"></div>
+						</a>
+						<p class="thumbnail-caption"><span class="text-secondary">02 </span>Musical Robot</p>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12">
+						<a href="iqp.html">
+							<div class="icon" id="thumbnail-iqp"></div>
+						</a>
+						<p class="thumbnail-caption"><span class="text-secondary">03 </span>Enhancing Science Education</p>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12">
+						<a href="cht4.html">
+							<div class="icon" id="thumbnail-cht4"></div>
+						</a>
+						<p class="thumbnail-caption"><span class="text-secondary">04 </span>CHT4 Corporation</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-10 col-xs-offset-1">
+					<div class="col-sm-3  col-xs-12">
+						<a href="abb.html">
+							<div class="icon" id="thumbnail-abb"></div>
+						</a>
+						<p class="thumbnail-caption"><span class="text-secondary">05 </span>ABB, Ltd.</p>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12">
+						<a href="windowwashing.html">
+							<div class="icon" id="thumbnail-windowwashing"></div>
+						</a>
+						<p class="thumbnail-caption"><span class="text-secondary">06 </span>Window Washing Robot</p>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12">
+						<a href="sw.html">
+							<div class="icon" id="thumbnail-sw"></div>
+						</a>
+						<p class="thumbnail-caption"><span class="text-secondary">07 </span>SolidWorks Corporation</p>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12">
+						<a href="art.html">
+							<div class="icon" id="thumbnail-art"></div>
+						</a>
+						<p class="thumbnail-caption"><span class="text-secondary">08 </span>Acton Robotics Team</p>
+					</div>						
+				</div>
+			</div>
+		</div>
+		
+		
+		
+<!-- Footer -->
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<p>Copyright &copy; 2014 &middot; Prateek Sahay &middot; <a href="mailto:psahay@wpi.edu">Contact</a></p>
 					</div>
 				</div>
 			</div>
 		</div>
 		
-
-
-
-<!-- Featured Projects -->			
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">			
-					<h2>Featured Projects</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-<!--					<div class="thumbnail"> -->
-						<a href="/musicbot.html"><img src="img/Musicbotbannerorangebig.jpg" width=100%></a>
-						<div class="caption">
-							<h3><a href="/musicbot.html">Musical Robot </a><small>Summer 2014</small></h3>
-							<p>I designed and built a research robot this summer at the MIT Media Lab in Cambridge. It will be used for experiments in social robotics by the Personal Robotics and the Opera of the Future groups.</p>
-							<a href="musicbot.html" class="btn btn-primary">Learn More</a>
-							<p></p>
-						</div>
-<!-- 					</div> -->
-				</div>
-				
-				<div class="hidden-md hidden-lg">
-					<br><br>
-				</div>
-				
-				<div class="col-md-6">
-<!-- 					<div class="thumbnail"> -->
-						<a href="/windowwashing.html"><img src="img/Windowwashingbannergraybig.jpg" width=100%></a>
-						<div class="caption">
-							<h3><a href="/windowwashing.html">Window Washing Robot </a><small>Spring 2013</small></h3>
-							<p>This robot was designed to complete a window-washing challenge for a robotics class at WPI. I designed many of the key mechanical aspects of this robot which allowed us to score highly in the class.</p>
-							<a href="windowwashing.html" class="btn btn-primary">Learn More</a>	
-							<p></p>
-						</div>
-<!-- 					</div>  -->
-				</div>
-			</div>
-		</div>
-
-
-		<div class="navbar-default navbar-static-bottom">
-			<div class="container">
-				<p class="navbar-text pull-left">&copy; Prateek Sahay 2014</p>
-				<a class="navbar-btn btn btn-info pull-right" href="mailto:psahay@wpi.edu">Email Me</a>
-			</div>
-		</div>
-
-
-<!-- Javascript -->
+		
+		
+		
+		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 		
+		  ga('create', 'UA-56229856-1', 'auto');
+		  ga('send', 'pageview');
+		
+		</script>
 	</body>
 </html>

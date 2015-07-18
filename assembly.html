@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Window Washing Robot | Prateek Sahay</title>
+		<title>Assembly Line Robot | Prateek Sahay</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link href="bootstrap.css" rel="stylesheet">
 		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300|Exo+2:400,200' rel='stylesheet' type='text/css'>
 		<style type="text/css">
 			.jumbotron {
-				background-image:url("img/Windowwashingbanner.jpg");
+				background-image:url("img/Assemblybanner.jpg");
 				background-position: 50% 50%; // adjusts how the image shows up on mobile screens
 			}
 		</style>
@@ -49,7 +49,7 @@
 <!-- Jumbotron -->
                 <div class="jumbotron" style="height: 400px;">
                     <div class="container">
-                        <h1>Window Washing Robot</h1>
+                        <h1>Assembly Line Robot</h1>
                         <hr>
                         <h4><i>Worcester Polytechnic Institute</i></h4>
                         <h4>2014</h4>
@@ -66,7 +66,8 @@
 				</div>
 				<div class="col-md-6">
 					<h2><span class="text-secondary hidden-md hidden-lg">01&ensp;</span>Background</h2>
-					<p>RBE 2002 is a class at Worcester Polytechnic Institute called Robotics: Sensing. The goal of the class is to teach students about sensors and feedback control loops. As part of the final project for the class, students must create a window washing robot using tools learned in class and from the robotics lab at WPI.</p>
+					<p>I built this robot with Peerapat Luxsuwong, Meagan Hiatt, and Adria Fung as part of a final project at WPI for a class called RBE 3001: Unified Robotics III. The project was to make a robot to pick weights off an assembly line and sort them by weight. The skills we implemented involved programming a serial manipulator from the microcontroller up using embedded programming, inverse kinematics, and PID control.</p>
+					
 				</div>
 			</div>
 			
@@ -76,49 +77,34 @@
 				</div>
 				<div class="col-md-6">
 					<h2><span class="text-secondary hidden-md hidden-lg">02&ensp;</span>Design</h2>
-					<p>I built this robot was with two other robotics engineers at WPI, Ayesha Fathima and Wut Yee Oo, for a class called RBE 2002. The challenge for the class was to build a robot to clean windows on high-rise buildings while applying a constant pressure against the window surface as it moved about.</p>
-					<p>We opted for a novel design, scrapping the linear, back-and-forth motions everyone else used, and instead integrating a rotating planetary gear set on the front of the robot. Since the moving parts on our robot moved with constant rotational velocity, there was no overall torque applied on the robot so there was very little shakiness as the robot washed. Because of how elegantly and uniquely it completed the challenge, we had the honor of the WPI robotics lab preserving our robot in a glass case at the end of the year.</p>
+					<p>We were given an electronics board with the microcontroller and several aspects included as well as the arm and conveyor belt. We attached an infrared sensor and used it to detect the distance between the arm and an incoming object on the belt. Using inverse kinematics, our arm could grab an incoming block about 95% of the time. 
+The robot then extended itself out horizontally and obtained the weight of the block it was holding by sensing the current through the lower motor. Since the current is proportional to the torque in the motor, the robot could determine if the block was heavy or light and sort it accordingly.</p>
 				</div>
 			</div>
 			
 <!-- Image -->		<div class="row image">
 				<div class="image-caption col-md-2 col-md-offset-1 visible-md visible-lg">
-					<p>Cross-sectional view of the robot's internal components.</p>
+					<p>The electronics board, robot arm, and conveyor system.</p>
 				</div>
 				<div class="col-md-6">
-					<img src="img/Windowwashingcross.jpg" width=100%>
-					<p class="image-caption-sm visible-sm visible-xs">Cross-sectional view of the robot's internal components.</p>
+					<img src="img/Assemblyisometric.jpg" width=100%>
+					<p class="image-caption-sm visible-sm visible-xs">The electronics board, robot arm, and conveyor system.</p>
 				</div>
 			</div>
 				
-<!-- '03 Development-->	<div class="row">
-				<div class="col-md-3 visible-md visible-lg">
-					<h2 class="chapter-caption">03</h2>
-				</div>
-				<div class="col-md-6">
-					<h2><span class="text-secondary hidden-md hidden-lg">03&ensp;</span>Development</h2>
-					<p>The robot is constructed of laser-cut acrylic pieces Wut Yee and I designed in SolidWorks and held together with bolts. The sensors and gears used are part of the Vex consctruction set and include two limit switches, a pushbutton, a linear potentiometer, and an encoder. The software PID controller was programmed into an Arduino microcontroller by all three of us.</p>
-				</div>
-			</div>
-			
-<!-- Image -->		<div class="row image">
-				<div class="image-caption col-md-2 col-md-offset-1 visible-md visible-lg">
-					<p>First physical prototype built of laser-cut acrylic.</p>
-				</div>
-				<div class="col-md-6">
-					<img src="img/Windowwashingphysical.jpg" width=100%>
-					<p class="image-caption-sm visible-sm visible-xs">First physical prototype built of laser-cut acrylic.</p>
+<!-- p -->		<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<p>Several other components came into play during the project, including the timers, ADC, DAC, linear motor drivers, current sensors, USART and SPI communications. 
+</p>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-md-offset-3 col-md-6">
-					<p>The following year, we were delighted to find that our design had inspired a new generation of window washing robots which used planetary gears for enhanced washing.</p>
-					
-					<hr>
-<!-- Video -->				<h3>Final Product</h3>
-					<div class="video">
-						<iframe src="//player.vimeo.com/video/109870401?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" width=100% height:auto frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				<div class="col-md-6 col-md-offset-3">		
+				<hr>
+				<h3>Final Product</h3>
+<!-- Video -->			<div class="video">
+						<iframe src="//player.vimeo.com/video/109782134?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" width=100% height:auto frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 					</div>
 				</div>
 			</div>
@@ -135,6 +121,9 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		
 		
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
