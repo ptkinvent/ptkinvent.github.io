@@ -6,11 +6,6 @@
 		<link href="bootstrap.css" rel="stylesheet">
 		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300|Exo+2:400,200' rel='stylesheet' type='text/css'>
 		<style type="text/css">
-			.jumbotron {
-				background-image:url("img/Abbbanner.jpg");
-				background-position: 50% 50%; // adjusts how the image shows up on mobile screens
-			}
-			
 			#description {
 				margin-bottom: 30px;
 			}
@@ -26,7 +21,7 @@
 		</script>
 	</head>
 	
-
+	<a name="top"></a>
 	<body>
 <!-- Navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -40,7 +35,21 @@
 			
 				<div class="collapse navbar-collapse navHeaderCollapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/#portfolio">Portfolio</a></li>
+						<li><a href="/#portfolio" class="smoothScroll hidden-xs">Portfolio</a></li>
+						<li class="dropdown">
+							<a href="#" class = "smoothScroll dropdown-toggle visible-xs" data-toggle = "dropdown">Portfolio <b class="caret"></b></a>
+							
+							<ul class="dropdown-menu">
+								<li><a href="mqp.html"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a></li>
+								<li><a href="assembly.html"><span class="text-secondary">02</span> Assembly Line Robot</a></li>
+								<li><a href="musicbot.html"><span class="text-secondary">03 </span>Musical Robot</a></li>
+								<li><a href="iqp.html"><span class="text-secondary">04</span> Enhancing Science Education</a></li>
+								<li><a href="abb.html"><span class="text-secondary">05</span> ABB, Ltd.</a></li>
+								<li><a href="windowwashing.html"><span class="text-secondary">06</span> Window Washing Robot</a></li>
+								<li><a href="sw.html"><span class="text-secondary">07</span> SolidWorks Corporation</a></li>
+								<li><a href="art.html"><span class="text-secondary">08</span> Acton Robotics Team</a></li>
+							</ul>
+						</li>
 						<li class="active"><a href="#">Info</a></li>
 					</ul>
 				</div>	
@@ -57,7 +66,7 @@
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8">
 					<hr>
-					<img src="img/About.jpg" width=100%>
+					<img src="img/about/banner.jpg" width=100%>
 				</div>
 			</div>
 			
@@ -69,14 +78,14 @@
 			
 <!-- Description -->	<div class="row">
 				<div class="col-md-offset-2 col-md-6" id="description">
-					<p>I'm an aspiring undergraduate at Worcester Polytechnic Institute in Worcester, MA graduating this spring. I'm studying Robotics Engineering and Mechanical Engineering because I'm passionate about design engineering, and I dream of using my skills to create robots to aid humans.</p>
-					<p>I also practice web design, electronics, a few programming languages, and basic graphic design. Something that makes me unique is my strong belief in the marriage of the engineering sciences and vibrant arts. I also believe knowledge is power and try to make sure I'm learning something new often.</p>
-					<p>I also give back to the community through volunteer work: I've performed magic shows at events, worked at the Museum of Science in Boston, and done graphic design work for <a href="http://www.essenceofindia.org/">Essence of India</a>, which is an annual celebration of classical Indian culture and heritage in my hometown.</p>
-					<p>My interests are wide and always expanding &mdash; I enjoy reading, traveling, building things, photography, sports cars, sound systems, engineering, economics, art, psychology, philosophy, hanging out with friends, and introspection. I'm also a big fan of usability and user experience design. For me, the purpose of my life is to become the best possible version of myself and to make the people around me happy. I also believe robots can teach us a lot about what it means to be human.</p>
+					<p>I'm an aspiring engineer at Sikorsky Aircraft Corporation. I graduated with my bachelor's degree at Worcester Polytechnic Institute in Worcester, MA in both Robotics Engineering and Mechanical Engineering. I'm also passionate about design engineering, and I dream of using my skills to create robots to aid humans.</p>
+					<p>In my free time, I practice web design, electronics, some hobby programming, and basic graphic design. Something that makes me unique is my strong belief in the marriage of the engineering sciences and vibrant arts. I also believe knowledge is power so I'm attracted to situations where I'm learning something new often.</p>
+					<p>I also enjoy giving back to the community through volunteer work: I've performed magic shows, volnteered at the Museum of Science in Boston, and done graphic design work for <a href="http://www.essenceofindia.org/">Essence of India</a>, an annual celebration of classical Indian culture and heritage in my hometown.</p>
+					<p>My interests are wide and ever-expanding &mdash; I enjoy reading, traveling, building things, photography, sports cars, sound systems, engineering, economics, art, psychology, philosophy, hanging out with friends, and introspection. I'm also a big fan of usability and user experience design. For me, the purpose of my life is to become the best possible version of myself and to make the people around me happy. I also believe robots can teach us a lot about what it means to be human.</p>
 					
 					<h3>About the Website</h3>
-					<p>I designed and built this website on my own with the help of <a href="http://getbootstrap.com/">Twitter's Bootstrap</a>. It's my first dive into HTML and CSS, and it's definitely been a enriching experience. Thanks to the powers of Boostrap, this website is fully optimized for your mobile display, as well. Enjoy!</p>
-					<p class="text-secondary">Last updated: April 30, 2015</p>
+					<p>I designed and built this website on my own and coded it with the help of <a href="http://getbootstrap.com/">Twitter's Bootstrap</a>. It's my first dive into HTML and CSS, and it's definitely been an enriching experience. Thanks to the powers of Boostrap, this website is fully optimized for your mobile display, as well. Enjoy!</p>
+<!-- Updated -->			<p class="text-secondary">Last updated: July 7, 2015</p>
 			</div>
 			
 <!-- Links -->		<div class="col-md-3">
@@ -96,11 +105,7 @@
 <!-- Footer -->
 		<div class="footer">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-						<p>Copyright &copy; 2014 &middot; Prateek Sahay &middot; <a href="mailto:psahay@wpi.edu">Contact</a></p>
-					</div>
-				</div>
+						<p>Copyright &copy; 2014 &middot; Prateek Sahay &middot; <a href="mailto:ptkinvent@gmail.com">Contact</a> &middot; <a href="#top" class="smoothScroll">Back to Top</a></p>
 			</div>
 		</div>
 		
@@ -110,5 +115,8 @@
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/smoothscroll.js"></script> 
+		
 	</body>
 </html>
