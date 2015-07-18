@@ -23,7 +23,7 @@
 		</script>
 	</head>
 	
-
+	<a name="top"></a>
 	<body>
 <!-- Navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -37,7 +37,22 @@
 			
 				<div class="collapse navbar-collapse navHeaderCollapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/#portfolio">Portfolio</a></li>
+						<li><a href="/#portfolio" class="smoothScroll hidden-xs">Portfolio</a></li>
+						
+						<li class="dropdown">
+							<a href="#" class = "smoothScroll dropdown-toggle visible-xs" data-toggle = "dropdown">Portfolio <b class="caret"></b></a>
+							
+							<ul class="dropdown-menu">
+								<li><a href="mqp.html"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a></li>
+								<li><a href="assembly.html"><span class="text-secondary">02</span> Assembly Line Robot</a></li>
+								<li><a href="musicbot.html"><span class="text-secondary">03 </span>Musical Robot</a></li>
+								<li><a href="iqp.html"><span class="text-secondary">04</span> Enhancing Science Education</a></li>
+								<li><a href="abb.html"><span class="text-secondary">05</span> ABB, Ltd.</a></li>
+								<li><a href="windowwashing.html"><span class="text-secondary">06</span> Window Washing Robot</a></li>
+								<li><a href="sw.html"><span class="text-secondary">07</span> SolidWorks Corporation</a></li>
+								<li><a href="art.html"><span class="text-secondary">08</span> Acton Robotics Team</a></li>
+							</ul>
+						</li>
 						<li><a href="/about.html">Info</a></li>
 					</ul>
 				</div>	
@@ -103,11 +118,7 @@
 <!-- Footer -->
 		<div class="footer">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-						<p>Copyright &copy; 2014 &middot; Prateek Sahay &middot; <a href="mailto:psahay@wpi.edu">Contact</a></p>
-					</div>
-				</div>
+						<p>Copyright &copy; 2014 &middot; Prateek Sahay &middot; <a href="mailto:ptkinvent@gmail.com">Contact</a> &middot; <a href="#top" class="smoothScroll">Back to Top</a></p>
 			</div>
 		</div>
 		
@@ -116,5 +127,8 @@
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/smoothscroll.js"></script> 
 	</body>
 </html>
