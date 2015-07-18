@@ -1,0 +1,86 @@
+#subtitle {
+
+	text-align: center; 
+
+}
+
+
+#header {
+	
+	z-index: 1;
+	
+	//position: fixed;
+
+	width: 97.5%; 
+
+	//margin-top: 110px;
+
+	//height: 60px;
+
+	//margin-bottom: 10px;
+
+}
+
+
+
+
+#name {
+
+	text-align: center;
+ 
+	font-size: 40px;
+
+	font-family: Verdana, sans-serif;
+
+	text-transform: uppercase;
+ 
+	letter-spacing: 4pt; 
+	color: #7F7F7F;
+
+}
+
+
+
+#tagline {
+
+	text-align: center;
+
+	//margin-top: 10px;
+
+	margin-bottom: 75px;
+
+	font-family: Times, serif;
+ 
+	font-size: 18px;
+ 
+	text-transform: lowercase;
+
+	letter-spacing: 2pt;
+ 
+	color: #C61130; 
+
+}
+
+
+
+#video {
+
+	text-align: center;
+
+}
+
+
+
+#links {
+
+	text-align: center;
+
+}
+
+
+
+#photo {
+
+	text-align: center;
+
+}
