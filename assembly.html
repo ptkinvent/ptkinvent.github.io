@@ -3,12 +3,12 @@
 	<head>
 		<title>Assembly Line Robot | Prateek Sahay</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<link href="bootstrap.css" rel="stylesheet">
+		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300|Exo+2:400,200' rel='stylesheet' type='text/css'>
 		<style type="text/css">
 			.jumbotron {
 				background-image:url("img/assembly/banner.jpg");
-				background-position: 50% 50%; // adjusts how the image shows up on mobile screens
+				background-position: 50% 50%; /* Adjusts how the image shows up on mobile screens */
 			}
 		</style>
 		<script>
@@ -16,31 +16,33 @@
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		
+
 		  ga('create', 'UA-56229856-1', 'auto');
 		  ga('send', 'pageview');
-		
 		</script>
 	</head>
-	
+
+
+
 	<a name="top"></a>
 	<body>
-<!-- Navbar -->
+
+		<!-- Navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<a href="/" class = "navbar-brand" id="logo">Prateek Sahay</a>
 				<button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
-			
+
 				<div class="collapse navbar-collapse navHeaderCollapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/#portfolio" class="smoothScroll hidden-xs">Portfolio</a></li>
 						<li class="dropdown">
 							<a href="#" class = "smoothScroll dropdown-toggle visible-xs" data-toggle = "dropdown">Portfolio <b class="caret"></b></a>
-							
+
 							<ul class="dropdown-menu">
 								<li><a href="mqp.html"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a></li>
 								<li><a href="assembly.html"><span class="text-secondary">02</span> Assembly Line Robot</a></li>
@@ -54,49 +56,74 @@
 						</li>
 						<li><a href="/about.html">Info</a></li>
 					</ul>
-				</div>	
+				</div>
 			</div>
 		</div>
-                
-                
-                
-<!-- Jumbotron -->
-                <div class="jumbotron" style="height: 400px; background-attachment: fixed; background-position: 50% 0%; background-size: auto 400px;">
-                    <div class="container">
-                        <h1>Assembly Line Robot</h1>
-                        <hr>
-                        <h4><i>Worcester Polytechnic Institute</i></h4>
-                        <h4>2014</h4>
-                    </div>
-                </div>
 
-		
-		
-<!-- Content -->
+
+
+		<!-- Jumbotron -->
+		<div class="jumbotron" style="height: 400px; background-attachment: fixed; background-position: 50% 0%; background-size: auto 400px;">
+			<div class="container">
+				<h1>Assembly Line Robot</h1>
+				<hr>
+				<h4><i>Worcester Polytechnic Institute</i></h4>
+				<h4>2014</h4>
+			</div>
+		</div>
+
+
+
+		<!-- Content -->
 		<div class="container">
-<!-- 01 Background -->	<div class="row">
+
+			<!-- 01 Background -->
+			<div class="row">
 				<div class="col-md-3 visible-md visible-lg">
 					<h2 class="chapter-caption">01</h2>
 				</div>
 				<div class="col-md-6">
 					<h2><span class="text-secondary hidden-md hidden-lg">01&ensp;</span>Background</h2>
-					<p>I built this robot with Peerapat Luxsuwong, Meagan Hiatt, and Adria Fung as part of a final project at WPI for a class called RBE 3001: Unified Robotics III. The project was to make a robot to pick weights off an assembly line and sort them by weight. The skills we implemented involved programming a serial manipulator from the microcontroller up using embedded programming, inverse kinematics, and PID control.</p>
-					
+					<p>
+						I built this robot with Peerapat Luxsuwong, Meagan Hiatt,
+						and Adria Fung as part of a final project at WPI for a
+						class called RBE 3001: Unified Robotics III. The
+						project was to make a robot to pick weights off an
+						assembly line and sort them by weight. The skills we
+						implemented involved programming a serial manipulator
+						from the microcontroller up using embedded
+						programming, inverse kinematics, and PID control.
+					</p>
+
 				</div>
 			</div>
-			
-<!-- 02 Design -->	<div class="row">
+
+			<!-- 02 Design -->
+			<div class="row">
 				<div class="col-md-3 visible-md visible-lg">
 					<h2 class="chapter-caption">02</h2>
 				</div>
 				<div class="col-md-6">
 					<h2><span class="text-secondary hidden-md hidden-lg">02&ensp;</span>Design</h2>
-					<p>We were given an electronics board with the microcontroller and several aspects included as well as the arm and conveyor belt. We attached an infrared sensor and used it to detect the distance between the arm and an incoming object on the belt. Using inverse kinematics, our arm could grab an incoming block about 95% of the time. 
-The robot then extended itself out horizontally and obtained the weight of the block it was holding by sensing the current through the lower motor. Since the current is proportional to the torque in the motor, the robot could determine if the block was heavy or light and sort it accordingly.</p>
+					<p>
+						We were given an electronics board with the microcontroller
+						and several aspects included as well as the arm and
+						conveyor belt. We attached an infrared sensor and used
+						it to detect the distance between the arm and an
+						incoming object on the belt. Using inverse kinematics,
+						our arm could grab an incoming block about 95% of the
+						time. The robot then extended itself out horizontally
+						and obtained the weight of the block it was holding by
+						sensing the current through the lower motor. Since the
+						current is proportional to the torque in the motor, the
+						robot could determine if the block was heavy or light
+						and sort it accordingly.
+					</p>
 				</div>
 			</div>
-			
-<!-- Image -->		<div class="row image">
+
+			<!-- Image -->
+			<div class="row image">
 				<div class="image-caption col-md-2 col-md-offset-1 visible-md visible-lg">
 					<p>The electronics board, robot arm, and conveyor system.</p>
 				</div>
@@ -105,41 +132,42 @@ The robot then extended itself out horizontally and obtained the weight of the b
 					<p class="image-caption-sm visible-sm visible-xs">The electronics board, robot arm, and conveyor system.</p>
 				</div>
 			</div>
-				
-<!-- p -->		<div class="row">
+
+			<div class="row">
 				<div class="col-md-6 col-md-offset-3">
-					<p>Several other components came into play during the project, including the timers, ADC, DAC, linear motor drivers, current sensors, USART and SPI communications. 
-</p>
+					<p>
+						Several other components came into play during the
+						project, including the timers, ADC, DAC, linear motor
+						drivers, current sensors, USART and SPI communications.
+					</p>
 				</div>
 			</div>
-			
+
+			<!-- Video -->
 			<div class="row">
-				<div class="col-md-6 col-md-offset-3">		
-				<hr>
-				<h3>Final Product</h3>
-<!-- Video -->			<div class="video">
+				<div class="col-md-6 col-md-offset-3">
+					<hr>
+					<h3>Final Product</h3>
+					<div class="video">
 						<iframe src="//player.vimeo.com/video/109782134?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" width=100% height:auto frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 					</div>
 				</div>
 			</div>
 		</div>
-			
-			
-<!-- Footer -->
+
+
+		<!-- Footer -->
 		<div class="footer">
 			<div class="container">
-						<p>Copyright &copy; 2018 &middot; Prateek Sahay &middot; <a href="mailto:ptkinvent@gmail.com">Contact</a> &middot; <a href="#top" class="smoothScroll">Back to Top</a></p>
+				<p>Copyright &copy; 2018 &middot; Prateek Sahay &middot; <a href="mailto:ptkinvent@gmail.com">Contact</a> &middot; <a href="#top" class="smoothScroll">Back to Top</a></p>
 			</div>
 		</div>
-		
-		
-		
-		
-		
+
+
+
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="js/smoothscroll.js"></script> 
+		<script type="text/javascript" src="js/smoothscroll.js"></script>
 	</body>
 </html>
