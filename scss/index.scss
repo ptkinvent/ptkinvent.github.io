@@ -12,11 +12,49 @@
     margin: 0 auto;
 }
 
-h2.panel-header {
+.panel-title {
     text-align: center;
     margin: 40px;
     font-weight: 300;
     font-family: $font-secondary;
+}
+
+.page-header {
+    text-align: center;
+    color: white;
+    height: 400px;
+    background-color: #4f4f4f;
+    /*
+    background-attachment: fixed;
+    background-position: 50% 0%;
+    background-size: auto 400px;
+    */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    .page-title {
+        font-weight: 300;
+        padding-top: 65px;
+    }
+
+    hr {
+        border-color: #d5d5d5;
+        width: 200px;
+    }
+
+    .page-subtitle,
+    .page-detail {
+        font-size: 24px;
+        padding-bottom: 10px;
+    }
+
+    .page-subtitle {
+        font-style: italic;
+    }
 }
 
 .footer {
