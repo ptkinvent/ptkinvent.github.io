@@ -1,0 +1,22 @@
+/*
+ * Customizations to Bootstrap for personal website
+ * Copyright 2018
+ * Copy variables from `_variables.scss` to this file to override default values
+ * without modifying source files.
+ */
+
+//
+// Color system
+//
+$primary:       #273B43;
+$secondary:     #C84A39;
+
+$body-color:                #6c757d;
+
+
+//
+// Fonts
+//
+$font-family-sans-serif:      'Source Sans Pro', sans-serif;
+$font-secondary:              'Exo 2', sans-serif;
+$font-family-base:            $font-family-sans-serif;
