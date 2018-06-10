@@ -19,6 +19,11 @@
     font-family: $font-secondary;
 }
 
+.panel-subtitle {
+    font-family: $font-secondary;
+    font-weight: 600;
+}
+
 .page-header {
     text-align: center;
     color: white;
@@ -174,4 +179,11 @@
 #jumbotron-right-arrow:hover {
     color: #F2F2F2;
     text-decoration: none;
+}
+
+h2.about-intro {
+    font-weight: 300;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: $font-secondary;
 }
