@@ -3,14 +3,14 @@
     <head>
         <title>Window Washing Robot | Prateek Sahay</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300|Exo+2:400,200' rel='stylesheet' type='text/css'>
-        <style type="text/css">
-            .jumbotron {
-                background-image:url("img/windowwashing/banner.jpg");
-                background-position: 50% 50%; /* Adjusts how the image shows up on mobile screens */
-            }
-        </style>
+
+        <!-- JS -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/smoothscroll.js"></script>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -20,53 +20,64 @@
           ga('create', 'UA-56229856-1', 'auto');
           ga('send', 'pageview');
         </script>
+
+        <!-- CSS -->
+        <style type="text/css">
+            .jumbotron {
+                background-image: url("img/windowwashing/banner.jpg");
+                background-position: 50% 50%; /* Adjusts how the image shows up on mobile screens */
+            }
+        </style>
     </head>
 
     <a name="top"></a>
     <body>
 
         <!-- Navbar -->
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
-                <a href="/" class = "navbar-brand" id="logo">Prateek Sahay</a>
-                <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                <a class="navbar-brand" href="/">Prateek Sahay</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse navHeaderCollapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/#portfolio" class="smoothScroll hidden-xs">Portfolio</a></li>
-                        <li class="dropdown">
-                            <a href="#" class = "smoothScroll dropdown-toggle visible-xs" data-toggle = "dropdown">Portfolio <b class="caret"></b></a>
-
-                            <ul class="dropdown-menu">
-                                <li><a href="mqp.html"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a></li>
-                                <li><a href="assembly.html"><span class="text-secondary">02</span> Assembly Line Robot</a></li>
-                                <li><a href="musicbot.html"><span class="text-secondary">03 </span>Musical Robot</a></li>
-                                <li><a href="iqp.html"><span class="text-secondary">04</span> Enhancing Science Education</a></li>
-                                <li><a href="abb.html"><span class="text-secondary">05</span> ABB, Ltd.</a></li>
-                                <li><a href="windowwashing.html"><span class="text-secondary">06</span> Window Washing Robot</a></li>
-                                <li><a href="sw.html"><span class="text-secondary">07</span> SolidWorks Corporation</a></li>
-                                <li><a href="art.html"><span class="text-secondary">08</span> Acton Robotics Team</a></li>
-                            </ul>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active d-none d-lg-block">
+                            <a class="nav-link smoothScroll" href="/">Portfolio <span class="sr-only">(current)</span></a>
                         </li>
-                        <li><a href="/about.html">Info</a></li>
+                        <li class="nav-item active dropdown d-block d-lg-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Portfolio <span class="sr-only">(current)</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="mqp.html"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a>
+                                <a class="dropdown-item" href="assembly.html"><span class="text-secondary">02</span> Assembly Line Robot</a>
+                                <a class="dropdown-item" href="musicbot.html"><span class="text-secondary">03 </span>Musical Robot</a>
+                                <a class="dropdown-item" href="iqp.html"><span class="text-secondary">04</span> Enhancing Science Education</a>
+                                <a class="dropdown-item" href="abb.html"><span class="text-secondary">05</span> ABB, Ltd.</a>
+                                <a class="dropdown-item" href="windowwashing.html"><span class="text-secondary">06</span> Window Washing Robot</a>
+                                <a class="dropdown-item" href="sw.html"><span class="text-secondary">07</span> SolidWorks Corporation</a>
+                                <a class="dropdown-item" href="art.html"><span class="text-secondary">08</span> Acton Robotics Team</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">Info</a>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </div>
+        </nav>
 
 
 
         <!-- Jumbotron -->
-        <div class="jumbotron" style="height: 400px; background-attachment: fixed; background-position: 50% 0%; background-size: auto 400px;">
+        <div class="jumbotron page-header" style="height: 400px; background-attachment: fixed; background-position: 50% 0%; background-size: auto 400px;">
             <div class="container">
-                <h1>Window Washing Robot</h1>
+                <h1 class="page-title">Window Washing Robot</h1>
                 <hr>
-                <h4><i>Worcester Polytechnic Institute</i></h4>
-                <h4>2014</h4>
+                <h4 class="page-subtitle">Worcester Polytechnic Institute</h4>
+                <h4 class="page-detail">2014</h4>
             </div>
         </div>
 
@@ -77,22 +88,22 @@
 
             <!-- 01 Background -->
             <div class="row">
-                <div class="col-md-3 visible-md visible-lg">
+                <div class="col-md-3 d-none d-md-block">
                     <h2 class="chapter-caption">01</h2>
                 </div>
                 <div class="col-md-6">
-                    <h2><span class="text-secondary hidden-md hidden-lg">01&ensp;</span>Background</h2>
+                    <h2><span class="text-secondary d-md-none">01&ensp;</span>Background</h2>
                     <p>RBE 2002 is a class at Worcester Polytechnic Institute called Robotics: Sensing. The goal of the class is to teach students about sensors and feedback control loops. As part of the final project for the class, students must create a window washing robot using tools learned in class and from the robotics lab at WPI.</p>
                 </div>
             </div>
 
             <!-- 02 Design -->
             <div class="row">
-                <div class="col-md-3 visible-md visible-lg">
+                <div class="col-md-3 d-none d-md-block">
                     <h2 class="chapter-caption">02</h2>
                 </div>
                 <div class="col-md-6">
-                    <h2><span class="text-secondary hidden-md hidden-lg">02&ensp;</span>Design</h2>
+                    <h2><span class="text-secondary d-md-none">02&ensp;</span>Design</h2>
                     <p>I built this robot was with two other robotics engineers at WPI, Ayesha Fathima and Wut Yee Oo, for a class called RBE 2002. The challenge for the class was to build a robot to clean windows on high-rise buildings while applying a constant pressure against the window surface as it moved about.</p>
                     <p>We opted for a novel design, scrapping the linear, back-and-forth motions everyone else used, and instead integrating a rotating planetary gear set on the front of the robot. Since the moving parts on our robot moved with constant rotational velocity, there was no overall torque applied on the robot so there was very little shakiness as the robot washed. Because of how elegantly and uniquely it completed the challenge, we had the honor of the WPI robotics lab preserving our robot in a glass case at the end of the year.</p>
                 </div>
@@ -100,57 +111,57 @@
 
             <!-- Image -->
             <div class="row image">
-                <div class="image-caption col-md-2 col-md-offset-1 visible-md visible-lg">
+                <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
                     <p>Cross-sectional view of the robot's internal components.</p>
                 </div>
                 <div class="col-md-6">
                     <img src="img/windowwashing/xsection.jpg" width=100%>
-                    <p class="image-caption-sm visible-sm visible-xs">Cross-sectional view of the robot's internal components.</p>
+                    <p class="image-caption-sm d-md-none">Cross-sectional view of the robot's internal components.</p>
                 </div>
             </div>
 
             <!-- 03 Development-->
             <div class="row">
-                <div class="col-md-3 visible-md visible-lg">
+                <div class="col-md-3 d-none d-md-block">
                     <h2 class="chapter-caption">03</h2>
                 </div>
                 <div class="col-md-6">
-                    <h2><span class="text-secondary hidden-md hidden-lg">03&ensp;</span>Development</h2>
+                    <h2><span class="text-secondary d-md-none">03&ensp;</span>Development</h2>
                     <p>The robot is constructed of laser-cut acrylic pieces Wut Yee and I designed in SolidWorks and held together with bolts. The sensors and gears used are part of the Vex consctruction set and include two limit switches, a pushbutton, a linear potentiometer, and an encoder. The software PID controller was programmed into an Arduino microcontroller by all three of us.</p>
                 </div>
             </div>
 
             <!-- Image -->
             <div class="row image">
-                <div class="image-caption col-md-2 col-md-offset-1 visible-md visible-lg">
+                <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
                     <p>First physical prototype built of laser-cut acrylic.</p>
                 </div>
                 <div class="col-md-6">
                     <img src="img/windowwashing/prototype.jpg" width=100%>
-                    <p class="image-caption-sm visible-sm visible-xs">First physical prototype built of laser-cut acrylic.</p>
+                    <p class="image-caption-sm d-md-none">First physical prototype built of laser-cut acrylic.</p>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-offset-3 col-md-6">
+                <div class="offset-md-3 col-md-6">
                     <p>The following year, we were delighted to find that our design had inspired a new generation of window washing robots which used planetary gears for enhanced washing.</p>
                 </div>
             </div>
 
             <!-- Image -->
             <div class="row image">
-                <div class="image-caption col-md-2 col-md-offset-1 visible-md visible-lg">
+                <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
                     <p>CAD model of our final design.</p>
                 </div>
                 <div class="col-md-6">
                     <img src="img/windowwashing/cad.jpg" width=100%>
-                    <p class="image-caption-sm visible-sm visible-xs">CAD model of our final design.</p>
+                    <p class="image-caption-sm d-md-none">CAD model of our final design.</p>
                 </div>
             </div>
 
             <!-- Video -->
             <div class="row">
-                <div class="col-md-offset-3 col-md-6">
+                <div class="offset-md-3 col-md-6">
                     <hr>
                     <h3>Final Product</h3>
                     <div class="video">
@@ -169,11 +180,5 @@
             </div>
         </div>
 
-
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="js/smoothscroll.js"></script>
     </body>
 </html>
