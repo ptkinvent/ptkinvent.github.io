@@ -1,1 +1,7 @@
+# Build files
+*.css
+*.css.map
+*.scssc
+
+# Databases
 .db
