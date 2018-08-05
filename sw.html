@@ -29,15 +29,7 @@ year: 2011
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>We modeled the entire design in SolidWorks first.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/sw-office-cad.jpg" title="Concepting the office in CAD" alt="Concepting the office in CAD">
-                <p class="image-caption-sm d-md-none">We modeled the entire design in SolidWorks first.</p>
-            </div>
-        </div>
+        {% include image.html path="img/sw-office-cad.jpg" caption="We modeled the entire design in SolidWorks first." title="A CAD concept drawing of the Ultimate Office." %}
 
         <!-- 03 Development-->
         <div class="row">
@@ -50,17 +42,8 @@ year: 2011
             </div>
         </div>
 
-
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>Building the indoor waterfall.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/sw-waterfall.jpg" title="Constructing the indoor waterfall by hand" alt="Constructing the indoor waterfall by hand">
-                <p class="image-caption-sm d-md-none">Building the indoor waterfall.</p>
-            </div>
-        </div>
+        {% include image.html path="img/sw-waterfall.jpg" caption="Constructing the indoor waterfall by hand." title="One of my co-workers assembling the waterfall before it was painted." %}
 
         <div class="row">
             <div class="offset-md-3 col-md-6">
@@ -69,24 +52,7 @@ year: 2011
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>Jeremy sitting in the floating chair in the finished prototype.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/sw-office.jpg" title="Jeremy sitting in the floating chair in the finished prototype" alt="Jeremy sitting in the floating chair in the finished prototype">
-                <p class="image-caption-sm d-md-none">Jeremy sitting in the floating chair in the finished prototype.</p>
-            </div>
-        </div>
-
+        {% include image.html path="img/sw-office.jpg" caption="Jeremy sitting in the floating chair in the finished prototype." title="Jeremy sitting in the floating chair in the finished prototype." %}
 
         <!-- Video -->
-        <div class="row">
-            <div class="offset-md-3 col-md-6">
-                <hr>
-                <h3>Final Product</h3>
-                <div class="video">
-                    <iframe class="embed-responsive-item" src="//www.youtube.com/embed/fF7fWStr1kU?list=UU_DaIEkQn_ntL3pmwnUey5A"></iframe>
-                </div>
-            </div>
-        </div>
+        {% include video.html title="Final Product" path="//www.youtube.com/embed/fF7fWStr1kU?list=UU_DaIEkQn_ntL3pmwnUey5A" %}

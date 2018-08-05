@@ -18,15 +18,7 @@ year: 2015
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>The 1995 electric golf cart we modified to be autonomous.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/mqp-golfcart.jpg" title="We kept the golf cart in the basement of WPI's recreation center" alt="We kept the golf cart in the basement of WPI's recreation center">
-                <p class="image-caption-sm d-md-none">The 1995 electric golf cart we modified to be autonomous.</p>
-            </div>
-        </div>
+        {% include image.html path="img/mqp-golfcart.jpg" caption="The 1995 electric golf cart we modified to be autonomous." title="We kept the golf cart in the basement of WPI's recreation center." %}
 
         <!-- 02 Approach -->
         <div class="row">
@@ -40,17 +32,7 @@ year: 2015
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>Overview of the different subsystems of the autonomous vehicle.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/mqp-system-diagram.png" title="My focus was on the automated steering, automated braking, and stereo camera mounts" alt="My focus was on the automated steering, automated braking, and stereo camera mounts">
-                <p class="image-caption-sm d-md-none">Overview of the different subsystems of the autonomous vehicle.</p>
-            </div>
-        </div>
-
-
+        {% include image.html path="img/mqp-system-diagram.png" caption="Overview of the different subsystems of the autonomous vehicle." title="Block diagram of different parts of the robotic system." %}
 
         <!-- 03 Raspberry Pi Mount -->
         <div class="row">
@@ -64,15 +46,7 @@ year: 2015
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>The CAD model of the final design of the Raspberry Pi camera mount.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/mqp-camera-mount-cad.jpg" title="The Raspberry Pi cameras were protected by a clear acrylic mount" alt="The Raspberry Pi cameras were protected by a clear acrylic mount">
-                <p class="image-caption-sm d-md-none">The CAD model of the final design of the Raspberry Pi camera mount.</p>
-            </div>
-        </div>
+        {% include image.html path="img/mqp-camera-mount-cad.jpg" caption="The CAD model of the final design of the Raspberry Pi camera mount." title="The Raspberry Pi cameras were protected by a clear acrylic mount." %}
 
         <div class="row">
             <div class="offset-md-3 col-md-6">
@@ -81,17 +55,7 @@ year: 2015
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>The final Raspberry Pi camera mount attached to the golf cart frame.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/mqp-camera-mount.jpg" title="For testing, we mounted the Raspberry Pi mount to the hood of the golf cart" alt="For testing, we mounted the Raspberry Pi mount to the hood of the golf cart">
-                <p class="image-caption-sm d-md-none">The final Raspberry Pi camera mount attached to the golf cart frame.</p>
-            </div>
-        </div>
-
-
+        {% include image.html path="img/mqp-camera-mount.jpg" caption="The final Raspberry Pi camera mount attached to the golf cart frame." title="The camera mount attached to the hood of the golf cart." %}
 
         <!-- 04 Steering -->
         <div class="row">
@@ -105,15 +69,7 @@ year: 2015
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>Exploded CAD view of the potentiometer assembly which was attached to the golf cart dashboard.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/mqp-steering-cad.jpg" title="The steering column was controlled by a motor and potentiometer setup" alt="The steering column was controlled by a motor and potentiometer setup">
-                <p class="image-caption-sm d-md-none">Exploded CAD view of the potentiometer assembly which was attached to the golf cart dashboard.</p>
-            </div>
-        </div>
+        {% include image.html path="img/mqp-steering-cad.jpg" caption="Exploded CAD view of the steering assembly attached to the golf cart dashboard." title="Exploded CAD view of the steering assembly." %}
 
         <div class="row">
             <div class="offset-md-3 col-md-6">
@@ -122,17 +78,7 @@ year: 2015
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>The final design of the automated steering mechanism.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/mqp-steering.jpg" title="The steering mechanisms were protected by translucent acrylic sheets" alt="The steering mechanisms were protected by translucent acrylic sheets">
-                <p class="image-caption-sm d-md-none">The final design of the automated steering mechinism.</p>
-            </div>
-        </div>
-
-
+        {% include image.html path="img/mqp-steering.jpg" caption="The final design of the automated steering mechanism." title="The steering mechanism attached to the golf cart's dash." %}
 
         <!-- 05 Brakes -->
         <div class="row">
@@ -146,15 +92,7 @@ year: 2015
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>A CAD model of the final automated braking system.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/mqp-brakes-cad.jpg" title="The compact braking design was mounted underneath the golf cart floor" alt="The compact braking design was mounted underneath the golf cart floor">
-                <p class="image-caption-sm d-md-none">A CAD model of the final automated braking system.</p>
-            </div>
-        </div>
+        {% include image.html path="img/mqp-brakes-cad.jpg" caption="A CAD model of the final automated braking system." title="A CAD model of the final automated braking system." %}
 
         <div class="row">
             <div class="offset-md-3 col-md-6">
@@ -163,17 +101,7 @@ year: 2015
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>The final design of the automated braking system.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/mqp-brakes.jpg" title="The braking system mounted underneath the golf cart's floor" alt="The braking system mounted underneath the golf cart's floor">
-                <p class="image-caption-sm d-md-none">The final design of the automated braking system.</p>
-            </div>
-        </div>
-
-
+        {% include image.html path="img/mqp-brakes.jpg" caption="The final design of the automated braking system." title="The braking system mounted underneath the golf cart's floor." %}
 
         <!-- Final Report -->
         <div class="row">
