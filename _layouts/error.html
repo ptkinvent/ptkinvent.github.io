@@ -1,0 +1,64 @@
+---
+layout: default
+---
+
+<head>
+        {% assign title = page.title | append: ' | ' | append: site.title %}
+        {% include head.html title=title %}
+
+        <style type="text/css">
+            html, body {
+                height: 100%;
+            }
+
+            hr {
+                border-color: white;
+                width: 200px;
+            }
+
+            .jumbotron {
+                padding-top: 10em;
+                min-height: 100%;
+                margin-bottom: -5em;
+                background-image: url("{{ page.banner-img }}");
+                background-color: #4f4f4f;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+            .push {
+                height: 5em;
+            }
+
+            .footer {
+                //margin-top: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <a name="top"></a>
+
+        {% include header.html %}
+
+        <!-- Jumbotron -->
+        <div class="jumbotron page-header">
+            <div class="container">
+                <h1 class="page-title">{{ page.title }}</h1>
+                <hr>
+                <h4 class="page-subtitle"><em>{{ page.detail }}</em></h4>
+                <h4 class="page-detail">{{ page.subtext }}</h4>
+                {{ content }}
+            </div>
+
+            <div class="push"></div>
+        </div>
+
+
+        {% include footer.html %}
+
+    </body>
