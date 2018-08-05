@@ -1,11 +1,11 @@
 ---
 layout: default
+enable-fontawesome: true
 ---
 
 <head>
-    {% assign title = page.title | append: ' | Prateek Sahay' %}
+    {% assign title = page.title | append: ' | ' | append: site.title %}
     {% include head.html title=title %}
-    <script type="text/javascript" src="js/fontawesome-all.js"></script>
 
     <style type="text/css">
         #description {
