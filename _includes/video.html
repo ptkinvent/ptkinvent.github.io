@@ -3,7 +3,11 @@
         <hr>
         <h3>{{ include.title }}</h3>
             <div class="video">
+                {% if include.path contains "vimeo" %}
                 <iframe src="{{ include.path }}" width=100% height:auto frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                {% elsif include.path contains "youtube" %}
+                <iframe src="{{ include.path }}" class="embed-responsive-item"></iframe>
+                {% endif %}
             </div>
         </div>
     </div>

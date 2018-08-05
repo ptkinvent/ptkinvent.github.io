@@ -22,7 +22,6 @@ year: 2014
                     using embedded programming, inverse kinematics, and PID
                     control.
                 </p>
-
             </div>
         </div>
 
@@ -50,15 +49,7 @@ year: 2014
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>The electronics board, robot arm, and conveyor system.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/assembly-isometric.jpg" title="The electronics board, robot arm, and conveyor system" alt="The electronics board, robot arm, and conveyor system">
-                <p class="image-caption-sm d-md-none">The electronics board, robot arm, and conveyor system.</p>
-            </div>
-        </div>
+        {% include image.html path="img/assembly-isometric.jpg" caption="The electronics board, robot arm, and conveyor system." title="The electronics board, robot arm, and conveyor system." %}
 
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -70,13 +61,4 @@ year: 2014
             </div>
         </div>
 
-        <!-- Video -->
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <hr>
-                <h3>Final Product</h3>
-                <div class="video">
-                    <iframe src="//player.vimeo.com/video/109782134?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" width=100% height:auto frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
+        {% include video.html title="Final Product" path="//player.vimeo.com/video/109782134?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" %}

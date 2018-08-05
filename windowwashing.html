@@ -29,15 +29,7 @@ year: 2014
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>Cross-sectional view of the robot's internal components.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/ww-xsection-cad.jpg" title="Cross-sectional view of the robot's internal components" alt="Cross-sectional view of the robot's internal components">
-                <p class="image-caption-sm d-md-none">Cross-sectional view of the robot's internal components.</p>
-            </div>
-        </div>
+        {% include image.html path="img/ww-xsection-cad.jpg" caption="Cross-sectional view of the robot's internal components." title="Cross-sectional view of the robot's internal components." %}
 
         <!-- 03 Development-->
         <div class="row">
@@ -51,15 +43,7 @@ year: 2014
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>First physical prototype built of laser-cut acrylic.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/ww-prototype.jpg" title="Constructing the initial prototype with acrylic and Vex pieces" alt="Constructing the initial prototype with acrylic and Vex pieces">
-                <p class="image-caption-sm d-md-none">First physical prototype built of laser-cut acrylic.</p>
-            </div>
-        </div>
+        {% include image.html path="img/ww-prototype.jpg" caption="First physical prototype built of laser-cut acrylic." title="The initial prototype with acrylic and Vex pieces without any electronics." %}
 
         <div class="row">
             <div class="offset-md-3 col-md-6">
@@ -68,23 +52,7 @@ year: 2014
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>CAD model of our final design.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/ww-prototype-cad.jpg" title="A SolidWorks mockup of the final design" alt="A SolidWorks mockup of the final design">
-                <p class="image-caption-sm d-md-none">CAD model of our final design.</p>
-            </div>
-        </div>
+        {% include image.html path="img/ww-prototype-cad.jpg" caption="CAD model of our final design." title="A SolidWorks mockup of the final design." %}
 
         <!-- Video -->
-        <div class="row">
-            <div class="offset-md-3 col-md-6">
-                <hr>
-                <h3>Final Product</h3>
-                <div class="video">
-                    <iframe src="//player.vimeo.com/video/109870401?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" width=100% height:auto frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
+        {% include video.html title="Final Product" path="//player.vimeo.com/video/109870401?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" %}
