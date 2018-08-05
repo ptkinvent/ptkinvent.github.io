@@ -3,7 +3,7 @@ layout: default
 ---
 
 <head>
-    {% assign title = page.title | append: ' | Prateek Sahay' %}
+    {% assign title = page.title | append: ' | ' | append: site.title %}
     {% include head.html title=title %}
 
     <style type="text/css">

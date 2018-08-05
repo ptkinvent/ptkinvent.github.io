@@ -3,8 +3,9 @@ layout: default
 active-nav: blog
 ---
 <head>
-    {% assign title = page.title | append: ' | Prateek Sahay' %}
-    {% include head.html title=title %}
+    {% assign title = page.title | append: ' | ' | append: site.title %}
+    {% include head.html title=title enable-syntax=true %}
+
     <style type="text/css">
         hr {
             width: 200px;
@@ -15,8 +16,7 @@ active-nav: blog
 <body>
     <a name="top"></a>
 
-    {% include header.html active-nav="blog" %}
-    <link rel="stylesheet" href="{{ 'css/syntax.css' | relative_url }}">
+    {% include header.html active-nav=layout.active-nav %}
 
     <!-- Content -->
     <div class="container" style="margin-top: 70px;">

@@ -8,8 +8,14 @@
     <script type="text/javascript" src="{{ 'js/bootstrap.js' | relative_url }}"></script>
     <script type="text/javascript" src="{{ 'js/smoothscroll.js' | relative_url }}"></script>
     {% include google-analytics.html %}
+    {%- if layout.enable-fontawesome == true -%}
+    <script type="text/javascript" src="js/fontawesome-all.js"></script>
+    {%- endif -%}
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ 'css/bootstrap.css' | relative_url }}">
     <link rel="stylesheet" href="{{ 'css/index.css' | relative_url }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,400,300|Exo+2:400,200" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:{{ page.ssp_weights | default: '400,300' }}|Exo+2:400,200" type="text/css">
+    {%- if include.enable-syntax == true -%}
+    <link rel="stylesheet" href="{{ 'css/syntax.css' | relative_url }}">
+    {%- endif -%}

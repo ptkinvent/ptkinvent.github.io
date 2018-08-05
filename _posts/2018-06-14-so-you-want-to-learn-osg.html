@@ -1,0 +1,277 @@
+---
+layout: post
+title: So You Want to Learn OpenSceneGraph
+banner-img: img/blog-osg.png
+excerpt: "So you want to learn OpenSceneGraph. Perhaps, like
+me, you want to do so without any prior background
+in graphics libraries like OpenGL, prior knowledge
+of shader languages, or even..."
+---
+        <!-- Article -->
+        <div class="row">
+            <div class="offset-md-2 col-md-8" id="description">
+                <article>
+                    <p>
+                        So you want to learn OpenSceneGraph. Perhaps, like me,
+                        you have some software experience, but you're looking to
+                        visualize something in 3D without much background in
+                        graphics libraries, knowledge of shader languages, or
+                        understanding of rendering pipelines.
+                    </p>
+                    <p>
+                        This is how it started for me when I was thrust into the
+                        world of OpenSceneGraph, abbreviated as OSG, one of the
+                        most popular C++-based open-source 3D graphics toolkits.
+                        Slowly but surely though, over a few years I was able to
+                        pick it up without having learned any of the things
+                        aforementioned. I hope that this post will help guide
+                        you to get started creating 3D scenes quickly.
+                    </p>
+                    <p>
+                        If you're looking for something a bit more detailed, I
+                        would recommend giving the
+                        <a href="https://joshuaburkholder.com/documents/OpenSceneGraph_2.0_Quick_Start_Guide.pdf">OpenSceneGraph Quick Start Guide</a>
+                        a read.
+                    </p>
+
+                    <h3>Introduction</h3>
+                    <p>
+                        This guide is meant to be a springboard for new
+                        developers who want to learn OpenSceneGraph. As such,
+                        it's not the most comprehensive nor detailed guide to
+                        the variety of capabilities of OpenSceneGraph, but it'll
+                        get you on your feet so you at least know what to Google
+                        and how to parse the forums. I won't be getting into the
+                        installation of OpenSceneGraph, though&mdash;hopefully you
+                        can figure that out on your own.
+                    </p>
+
+                    <p>
+                        For reference, after installation, if you don't know how
+                        to link your practice examples to the OpenSceneGraph
+                        library, here is a sample CMakeLists.txt file to get you
+                        started (don't worry, I was new to CMake when I started,
+                        too).
+                    </p>
+
+{% highlight cmake %}
+# CMakeLists.txt
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(osg-example)
+
+FIND_PACKAGE(OpenSceneGraph REQUIRED COMPONENTS osgViewer osgDB)
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+INCLUDE_DIRECTORIES(
+    ${OPENSCENEGRAPH_INCLUDE_DIRS}
+)
+
+ADD_EXECUTABLE(osg-example main.cpp)
+
+TARGET_LINK_LIBRARIES(osg-example
+    ${OPENSCENEGRAPH_LIBRARIES}
+)
+{% endhighlight %}
+
+                    <h3>Smart Pointers</h3>
+                    <p>
+                        Before we get knee-deep in scene graphs, just be aware
+                        that OSG ships with its own brand of smart pointers,
+                        called <code>osg::ref_ptr<></code>. Like
+                        <code>std::shared_ptr<></code>, these pointers maintain
+                        a count of how many times an object is referenced and
+                        will automatically delete them when the count falls to
+                        zero. Unlike <code>std::shared_ptr<></code>, the
+                        reference count in OSG also increments when an object is
+                        used in the scene graph and decrements when the object
+                        is removed. Generally, it's good practice to use these
+                        smart pointers as much as possible. You'll see in these
+                        examples that even the helper methods that construct OSG
+                        objects for us will generally return a smart pointer to
+                        the constructed object rather than a regular pointer.
+                        Good practices like these will help prevent our objects
+                        from getting deleted when we least expect.
+                    </p>
+
+                    <h3>Nodes</h3>
+                    <p>
+                        First and foremost, OpenSceneGraph is about constructing
+                        a graph, and for now we can abstract away the specifics
+                        of how that graph is actually rendered into the 2D
+                        picture that appears on your screen and worry instead
+                        about creating that graph. In fact, let's simplify: for
+                        most purposes, your scene graph will really just be a
+                        scene tree.
+                    </p>
+                    <p>
+                        Now, a tree consists of nodes, one of which is the root
+                        node. This is the root of your scene, and you'll see
+                        later that we specify <code>viewer->setSceneData(root)</code>.
+                        Every other node will have one parent (in our examples)
+                        and most have at least one child. There's two main types
+                        of nodes: groups and leaf nodes. Groups can have one or
+                        more children, and they may apply some sort of transform
+                        or special properties to their children. Leaf nodes
+                        don't have children, which is why we refer to them as
+                        leaves of the tree. They describe some sort of geometry
+                        or specific 2D/3D object in the scene, like a triangle
+                        or a <code>.obj</code> or <code>.3ds</code> model of an aircraft someone made
+                        in CATIA.
+                    </p>
+
+                    <h3>Geodes and Geometry</h3>
+                    <p>
+                        Geode is short for geometry node, because geodes are
+                        leaf nodes that contain geometries. The way to use these
+                        is to create one ore more <code>osg::Geometry</code>s defining some
+                        geometry (like a line, triangle, sphere, box, etc.) and
+                        add it to your <code>osg::Geode</code> using
+                        <code>geode->addDrawable(geom)</code>. Now you can add your shape
+                        to your scene graph with <code>root->addChild(geode)</code>.
+                    </p>
+                    <p>
+                        Let's try creating a triangle.
+                    </p>
+
+{% highlight c++ %}
+#include <osg/Referenced>
+#include <osg/Geometry>
+#include <osg/Geode>
+#include <osg/Array>
+#include <osgViewer/Viewer>
+
+int main(int argc, char** argv)
+{
+    osg::ref_ptr<osg::Geometry> myTriangleGeometry = new osg::Geometry;
+
+    // Define the triangle's 3 vertices
+    osg::ref_ptr<osg::Vec3Array> vertices = new osg::Vec3Array;
+    vertices->push_back(osg::Vec3(0, 0, 0));
+    vertices->push_back(osg::Vec3(100, 0, 0));
+    vertices->push_back(osg::Vec3(0, 0, 100));
+    myTriangleGeometry->setVertexArray(vertices);
+
+    // You can give each vertex its own color, but let's just make it green for now
+    osg::ref_ptr<osg::Vec4Array> colors = new osg::Vec4Array;
+    colors->push_back(osg::Vec4(1.0, 0, 1.0, 0)); // RGBA for green
+    myTriangleGeometry->setColorArray(colors);
+    myTriangleGeometry->setColorBinding(osg::Geometry::BIND_OVERALL);
+
+    // Turn off lighting
+    myTriangleGeometry->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
+
+    // Turn on blending
+    myTriangleGeometry->getOrCreateStateSet()->setMode(GL_BLEND, osg::StateAttribute::ON);
+
+    // Define the geometry type as 'triangle'
+    myTriangleGeometry->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::TRIANGLES, 0, vertices->size()));
+
+    // Finally, let's add our triangle to a geode
+    osg::ref_ptr<osg::Geode> myGeode = new osg::Geode;
+    myGeode->addDrawable(myTriangleGeometry);
+
+    // And now we can create a viewer to look at our geode
+    osgViewer::Viewer viewer;
+    viewer.setSceneData(myGeode);
+    return viewer.run();
+}
+{% endhighlight %}
+
+                    <p>
+                        If you build and run this, you should be able to launch
+                        a window with a green triangle that you can spin around
+                        by clicking and dragging your mouse. Play around with
+                        it. Try adding 4 vertices instead of 3 and change the
+                        primitive type from <code>TRIANGLES</code> to
+                        <code>QUADS</code>. Now switch it to <code>LINES</code>,
+                        or <code>LINE_STRIP</code>, or <code>LINE_LOOP</code>.
+                        Can you tell what these do?
+                    </p>
+                    <p>
+                        Each vertex can also have its own color, if you like.
+                        OpenSceneGraph will blend the colors together for you if
+                        you add two more colors in the <code>colors</code> array
+                        and replace <code>BIND_OVERALL</code> with
+                        <code>BIND_PER_VERTEX</code>.
+                    </p>
+
+                    <h3>Groups</h3>
+                    <p>
+                        As mentioned before, groups are simply a type of node in
+                        the scene graph which contain children. Some groups,
+                        like <code>osg::Group</code> don't have any special
+                        properties---they simply help organize your scene graph
+                        in an intelligible way. Others apply special properties
+                        to their children.
+                    </p>
+
+                    <h4>PositionAttitudeTransform</h4>
+                    <p>
+                        PositionAttitudeTransforms are a type of gropu node
+                        which apply a transform to all their children. You can
+                        apply a <code>setPosition()</code>, <code>setAttitude()</code>, and
+                        <code>setScale()</code> on them, and the transform will
+                        be applied to every child. You can imagine how this
+                        could be used to construct a robot arm in OSG ---a
+                        fairly linear scene graph where each linkage of the arm
+                        would be added under its own
+                        <code>osg::PositionAttitudeTransform</code>, which
+                        itself would be a child of the previous linkage of the
+                        arm. Changing the position or attitude of any linkage
+                        would automatically transform the downstream linkages.
+                    </p>
+
+                    <h4>Switch</h4>
+                    <p>
+                        Switches are used to selectively hide or show objects in
+                        the scene. It's hard to find this written down anywhere,
+                        but it's generally not a good idea to
+                        <code>removeChildren()</code>
+                        from your scene graph often&mdash;rather, you should use
+                        <code>osg::Switch</code> or
+                        <code>node->setNodeMask()</code> to hide and show your
+                        nodes. To use a switch, initialize the switch, add it to
+                        the scene, give it some children, and use
+                        <code>setChildValue()</code> or
+                        <code>setSingleChildOn()</code> to make them visible or
+                        invisible
+                    </p>
+
+                    <h4>LOD (Level of Detail)</h4>
+                    <p>
+                        LOD group nodes are used to make objects visible or
+                        invisible depending on the distance of the camera from
+                        the object. When you add a child, you also specify a
+                        range like so: <code>lod->addChild(node, 0,
+                        1000)</code>. LOD nodes are often used for paging
+                        terrain data in and out&mdash;for example, when you zoom
+                        far out some high resolution terrain tiles can get
+                        replaced by lower resolution ones, putting less burden
+                        on the system and resulting in a smoother scene (all
+                        without the user knowing).
+                    </p>
+
+                    <h3>Conclusion</h3>
+                    <p>
+                        Well, that's a whirlwind tour of OpenSceneGraph. Of
+                        course, there's much more to it, including matrix
+                        transforms, intersections for allowing users to click
+                        and select objects in your 3D scene through their 2D
+                        screens, different kinds of manipulators, and reading
+                        and writing scenes to disk. For more details, I'd highly
+                        recommend giving the <a
+                        href="https://joshuaburkholder.com/documents/OpenSceneGraph_2.0_Quick_Start_Guide.pdf">OSG
+                        Quick Start Guide</a> a read. As you become more
+                        familiar, you can also explore the source code of
+                        applications like <a
+                        href="https://github.com/openscenegraph/OpenSceneGraph/blob/master/applications/osgviewer/osgviewer.cpp">osgViewer</a>,
+                        taking advantage of the open-source nature of OSG.
+                        Please feel free to share your adventures, and remember
+                        to play on your own!
+                    </p>
+
+                </article>
+            </div>
+
+        </div>
