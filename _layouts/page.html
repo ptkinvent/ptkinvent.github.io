@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<head>
+    {% assign title = page.title | append: ' | Prateek Sahay' %}
+    {% include head.html title=title %}
+
+    <style type="text/css">
+        .jumbotron {
+            background-image: url("{{ page.banner-img }}");
+        }
+    </style>
+</head>
+
+<body>
+    <a name="top"></a>
+
+    {% include header.html %}
+
+    <!-- Jumbotron -->
+    <div class="jumbotron page-header">
+        <div class="container">
+            <h1 class="page-title">{{ page.title }}</h1>
+            <hr>
+            <h4 class="page-subtitle">{{ page.location }}</h4>
+            <h4 class="page-detail">{{ page.year }}</h4>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+        {{ content }}
+    </div>
+
+    {% include footer.html %}
+
+</body>

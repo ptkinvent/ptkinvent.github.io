@@ -1,0 +1,158 @@
+---
+layout: default
+home-anchor: "#top"
+portfolio-anchor: "#portfolio"
+---
+
+<head>
+    {% include head.html title=page.title %}
+
+    <script type="text/javascript" src="js/fontawesome-all.js"></script>
+
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            /* background-color: #f7f7f7; */
+            /* background-color: #4f4f4f; */
+        }
+
+        .jumbotron-main {
+            background-position: 50% 50%; /* Adjusts how the image shows up on mobile screens */
+            background-repeat: no-repeat;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 900;
+            color: white;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .center-xs {
+            width:250px;
+            height:1.9em;
+            position:absolute;
+            left:50%;
+            margin:-0.75em 0 0 -125px;
+            letter-spacing: 3px;
+        }
+
+        .center {
+            width:480px;
+            height:1.75em;
+            position:absolute;
+            left:50%;
+            margin:-0.75em 0 0 -240px;
+            letter-spacing: 4px;
+        }
+
+        .middle {
+            top:50%;
+            font-size: 24px;
+            background-color: black;
+            border: 5px solid black;
+        }
+
+        .above {
+            top:35%;
+            font-size: 18px;
+        }
+
+        .below{
+            top:65%;
+            font-size: 18px;
+        }
+
+        #chevron{
+            top:90%;
+            font-size: 18px;
+            background-color: black;
+            height:1.25em;
+            width:1.5em;
+            position:absolute;
+            left:50%;
+            margin:-0.75em 0 0 -0.75em;
+        }
+
+        #thumbnail-mqp{
+            background-image: url('img/index-mqp-squares.jpg');
+        }
+
+        #thumbnail-mqp:hover {
+            background-position: bottom;
+        }
+
+        #thumbnail-assembly{
+            background-image: url('img/index-assembly-squares.jpg');
+        }
+
+        #thumbnail-assembly:hover {
+            background-position: bottom;
+        }
+
+        #thumbnail-musicbot {
+            background-image: url('img/index-musicbot-squares.jpg');
+        }
+
+        #thumbnail-musicbot:hover {
+            background-position: bottom;
+        }
+
+        #thumbnail-iqp {
+            background-image: url('img/index-iqp-squares.jpg');
+        }
+
+        #thumbnail-iqp:hover {
+            background-position: bottom;
+        }
+
+        #thumbnail-cht4{
+            background-image: url('img/index-cht4-squares.jpg');
+        }
+
+        #thumbnail-cht4:hover {
+            background-position: bottom;
+        }
+
+        #thumbnail-abb {
+            background-image: url('img/index-abb-squares.jpg');
+        }
+
+        #thumbnail-abb:hover {
+            background-position: bottom;
+        }
+
+        #thumbnail-windowwashing{
+            background-image: url('img/index-windowwashing-squares.jpg');
+        }
+
+        #thumbnail-windowwashing:hover {
+            background-position: bottom;
+        }
+
+        #thumbnail-sw{
+            background-image: url('img/index-sw-squares.jpg');
+        }
+
+        #thumbnail-sw:hover {
+            background-position: bottom;
+        }
+
+        #thumbnail-art{
+            background-image: url('img/index-art-squares.jpg');
+        }
+
+        #thumbnail-art:hover {
+            background-position: bottom;
+        }
+    </style>
+</head>
+
+<body>
+    <a name="top"></a>
+
+    {% include header.html %}
+
+    {{ content }}
+
+    {% include footer.html %}
+
+</body>

@@ -1,94 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Acton Robotics Team | Prateek Sahay</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-    <!-- JS -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/smoothscroll.js"></script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-56229856-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300|Exo+2:400,200" type="text/css">
-    <style type="text/css">
-        .jumbotron {
-            background-image: url("img/art-banner.jpg");
-        }
-    </style>
-</head>
-
-<a name="top"></a>
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="/">Prateek Sahay</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active d-none d-lg-block">
-                        <a class="nav-link smoothScroll" href="/">Portfolio <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active dropdown d-block d-lg-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Portfolio <span class="sr-only">(current)</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="mqp.html"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a>
-                            <a class="dropdown-item" href="assembly.html"><span class="text-secondary">02</span> Assembly Line Robot</a>
-                            <a class="dropdown-item" href="musicbot.html"><span class="text-secondary">03 </span>Musical Robot</a>
-                            <a class="dropdown-item" href="iqp.html"><span class="text-secondary">04</span> Enhancing Science Education</a>
-                            <a class="dropdown-item" href="abb.html"><span class="text-secondary">05</span> ABB, Ltd.</a>
-                            <a class="dropdown-item" href="windowwashing.html"><span class="text-secondary">06</span> Window Washing Robot</a>
-                            <a class="dropdown-item" href="sw.html"><span class="text-secondary">07</span> SolidWorks Corporation</a>
-                            <a class="dropdown-item" href="art.html"><span class="text-secondary">08</span> Acton Robotics Team</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-
-    <!-- Jumbotron -->
-    <div class="jumbotron page-header">
-        <div class="container">
-            <h1 class="page-title">Acton Robotics Team</h1>
-            <hr>
-            <h4 class="page-subtitle"><i>Acton, MA</i></h4>
-            <h4 class="page-detail">2011</h4>
-        </div>
-    </div>
-
-
-
-    <!-- Content -->
-    <div class="container">
-
+---
+layout: page
+banner-img: img/art-banner.jpg
+title: Acton Robotics Team
+location: Acton, MA
+year: 2011
+---
         <!-- 01 Background -->
         <div class="row">
             <div class="col-md-3 d-none d-md-block">
@@ -113,15 +29,7 @@
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>Our robot at the Pathfinder Regional Competition.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/art-field.jpg" title="Our robot at the regional championship in 2010" alt="Our robot at the regional championship in 2010">
-                <p class="image-caption-sm d-md-none">Our robot at the Pathfinder Regional Competition.</p>
-            </div>
-        </div>
+        {% include image.html path="img/art-field.jpg" caption="Our robot at the Pathfinder Regional Competition." title="Our robot at the regional championship in 2010" %}
 
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -130,15 +38,7 @@
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>A demonstration of our robot at the Acton Memorial Library.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/art-library.jpg" title="Presenting the robot to children at the Acton library" alt="Presenting the robot to children at the Acton library">
-                <p class="image-caption-sm d-md-none">A demonstration of our robot at the Acton Memorial Library.</p>
-            </div>
-        </div>
+        {% include image.html path="img/art-library.jpg" caption="A demonstration of our robot at the Acton Memorial Library." title="Presenting the robot to children at the Acton library" %}
 
         <!-- 03 Second Year-->
         <div class="row">
@@ -152,15 +52,7 @@
         </div>
 
         <!-- Image -->
-        <div class="row image">
-            <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
-                <p>A SolidWorks model of our award-winning robot for the second year.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img/art-year-two.jpg" title="A CAD model of the robot we built for the 2011 regional championship" alt="A CAD model of the robot we built for the 2011 regional championship">
-                <p class="image-caption-sm d-md-none">A SolidWorks model of our award-winning robot for the second year.</p>
-            </div>
-        </div>
+        {% include image.html path="img/art-year-two.jpg" caption="A SolidWorks model of our award-winning robot for the second year." title="A CAD model of the robot we built for the 2011 regional championship" %}
 
         <div class="row">
             <div class="offset-md-3 col-md-6">
@@ -170,34 +62,7 @@
 
         <!-- Image -->
 <!--
-        <div class="row image">
-            <div class="image-caption col-md-2 col-md-offset-1 visible-md visible-lg">
-                <p>A demonstration of our robot at Raytheon in Waltham.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="img-art-raytheon.jpg" title="Presenting our robot at Raytheon in Marlborough" alt="Presenting our robot at Raytheon in Marlborough">
-            </div>
-        </div>
+        {% include image.html path="img/art-raytheon.jpg" caption="A demonstration of our robot at Raytheon in Waltham." title="Presenting our robot at Raytheon in Marlborough" %}
 -->
         <!-- Video -->
-        <div class="row">
-            <div class="offset-md-3 col-md-6">
-            <hr>
-            <h3>Final Product &mdash; Year One</h3>
-                <div class="video">
-                    <iframe src="//player.vimeo.com/video/109889681?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" width=100% height:auto frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <p>Copyright &copy; 2018 &middot; Prateek Sahay &middot; <a href="mailto:ptkinvent@gmail.com">Contact</a> &middot; <a href="#top" class="smoothScroll">Back to Top</a></p>
-        </div>
-    </div>
-
-</body>
-</html>
+        {% include video.html title="Final Product &mdash; Year One" path="//player.vimeo.com/video/109889681?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" %}
