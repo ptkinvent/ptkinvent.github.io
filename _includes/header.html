@@ -1,0 +1,38 @@
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand smoothScroll" href="{{ layout.home-anchor | default: '/' }}">Prateek Sahay</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active d-none d-lg-block">
+                        <a class="nav-link smoothScroll" href="{{ layout.portfolio-anchor | default: '#' }}">Portfolio <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active dropdown d-block d-lg-none">
+                        <a class="nav-link dropdown-toggle" href="{{ layout.home-anchor | default: '/' }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Portfolio
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="mqp.html"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a>
+                            <a class="dropdown-item" href="assembly.html"><span class="text-secondary">02</span> Assembly Line Robot</a>
+                            <a class="dropdown-item" href="musicbot.html"><span class="text-secondary">03 </span>Musical Robot</a>
+                            <a class="dropdown-item" href="iqp.html"><span class="text-secondary">04</span> Enhancing Science Education</a>
+                            <a class="dropdown-item" href="abb.html"><span class="text-secondary">05</span> ABB, Ltd.</a>
+                            <a class="dropdown-item" href="windowwashing.html"><span class="text-secondary">06</span> Window Washing Robot</a>
+                            <a class="dropdown-item" href="sw.html"><span class="text-secondary">07</span> SolidWorks Corporation</a>
+                            <a class="dropdown-item" href="art.html"><span class="text-secondary">08</span> Acton Robotics Team</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>

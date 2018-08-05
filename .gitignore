@@ -1,7 +1,3 @@
-# Build files
-*.css
-*.css.map
-*.scssc
-
-# Databases
-.db
+_site
+.sass-cache
+.jekyll-metadata
