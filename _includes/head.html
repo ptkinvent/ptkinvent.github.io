@@ -5,11 +5,11 @@
 
     <!-- JS -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/smoothscroll.js"></script>
+    <script type="text/javascript" src="{{ 'js/bootstrap.js' | relative_url }}"></script>
+    <script type="text/javascript" src="{{ 'js/smoothscroll.js' | relative_url }}"></script>
     {% include google-analytics.html %}
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="{{ 'css/bootstrap.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ 'css/index.css' | relative_url }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,400,300|Exo+2:400,200" type="text/css">

@@ -1,6 +1,55 @@
 ---
 layout: default
+active-nav: blog
 ---
+<head>
+    {% assign title = page.title | append: ' | Prateek Sahay' %}
+    {% include head.html title=title %}
+    <style type="text/css">
+        hr {
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <a name="top"></a>
+
+    {% include header.html active-nav="blog" %}
+    <link rel="stylesheet" href="{{ 'css/syntax.css' | relative_url }}">
+
+    <!-- Content -->
+    <div class="container" style="margin-top: 70px;">
+
+        <!-- Photo -->
+        <div class="row">
+            <div class="offset-md-2 col-md-8">
+                <hr>
+                <img src="{{ page.banner-img | relative_url }}" class="header-img" alt="">
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="offset-md-2 col-md-6">
+                <h2 class="about-intro">{{ page.title | escape }}</h2>
+                <p class="post-meta">
+                    <span class="text-secondary">
+                        {%- assign date_format = "%B %-d, %Y" -%}
+                        {{ page.date | date: date_format }}
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        {{ content }}
+    </div>
+
+    {% include footer.html %}
+
+</body>
+
+{% comment %}
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
@@ -25,3 +74,4 @@ layout: default
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
+{% endcomment %}
