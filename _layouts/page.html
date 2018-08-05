@@ -5,10 +5,21 @@ layout: default
 <head>
     {% assign title = page.title | append: ' | Prateek Sahay' %}
     {% include head.html title=title %}
+    <script type="text/javascript" src="js/fontawesome-all.js"></script>
+
 
     <style type="text/css">
-        .jumbotron {
-            background-image: url("{{ page.banner-img }}");
+        #description {
+            margin-bottom: 30px;
+        }
+
+        hr {
+            width: 200px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .page-banner {
+            margin-top: 70px;
         }
     </style>
 </head>
@@ -18,31 +29,16 @@ layout: default
 
     {% include header.html %}
 
-    <!-- Jumbotron -->
-    <div class="jumbotron page-header">
-        <div class="container">
-            <h1 class="page-title">{{ page.title }}</h1>
-            <hr>
-            <h4 class="page-subtitle">{{ page.location }}</h4>
-            <h4 class="page-detail">{{ page.year }}</h4>
-        </div>
-    </div>
-
-    {% comment %}
-    <a href="assembly.html" title="Assembly Line Robot">
-        <div id="jumbotron-left-arrow" class="hidden-xs hidden-sm">
-                <p><span class="glyphicon glyphicon-chevron-left"></span></p>
-        </div>
-    </a>
-    <a href="iqp.html" title="Enhancing Science Education" class="hidden-xs hidden-sm">
-        <div id="jumbotron-right-arrow">
-                <p><span class="glyphicon glyphicon-chevron-right"></span></p>
-        </div>
-    </a>
-    {% endcomment %}
 
     <!-- Content -->
-    <div class="container">
+    <div class="container page-banner">
+        <div class="row">
+            <div class="offset-md-2 col-md-8">
+                <hr>
+                <img src="{{ page.banner-img }}" class="header-img">
+            </div>
+        </div>
+
         {{ content }}
     </div>
 
