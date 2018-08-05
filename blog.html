@@ -52,8 +52,8 @@ active-nav: blog
                     <div class="card-body">
                         <a href="{{ post.url }}" class=""><h3 class="card-title">{{ post.title }}</h3></a>
 
-
-                        <p class="card-text text-muted">{{ post.date | date_to_string: "ordinal", "US" }}</p>
+                        {%- assign date_format = "%B %-d, %Y" -%}
+                        <p class="card-text text-muted">{{ post.date | date: date_format }}</p>
                         <p class="card-text">
                             {{ post.excerpt | remove: '<p>' | remove: '</p>' }}
                         </p>

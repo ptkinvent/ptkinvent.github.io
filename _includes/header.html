@@ -8,29 +8,29 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% if page.active-nav == 'portfolio' %}active{% endif %} d-none d-lg-block">
-                        <a class="nav-link smoothScroll" href="{{ layout.portfolio-anchor | default: '/' }}">Portfolio {% if page.active-nav == 'portfolio' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                    <li class="nav-item {% if include.active-nav == 'portfolio' %}active{% endif %} d-none d-lg-block">
+                        <a class="nav-link smoothScroll" href="{{ layout.portfolio-anchor | default: '/' }}">Portfolio {% if include.active-nav == 'portfolio' %}<span class="sr-only">(current)</span>{% endif %}</a>
                     </li>
-                    <li class="nav-item {% if page.active-nav == 'portfolio' %}active{% endif %} dropdown d-block d-lg-none">
+                    <li class="nav-item {% if include.active-nav == 'portfolio' %}active{% endif %} dropdown d-block d-lg-none">
                         <a class="nav-link dropdown-toggle" href="{{ layout.home-anchor | default: '/' }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Portfolio {% if page.active-nav == 'portfolio' %}<span class="sr-only">(current)</span>{% endif %}
+                            Portfolio {% if include.active-nav == 'portfolio' %}<span class="sr-only">(current)</span>{% endif %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="mqp.html"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a>
-                            <a class="dropdown-item" href="assembly.html"><span class="text-secondary">02</span> Assembly Line Robot</a>
-                            <a class="dropdown-item" href="musicbot.html"><span class="text-secondary">03 </span>Musical Robot</a>
-                            <a class="dropdown-item" href="iqp.html"><span class="text-secondary">04</span> Enhancing Science Education</a>
-                            <a class="dropdown-item" href="abb.html"><span class="text-secondary">05</span> ABB, Ltd.</a>
-                            <a class="dropdown-item" href="windowwashing.html"><span class="text-secondary">06</span> Window Washing Robot</a>
-                            <a class="dropdown-item" href="sw.html"><span class="text-secondary">07</span> SolidWorks Corporation</a>
-                            <a class="dropdown-item" href="art.html"><span class="text-secondary">08</span> Acton Robotics Team</a>
+                            <a class="dropdown-item" href="{{ 'mqp.html' | relative_url }}"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a>
+                            <a class="dropdown-item" href="{{ 'assembly.html' | relative_url }}"><span class="text-secondary">02</span> Assembly Line Robot</a>
+                            <a class="dropdown-item" href="{{ 'musicbot.html' | relative_url }}"><span class="text-secondary">03 </span>Musical Robot</a>
+                            <a class="dropdown-item" href="{{ 'iqp.html' | relative_url }}"><span class="text-secondary">04</span> Enhancing Science Education</a>
+                            <a class="dropdown-item" href="{{ 'abb.html' | relative_url }}"><span class="text-secondary">05</span> ABB, Ltd.</a>
+                            <a class="dropdown-item" href="{{ 'windowwashing.html' | relative_url }}"><span class="text-secondary">06</span> Window Washing Robot</a>
+                            <a class="dropdown-item" href="{{ 'sw.html' | relative_url }}"><span class="text-secondary">07</span> SolidWorks Corporation</a>
+                            <a class="dropdown-item" href="{{ 'art.html' | relative_url }}"><span class="text-secondary">08</span> Acton Robotics Team</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if page.active-nav == 'blog' %}active{% endif %}" href="{{ page.blog-anchor | default: 'blog.html' }}">Blog {% if page.active-nav == 'blog' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                        <a class="nav-link {% if include.active-nav == 'blog' %}active{% endif %}" href="{{ page.blog-anchor | default: 'blog.html' | relative_url }}">Blog {% if include.active-nav == 'blog' %}<span class="sr-only">(current)</span>{% endif %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if page.active-nav == 'about' %}active{% endif %}" href="{{ page.about-anchor | default: 'about.html' }}">About {% if page.active-nav == 'about' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                        <a class="nav-link {% if include.active-nav == 'about' %}active{% endif %}" href="{{ page.about-anchor | default: 'about.html' | relative_url }}">About {% if include.active-nav == 'about' %}<span class="sr-only">(current)</span>{% endif %}</a>
                     </li>
                 </ul>
             </div>

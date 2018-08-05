@@ -1,9 +1,9 @@
 ---
 layout: page
+active-nav: about
 banner-img: img/about-banner.jpg
 title: About
 about-anchor: #
-active-nav: about
 ---
         <!-- Header -->
         <div class="row">
@@ -29,7 +29,8 @@ active-nav: about
                 </article>
 
                 <!-- Last Updated -->
-                <p class="text-secondary">Last updated: {{ site.time | date_to_string: "ordinal", "US" }}</p>
+                {%- assign date_format = "%B %-d, %Y" -%}
+                <p class="text-secondary">Last updated: {{ site.time | date: date_format }}</p>
             </div>
 
             <!-- Links -->
