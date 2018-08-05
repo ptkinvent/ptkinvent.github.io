@@ -1,8 +1,17 @@
+---
+layout: post
+title: So You Want to Learn OpenSceneGraph
+excerpt: "So you want to learn OpenSceneGraph. Perhaps, like
+me, you want to do so without any prior background
+in graphics libraries like OpenGL, prior knowledge
+of shader languages, or even..."
+---
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>What Exactly Is GitHub? | Prateek Sahay</title>
+    <title>So You Want to Learn OSG | Prateek Sahay</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <!-- JS -->
@@ -83,14 +92,14 @@
         <div class="row">
             <div class="offset-md-2 col-md-8">
                 <hr>
-                <img src="img/blog-github.png" class="header-img" alt="">
+                <img src="img/blog-osg.png" class="header-img" alt="">
             </div>
         </div>
 
         <!-- Header -->
         <div class="row">
             <div class="offset-md-2 col-md-6">
-                <h2 class="about-intro">What Exactly is GitHub? (WIP)</h2>
+                <h2 class="about-intro">So You Want to Learn OpenSceneGraph (WIP)</h2>
             </div>
         </div>
 
@@ -99,21 +108,36 @@
             <div class="offset-md-2 col-md-8" id="description">
                 <article>
                     <section>
+                        <p>So you want to learn OpenSceneGraph. Perhaps, like me, you want to do so without any prior background in graphics libraries like OpenGL, prior knowledge of shader languages, or even what 'culling' means.</p>
+                        <p>Well tough luck! Because the OpenSceneGraph documentation is terrible and all the forums assume you're familiar with all those things already, and maybe you should go back to school and learn game design this time instead of whatever you learned instead.</p>
+                        <p>This is how it started for me when I was thrust into the world of OpenSceneGraph, one of the most popular open-source 3D graphics toolkits. Slowly but surely, though, over a few years I was able to pick it up without having learned any of the things I mentioned. I hope that this condensed guide will help you get up to speed and creating scenes much more quickly.</p>
 
-                        <p>
-                            You may have read in the news about Microsoft's
-                            recent acquisition of GitHub. But what exactly
-                            <i>is</i> GitHub, and why are some people up in arms
-                            about its acquisition?
-                        </p>
+                        <h3>Introduction</h3>
+                        <p>This guide is meant to be a springboard for intermediate-level developers new to OpenSceneGraph. As such, it's not the most detailed (nor stringently meticulous) guide, but it'll get you on your feet so you at least know what to Google and how to parse the forums. I won't be getting into the installation of OpenSceneGraph, though -- hopefully you can figure that out on your own.</p>
 
-                        <p>
-                            Is it a file sharing site like Dropbox? Confusingly,
-                            even GitHub never really explains what it
-                            is&mdash;that is, unless, you know what git is.
-                        </p>
+                        <h3>Nodes</h3>
+                        <p>First and foremost, OpenSceneGraph is about constructing a graph, and for now we can abstract away the specifics of how that graph is actually rendered into a the picture you'll see on your screen and worry instead about creating that graph. In fact, let's simplify the problem further: for most purposes. your scene graph will really just be a scene tree.</p>
+                        <p>Now, a tree consists of nodes, one of which is the root node. This is the root of your scene, and you'll see later that we specify viewer->setSceneData(root). Every node has one parent (except the root) and most have at least one child. Some nodes will transform all their children to another point in space, some will hold data about how you want a tetrahedron rendered, and some will do nothing but help you group your nodes together in an intelligible way.</p>
 
-                        <h3>Git</h3>
+                        <h3>Geodes</h3>
+                        <p>Geodes are short for geometry nodes. They must be leaf nodes in your tree -- meaning they cannot have children. The way to use these is to create an osg::Geometry, define some geometry (might be a line, triangle, quad, sphere, cylinder, box, etc.) and add it to your osg::Geode using geode->addDrawable(geom). Now you can add your shape to your scene graph.</p>
+
+                        <h4>Geometry</h4>
+                        <p>Let's try creating a triangle.</p>
+                        <script src="https://gist.github.com/ptkinvent/19d538b01ea37c3396991c1ba5a3a8c1.js"></script>
+
+                        <h3>Groups</h3>
+
+                        <h4>PositionAttitudeTransform</h4>
+                        <p>...</p>
+
+                        <h4>Switch</h4>
+                        <p>...</p>
+
+                        <h4>LOD (Level of Detail)</h4>
+                        <p>...</p>
+
+                        <script src="https://gist.github.com/ptkinvent/6a54239eae9a96fe79fb40dfec6760a1.js"></script>
 
                     </section>
                 </article>
