@@ -3,7 +3,7 @@
             <p>{{ include.caption }}</p>
         </div>
         <div class="col-md-6">
-            <img src="{{ include.path }}" title="{{ include.title }}" alt="{{ include.title }}">
+            <img src="{{ include.path | relative_url }}" title="{{ include.title }}" alt="{{ include.title }}">
             <p class="image-caption-sm d-md-none">{{ include.caption }}</p>
         </div>
     </div>
