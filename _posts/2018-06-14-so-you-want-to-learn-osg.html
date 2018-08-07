@@ -154,7 +154,7 @@ int main(int argc, char** argv)
 
     // You can give each vertex its own color, but let's just make it green for now
     osg::ref_ptr<osg::Vec4Array> colors = new osg::Vec4Array;
-    colors->push_back(osg::Vec4(1.0, 0, 1.0, 0)); // RGBA for green
+    colors->push_back(osg::Vec4(0, 1.0, 0, 1.0)); // RGBA for green
     myTriangleGeometry->setColorArray(colors);
     myTriangleGeometry->setColorBinding(osg::Geometry::BIND_OVERALL);
 
@@ -182,12 +182,15 @@ int main(int argc, char** argv)
                         If you build and run this, you should be able to launch
                         a window with a green triangle that you can spin around
                         by clicking and dragging your mouse. Play around with
-                        it. Try adding 4 vertices instead of 3 and change the
+                        it. Try adding 6 vertices instead of 3 and change the
                         primitive type from <code>TRIANGLES</code> to
-                        <code>QUADS</code>. Now switch it to <code>LINES</code>,
-                        or <code>LINE_STRIP</code>, or <code>LINE_LOOP</code>.
-                        Can you tell what these do?
+                        <code>LINE_LOOP</code>. Now switch it to
+                        <code>LINES</code>, or <code>LINE_STRIP</code> Can you
+                        tell what these do?
                     </p>
+
+                    {% include image.html path="img/blog-osg-example.png" caption="Your first OSG geometry" title="A green triangle with a purple backdrop" %}
+
                     <p>
                         Each vertex can also have its own color, if you like.
                         OpenSceneGraph will blend the colors together for you if
@@ -195,6 +198,67 @@ int main(int argc, char** argv)
                         and replace <code>BIND_OVERALL</code> with
                         <code>BIND_PER_VERTEX</code>.
                     </p>
+                    <p>
+                        Here's a list of some primitive types available to help
+                        you get started.
+                    </p>
+
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Primitive Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td><code>POINTS</code></td>
+                                <td>Renders each vertex as a point</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td><code>LINES</code></td>
+                                <td>Connects every pair of vertices with a line</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td><code>LINE_STRIP</code></td>
+                                <td>Draws a line connecting every point</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td><code>LINE_LOOP</code></td>
+                                <td>Same as LINE_STRIP but connects the beginning and end</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td><code>TRIANGLES</code></td>
+                                <td>Renders every triplet of points as a triangle</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">6</th>
+                                <td><code>TRIANGLE_STRIP</code></td>
+                                <td>Renders triangles with shared edges (<a href="https://en.wikipedia.org/wiki/Triangle_strip">see here</a>)</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">7</th>
+                                <td><code>TRIANGLE_FAN</code></td>
+                                <td>Renders triangles with a shared vertex (<a href="https://en.wikipedia.org/wiki/Triangle_fan">see here</a>)</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">8</th>
+                                <td><code>QUADS</code></td>
+                                <td>Renders every 4 points as a quad</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">9</th>
+                                <td><code>QUAD_STRIP</code></td>
+                                <td>Renders quads with shared edges</td>
+                            </tr>
+                        </tbody>
+                      </table>
 
                     <h3>Groups</h3>
                     <p>
@@ -205,6 +269,43 @@ int main(int argc, char** argv)
                         in an intelligible way. Others apply special properties
                         to their children.
                     </p>
+                    <p>
+                        Below is a code snippet with a short example of how to
+                        use groups in your scene graph. To run the code snippet
+                        below, download the standard dataset for your version of
+                        OpenSceneGraph <a
+                        href="http://www.openscenegraph.org/index.php/download-section/data">here</a>,
+                        unzip it to a folder, and copy the
+                        <code>cessna.osg</code> file into your build directory.
+                    </p>
+
+{% highlight c++ %}
+#include <osg/Group>
+#include <osgDB/ReadFile>
+#include <osgViewer/Viewer>
+
+int main(int argc, char** argv)
+{
+    // Root node of the scene
+    osg::ref_ptr<osg::Group> root = new osg::Group;
+
+    // Read "cessna.osg" file
+    osg::ref_ptr<osg::Node> mynode = osgDB::readNodeFile("cessna.osg");
+    if (!mynode)
+    {
+        printf("Node not loaded, model not found\n");
+        return 1;
+    }
+
+    // Add cessna to the scene
+    root->addChild(mynode);
+
+    // And now we can create a viewer to look at our geode
+    osgViewer::Viewer viewer;
+    viewer.setSceneData(root);
+    return viewer.run();
+}
+{% endhighlight %}
 
                     <h4>PositionAttitudeTransform</h4>
                     <p>
