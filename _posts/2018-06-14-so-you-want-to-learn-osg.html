@@ -12,23 +12,23 @@ of shader languages, or even..."
             <div class="offset-md-2 col-md-8" id="description">
                 <article>
                     <p>
-                        So you want to learn OpenSceneGraph. Perhaps, like me,
-                        you have some software experience, but you're looking to
-                        visualize something in 3D without much background in
-                        graphics libraries, knowledge of shader languages, or
-                        understanding of rendering pipelines.
+                        So you want to learn OpenSceneGraph. Perhaps, like I
+                        was, you have some C++ experience, but you're
+                        looking to visualize something in 3D without much
+                        background in graphics libraries, knowledge of shader
+                        languages, or understanding of rendering pipelines.
                     </p>
                     <p>
                         This is how it started for me when I was thrust into the
-                        world of OpenSceneGraph, abbreviated as OSG, one of the
-                        most popular C++-based open-source 3D graphics toolkits.
-                        Slowly but surely though, over a few years I was able to
-                        pick it up without having learned any of the things
-                        aforementioned. I hope that this post will help guide
-                        you to get started creating 3D scenes quickly.
+                        world of OpenSceneGraph, or OSG, one of the most popular
+                        open-source 3D graphics toolkits. Slowly but surely,
+                        over time I was able to pick it up without having
+                        learned any of the things aforementioned. I hope that
+                        this post will help guide you to get started creating 3D
+                        scenes quickly.
                     </p>
                     <p>
-                        If you're looking for something a bit more detailed, I
+                        If you're looking for something slightly more detailed, I
                         would recommend giving the
                         <a href="https://joshuaburkholder.com/documents/OpenSceneGraph_2.0_Quick_Start_Guide.pdf">OpenSceneGraph Quick Start Guide</a>
                         a read.
@@ -81,15 +81,15 @@ TARGET_LINK_LIBRARIES(osg-example
                         called <code>osg::ref_ptr<></code>. Like
                         <code>std::shared_ptr<></code>, these pointers maintain
                         a count of how many times an object is referenced and
-                        will automatically delete them when the count falls to
-                        zero. Unlike <code>std::shared_ptr<></code>, the
-                        reference count in OSG also increments when an object is
-                        used in the scene graph and decrements when the object
-                        is removed. Generally, it's good practice to use these
-                        smart pointers as much as possible. You'll see in these
-                        examples that even the helper methods that construct OSG
-                        objects for us will generally return a smart pointer to
-                        the constructed object rather than a regular pointer.
+                        will automatically delete the object when its count
+                        falls to zero. Unlike <code>std::shared_ptr<></code>,
+                        the reference count in OSG also increments when an
+                        object is used in the scene graph and decrements when
+                        the object is removed. Generally, it's good practice to
+                        use these smart pointers as much as possible. You'll see
+                        in examples that even the helper methods that construct
+                        OSG objects for us will generally return a smart pointer
+                        to the constructed object rather than a regular pointer.
                         Good practices like these will help prevent our objects
                         from getting deleted when we least expect.
                     </p>
@@ -309,7 +309,7 @@ int main(int argc, char** argv)
 
                     <h4>PositionAttitudeTransform</h4>
                     <p>
-                        PositionAttitudeTransforms are a type of gropu node
+                        PositionAttitudeTransforms are a type of group node
                         which apply a transform to all their children. You can
                         apply a <code>setPosition()</code>, <code>setAttitude()</code>, and
                         <code>setScale()</code> on them, and the transform will
