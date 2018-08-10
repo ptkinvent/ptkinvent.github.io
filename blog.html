@@ -8,7 +8,7 @@ active-nav: blog
 
         <!-- Header -->
         <div class="row">
-            <div class="offset-md-2 col-md-6">
+            <div class="offset-md-2 col-md-8">
                 <h2 class="about-intro">Welcome to my <span class="text-secondary">Blog</span></h2>
             </div>
         </div>
@@ -31,8 +31,8 @@ active-nav: blog
                             friends, so I can appreciate how difficult the
                             learning curve can be sometimes. I hope to use this
                             blog as a way to document some of the hardest parts
-                            of my journey and some of my biggest pitfalls in the
-                            hopes of helping someone else.
+                            of my journey and in the hopes of helping someone
+                            else.
                         </p>
                     </section>
                 </article>
@@ -41,23 +41,31 @@ active-nav: blog
 
         <!-- Posts -->
         <div class="row">
-            <div class="offset-md-2 col-md-8">
+            <div class="offset-md-3 col-md-6">
                 <h3 class="panel-subtitle">Posts</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="offset-md-3 col-md-6">
 
                 {% for post in site.posts %}
-                <div class="card w-100 mb-3">
-                    <div class="card-body">
-                        <a href="{{ post.url }}" class=""><h3 class="card-title">{{ post.title }}</h3></a>
 
-                        {%- assign date_format = "%B %-d, %Y" -%}
-                        <p class="card-text text-muted">{{ post.date | date: date_format }}</p>
-                        <p class="card-text">
-                            {{ post.excerpt | remove: '<p>' | remove: '</p>' }}
-                        </p>
-                        <a href="{{ post.url }}" class="btn btn-primary">Continue reading</a>
+                <div class="card w-100 mb-4">
+                    <!-- Post preview image -->
+                    <a href="{{ post.url }}">
+                        <img class="card-img-top" src="{{ post.banner-img | relative_url }}" alt="Card image cap">
+                    </a>
+                    <!-- Post preview body -->
+                    <div class="card-body">
+                        <a href="{{ post.url }}"><h5 class="card-title">{{ post.title }}</h5></a>
+                        <p class="card-text">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
+                        <a href="{{ post.url }}" class="btn btn-primary">Continue Reading</a>
                     </div>
                 </div>
+
                 {% endfor %}
 
             </div>
+
         </div>
