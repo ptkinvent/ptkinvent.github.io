@@ -1,0 +1,30 @@
+
+    {% comment %}
+    Force columns to break to new line
+    {% endcomment %}
+    <div class="w-100"></div>
+
+    <div class="col-md-2 d-none d-md-block image-caption">
+        <p>{{ include.caption }}</p>
+    </div>
+    <div class="col-md-8">
+
+{% comment %}
+Jekyll does not support variable arguments to 'highlight'
+{% endcomment %}
+{% case include.lang %}
+
+{% when 'c++' %}
+{% highlight c++ %}
+{{ include.code }}
+{% endhighlight %}
+
+{% when 'cmake' %}
+{% highlight cmake %}
+{{ include.code }}
+{% endhighlight %}
+
+{% endcase %}
+
+        <p class="image-caption-sm d-md-none">{{ include.caption }}</p>
+    </div>
