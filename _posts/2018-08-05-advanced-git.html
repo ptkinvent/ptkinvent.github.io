@@ -6,37 +6,258 @@ excerpt: "Most modern software engineers have a basic grasp
 of branching and merging. But there's a lot more to Git
 that might challenge the way you think of the tool..."
 ---
-        <!-- Article -->
-        <div class="row">
-            <div class="offset-md-2 col-md-8" id="description">
-                <article>
+<!-- Article -->
+<article>
+    <div class="row">
+        <div class="offset-md-2 col-md-8" id="description">
 
-                    <p>
-                        Most modern software engineers have a basic grasp of
-                        branching and merging. But there's a lot more to Git
-                        that might challenge the way you think of the tool. For
-                        one thing, your Git history is actually more fluid than
-                        you may think.
-                    </p>
-                    <p>
-                        This guide assumes that you already have a basic grasp
-                        of concepts like pushing, pulling, committing, and
-                        branching.
-                    </p>
+            <p>
+                Most modern software engineers have a grasp of the basic
+                functions of Git like branching and merging. But there's a lot
+                more to Git that might challenge the way you think of the tool.
+                For one thing, your Git history can actually more fluid than you
+                may think.
+            </p>
+            <p>
+                This guide won't be getting into the basics of Git &mdash;rather
+                it's meant for developers looking to take their version control
+                to the next level. As such, it assumes you already have a good
+                grasp of origins, branching, and merging.
+            </p>
 
-                    <h4>Remotes</h4>
-                    <p><code>git remote add</code>, <code>git clone</code> from someone's machine...</p>
+            <h4>Remotes</h4>
+            <p>
+                You may have read about the distributed nature of Git, but have
+                you ever actually experienced it? It's good to know how to
+                handle origins flexibly in case you ever run into a situation
+                where your Git server is down or you need to collaborate without
+                Internet access.
+            </p>
+            <p>
+                For example, you can clone from a peer machine on the network
+                using <code>git clone
+                ssh:gituser@hostname:/path/to/project</code>. Ask the owner of
+                the machine to enter their password&mdash;or alternatively, ask
+                them to set up a new user on their machine as a temporary origin
+                and share that password&mdash;and you're good to go! Push and
+                pull like normal.
+            </p>
+            <p>
+                Alternatively, you may run into a situation where code is being
+                developed on a machine which doesn't have access to your Git
+                server. Perhaps a contractor who doesn't have yet have building
+                network access or a lab machine that doesn't connect to the main
+                network. In this case, you would add the access-less machine as
+                an origin using
+                <code>git remote add labmachine
+                git@gitserver.com:user/project.git</code>. Check to make sure it
+                worked with <code>git remote -vv</code>. Now you can simply
+                <code>git pull labmachine master</code> and
+                <code>git push origin master</code> whenever you need code
+                checked in.
+            </p>
 
-                    <h4>Branching</h4>
-                    <p><code>git branch -a, git checkout -b</code>...</p>
+            <h4>Branching</h4>
+            <p><code>git cherry-pick, git rebase, git stash</code>...</p>
+            <p>
+                As a mindful developer you should strive to keep your Git
+                history just as clean as your code. There's a variety of
+                techniques you can use to achieve this, but be forewarned
+                &mdash;some of them may come across as heresey initially because
+                they alter your history. But bear with me and you'll find
+                they can actually result in a cleaner code base and fewer
+                errors.
+            </p>
+            <p>
+                Also, as a general rule, if you <em>do</em> alter your Git
+                history, <strong>do not ever use</strong>
+            </p>
 
-                    <h3>Advanced Techniques</h3>
-                    <p><code>git cherry-pick, git rebase, git stash</code>...</p>
+{% highlight sh %}
+git push --force
+{% endhighlight %}
 
-                    <h3>Help, I've Broken Everything!</h3>
-                    <p>Fixing branches using <code>git cherry-pick, git rebase</code>...</p>
+            <p>
+                to push your changes to the remote when collaborating. This will
+                overwrite commits on the remote branch and could lead to
+                unintentionally destroying someone else's work. The easiest way
+                around this is to work locally on a branch that only you
+                own&mdash;that way you're free to muck around all you want with
+                its history. If you prefer to push or are collaborating with
+                others, the other option is to wait until you're about to merge
+                your topic branch into dev/master <strong>and</strong> the topic
+                branch will be deleted after the merge. Alter the topic branch's
+                history locally, perform the merge, and then delete the topic
+                branch. Nobody's the wiser.
+            </p>
 
-                </article>
-            </div>
+            <h5>Moving Commits</h5>
+            <p>
+                Has it ever happened to you that you've committed to the wrong
+                branch? It's okay, it happens! Just don't <code>git push</code>
+                yet. Checkout the branch you meant to commit on, then run
+            </p>
+
+{% highlight sh %}
+git cherry-pick <commit-hash>
+{% endhighlight %}
+
+            <p>
+                to copy over the accidental commit to this
+                branch. Now go back to the other branch and run
+            </p>
+
+{% highlight sh %}
+git reset --hard <commit-hash>
+{% endhighlight %}
+
+            <p>
+                with the hash of the last commit that should be on that branch.
+                Now you can push your commit to the correct branch. Phew, no
+                problem. Cherry-pick can help you out of tight spots, but be
+                careful not to abuse it.
+            </p>
         </div>
     </div>
+
+    {% include image.html path="img/blog-git-cherrypick.png" width="8" caption="Git cherry-pick can help you out of tight spots." %}
+
+    <div class="row">
+        <div class="offset-md-2 col-md-8">
+            <h5>Stashing</h5>
+            <p>
+                You might already know this one, but Git's stash is incredibly
+                helpful. It's used to save uncommitted changes into a stash,
+                which can be applied later, even in a different branch. For
+                example, if you're trying to <code>git pull</code> but you have
+                a possibly conflicting change that's preventing Git from
+                pulling, <code>git stash</code> your changes so you can pull,
+                then run <code>git stash pop</code> or <code>git stash
+                apply</code> (pop will also delete the stash&mdash;unless
+                there's any conflicts when unstashing). Now you can deal with
+                merge conflicts if there are any. You can have multiple stashed
+                changes. Run <code>git stash list</code> to see them all and
+                <code>git stash show -p stash@{id}</code> to view the stash in
+                diff form, replacing 'id' with the ID of the stash you want.
+                <code>git stash drop stash{id}</code> is used to delete a stash.
+                It's very helpful when you have uncommitted changes preventing
+                you from checking out another branch, etc.
+            </p>
+            <p>
+                All of these commands can be run without a stash ID&mdash;the
+                action will simply apply to the topmost stash
+                (<code>stash@{0}</code>). To keep your stashes from getting out
+                of control, you can also attach memorable messages when
+                stashing. Use
+            </p>
+
+{% highlight sh %}
+git stash save "My memorable message"
+{% endhighlight %}
+
+            <h5>Patches</h5>
+            <p>
+                Sometimes you need to move code around but don't or can't push
+                it to a remote. Maybe it's test code that your colleague wants
+                to look at. In this case, you can store your changes into a
+                patch, which is just a file containing the diff. Simply run
+            </p>
+
+{% highlight sh %}
+git diff > mypatch.patch
+{% endhighlight %}
+
+            <p>
+                and your colleague can receive it and apply it to their copy of
+                the project with
+            </p>
+
+{% highlight sh %}
+git apply mypatch.patch
+{% endhighlight %}
+
+            <h5>Rebase</h5>
+            <p>
+                Finally, one of the most powerful tools in Git is called rebase.
+                It has two main uses&mdash;rebasing on top of another branch and
+                interactive rebase, which allows rearranging history.
+            </p>
+            <p>
+                Say you've been working locally on an unpushed local branch
+                called topic, which initially branched from master. You see some
+                new commits appear on master that are useful to you. At this
+                point, you have two options&mdash;you could merge master into
+                your branch, but if you do this too often then your branch's
+                history will become polluted. However, in this case because your
+                branch is unpushed, you have another option, which is rebasing
+                (yes, it does exactly what it sounds like). Once you've fetched
+                the new commits on master, simply run
+            </p>
+
+{% highlight sh %}
+git rebase master
+{% endhighlight %}
+
+            <p>
+                and voila! Your commits are now on top of master. If you
+                encounter a conflict don't fret; just resolve it like you would
+                for a merge, then run <code>git rebase --continue</code>. Now
+                your branch history will stay clean, you'll be able to trace
+                commit history more easily across the project, and you'll be
+                guaranteed to have a clean fast-forward when you merge back into
+                master. As an added benefit, the commits related to your feature
+                will stay together instead of ending up interspersed when it
+                goes back into master.
+            </p>
+        </div>
+    </div>
+
+    <!-- Image -->
+    {% include image.html path="img/blog-git-rebase.png" width="8" caption="Git rebase can be used instead of merge." %}
+
+    <div class="row">
+        <div class="offset-md-2 col-md-8">
+            <p>
+                Interactive rebase is an interesting feature that comes with a
+                lot of responsibility. Imagine that you've been working again on
+                a branch called topic. You've been diligently marking commits
+                with WIP to signify that they don't build, and you're getting
+                ready to merge back to master. Now, if your entire branch is
+                unpushed, you can clean up your commits as you go. Otherwise,
+                you can only perform the interactive rebase when you're about to
+                merge back to master <strong>and you'll be deleting the topic
+                branch after</strong>. Run
+            </p>
+
+{% highlight sh %}
+git rebase -i HEAD~<num>
+{% endhighlight %}
+
+            <p>
+                replacing num with the number of commits you want to rearrange.
+                You'll enter the interactive rebase. You'll see the instructions
+                there, but in this interface you'd type <code>squash</code> next
+                to all your WIP commits to combine them with their downstream
+                commits. You'll have an opportunity later to assign a new commit
+                message. You can also rearrange and delete commits in this
+                interface. Be careful though, you don't want to lose any work.
+                And that's it! You've successfully changed your Git history.
+                Again, do not use <code>git push --force</code> when
+                collaborating because you risk undoing someone else's work.
+            </p>
+
+            <h5>Conclusion</h5>
+            <p>
+                I hope that these techniques, whether they changed your
+                perspective of Git or not, will help you develop better than
+                ever before. Like I mentioned previously, I truly believe that a
+                great developer maintains their version history just as
+                fastidiously as the actual code. Not only does a clean history
+                help your teammates, but it can also help you when bug-hunting.
+                Play with the commands until they become second-nature and
+                you'll reap the benefits. Now git going!
+            </p>
+
+        </div>
+    </div>
+</article>
