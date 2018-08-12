@@ -1,8 +1,8 @@
     <div class="row image">
-        <div class="col-md-2 offset-md-1 d-none d-md-block image-caption">
+        <div class="{% if include.width != '8' %}offset-md-1{% endif %} col-md-2 d-none d-md-block image-caption">
             <p>{{ include.caption }}</p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-{{ include.width | default: '6' }}">
             <img src="{{ include.path | relative_url }}" title="{{ include.title }}" alt="{{ include.title }}">
             <p class="image-caption-sm d-md-none">{{ include.caption }}</p>
         </div>
