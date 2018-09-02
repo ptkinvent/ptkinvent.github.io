@@ -14,24 +14,24 @@ amount more to it than you might think..."
             <p>
                 As a modern software engineer, you probably have a good grasp of
                 the fundamentals of Git, but there's actually a surprising
-                amount more to it than you might think. So much so, that in fact
-                it might challenge the way you think of Git. For one thing, your
-                commit history is much more fluid than you might
-                assume&mdash;it's not as in stone as you're let to believe early
-                on. This guide is about unlocking the hidden powers of Git to
-                take your version control to the next level. As such, it assumes
-                you already have a good grasp of the basics of committing,
-                branching, and merging.
+                amount more to the tool than you might think. So much so in fact
+                that it might challenge the way you think of Git. For one thing,
+                your commit history is much more fluid than you might
+                assume&mdash;it isn't written in stone the way you're led to
+                believe early on. This guide is about unlocking some of the
+                hidden powers of Git and taking your version control to the next
+                level. As such, it assumes you already have a good grasp of
+                committing, branching, and merging. Ready? Good, let's start.
             </p>
 
             <h4>Remotes</h4>
             <p>
-                You probably read about the distributed nature of Git at some
+                You've probably read about the distributed nature of Git at some
                 point, but have you ever actually experienced it? It's good to
                 know how to handle origins flexibly in case you ever run into a
-                situation where you really need it. For example, in case your
-                Git server might down for an extended period of time, or you
-                need to collaborate in a place without Internet access.
+                situation where you need it. For example, your Git server might
+                down for an extended period of time, or you may need to
+                collaborate in a place without Internet access.
             </p>
             <p>
                 If you need to, you can clone from a peer machine on the network
@@ -49,26 +49,32 @@ amount more to it than you might think..."
                 network access or a lab machine that doesn't connect to the main
                 network. In this case, you would add the access-less machine as
                 another remote of your project on your machine using <code>git
-                remote add labmachine
+                remote add mylabmachine
                 git@gitserver.com:path/to/project.git</code>. Check to make sure
                 it got added correctly with <code>git remote -vv</code>. Now you
-                can simply <code>git pull labmachine master</code> and
+                can simply <code>git pull mylabmachine master</code> and
                 <code>git push origin master</code> whenever you need to check
-                in the code from the lab machine's to the other network.
+                the lab machine's code in to the master network.
             </p>
 
             <h4>Branching</h4>
             <p>
                 As a mindful developer you should strive to keep your Git
-                history just as clean as your code. There's a variety of
-                techniques you can use, but be forewarned &mdash;some of them
-                sound like heresey initially because they result in altered Git
-                history. If you bear with me you'll find it can actually result
-                in a cleaner code base and fewer errors.
+                history as well-maintained as your code. There's a variety of
+                techniques you can use, but be forewarned&mdash;some of them
+                sound like heresey because they result in altered histories. You
+                may even hear coworkers call these techniques evil, but the
+                truth is that anything can seem evil if you attempt to use it
+                without fully understanding how it works. Bear with me and
+                you'll find they actually result in cleaner code bases and
+                easier debugging when used properly.
             </p>
             <p>
                 Also, as a general rule, if you do choose to alter your Git
-                history, <strong>do not ever use</strong>
+                history, either work locally on a branch that isn't pushed, or
+                wait until you're about to merge back to dev/master and your
+                branch will be deleted right after the merge. <strong>Do not
+                ever use</strong>
             </p>
 
 {% highlight sh %}
@@ -78,16 +84,7 @@ git push --force # Don't do this. You'll lose friends.
             <p>
                 to push your changes to the remote when collaborating. This will
                 overwrite commits on the remote branch and could lead to
-                unintentionally destroying someone else's work. The easiest way
-                around this is to work locally on a branch that only you
-                own&mdash;that way you're free to muck around all you want with
-                its history. If you prefer to push or are collaborating with
-                others, the other option is to wait until you're about to merge
-                your topic branch into dev/master <strong>and</strong> the topic
-                branch will be deleted after the merge. Alter the topic branch's
-                history locally, perform the merge, and then delete the topic
-                branch. Booyah, no inconsistent timelines to confuse your
-                coworkers.
+                unintentionally destroying someone else's work.
             </p>
 
             <h5>Moving Commits</h5>
@@ -117,6 +114,14 @@ git reset --hard <commit-hash>
                 problem. Cherry-pick can help you out of tight spots, but be
                 careful not to abuse it.
             </p>
+            <p>
+                For reference, <code>git reset --hard</code> will delete commits
+                locally&mdash;you'd have to <code>git pull</code> to get them
+                back from the remote. Using <code>git reset --soft</code>, on
+                the other hand, will undo the commit but leave the changes from
+                that commit staged. Useful when you realize your commit message
+                has a typo but haven't pushed yet.
+            </p>
         </div>
     </div>
 
@@ -133,19 +138,19 @@ git reset --hard <commit-hash>
                 a possibly conflicting change that's preventing Git from
                 pulling, <code>git stash</code> your changes so you can pull,
                 then run <code>git stash pop</code> or <code>git stash
-                apply</code> (pop also deletes the stash unless it causes a
+                apply</code> (pop will also delete the stash unless it causes a
                 merge conflict). Now you can properly deal with merge conflicts
                 if there are any.
             </p>
             <p>
                 You can have multiple stashed changes. Run <code>git stash
                 list</code> to see them all and <code>git stash show -p
-                stash@{id}</code> to view the stash in diff form, replacing 'id'
-                with the ID of the stash you want.
-                <code>git stash drop stash{id}</code> is used to delete a stash.
-                It's very helpful when you have uncommitted changes preventing
-                you from checking out another branch, etc. Use <code>git stash
-                clear</code> to delete all stashes.
+                stash@{&#35;}</code> to view the stash in diff form, replacing
+                '&#35;' with the ID of the stash you want. <code>git stash drop
+                stash@{&#35;}</code> is used to delete a stash. It's very
+                helpful when you have uncommitted changes preventing you from
+                performing a Git action, e.g. checking out another branch. Use
+                <code>git stash clear</code> to delete all stashes.
             </p>
             <p>
                 All of these commands can be run without a stash ID&mdash;the
@@ -162,10 +167,10 @@ git stash save "My memorable message"
             <h5>Patches</h5>
             <p>
                 Sometimes you need to move code around but can't or don't want
-                to push it to a remote. Maybe it's test code that your colleague
-                wants to help you debug, and you'd rather not push it. In this
-                case, you can write your changes into a patch, which is just a
-                file containing the diff. Simply run
+                to push it to a remote. Maybe it's test code that you want to
+                send your colleague to debug, and you'd rather not push it, even
+                as a WIP. In this case, you can write your changes into a patch,
+                which is just a text file containing the diff. Simply run
             </p>
 
 {% highlight sh %}
@@ -190,15 +195,15 @@ git apply mypatch.patch
                 history.
             </p>
             <p>
-                Say you've been working locally on an unpushed local branch
-                called topic, which initially branched from master. You see some
-                new commits appear on master that are useful to you. At this
-                point, you have two options&mdash;you could merge master into
-                your branch, but if you have to do this often your branch's
-                history will become polluted and hard to read. However, in this
-                case because your branch is unpushed, you have another option,
-                which is rebasing (yes, it does exactly what it sounds like).
-                Once you've fetched the new commits on master, simply run
+                Say you've been working locally on an unpushed branch called
+                topic, which initially branched from master. You see some new
+                commits appear on master that are useful to you. At this point,
+                you have two options&mdash;you could merge master into your
+                branch, but if you have to do this often your branch's history
+                will become difficult and hard to parse. Instead, in this case
+                because your branch is unpushed, you have another option, which
+                is rebasing (yes, it does exactly what it sounds like). Once
+                you've fetched the new commits on master, simply run
             </p>
 
 {% highlight sh %}
@@ -206,15 +211,15 @@ git rebase master
 {% endhighlight %}
 
             <p>
-                and voila! Your commits are now on top of master. If you
+                and voila! Your commits have now moved on top of master. If you
                 encounter a conflict, don't fret; just resolve it like you would
                 for a merge, then run <code>git rebase --continue</code> (Git
-                will prompt you). Now your branch history stays clean, you'll be
-                able to trace commit history more easily across the project, and
-                you'll be guaranteed to have a clean fast-forward when you merge
-                back into master. As an added benefit, the commits related to
-                your feature will stay together as a group instead of
-                interspersed with others in master.
+                will prompt you). Now your branch history will stay clean,
+                you'll be able to trace commit history more easily across the
+                project, and you'll be guaranteed to have a clean fast-forward
+                when you merge back into master. As an added benefit, the
+                commits related to your feature will stay together as a group
+                instead of interspersed with many others in master.
             </p>
         </div>
     </div>
@@ -225,43 +230,44 @@ git rebase master
     <div class="row">
         <div class="offset-md-2 col-md-8">
             <p>
-                As an aside, if you're working on a branch and have some
-                unpushed commits, you can pull with <code>git pull
-                --rebase</code> to keep your commits on top of whatever other
-                commits are being made on your branch.
+                As an aside, if you're working on a pushed branch but have some
+                unpushed commits, you can pull your teammates' changes to that
+                branch with <code>git pull --rebase</code> to rebase your
+                commits on top of theirs.
             </p>
             <p>
                 The other rebase, interactive rebase, is an interesting feature
                 that comes with great power/responsibility. Imagine that you've
                 been working again on a branch called topic. You've been
                 diligently marking commits with WIP to signify that they don't
-                build, and you're getting ready to merge back to master soon.
-                Now, you might realize that you'll never encounter a situation
-                where you want someone to checkout one of the WIP commits
-                anyway, so why not merge them with other commits. Now, if all
-                your commits are unpushed, you can clean up your commits as you
-                go without messing up anyone's history. Otherwise, you should
-                only perform the interactive rebase when you're about to merge
-                back to master <em>and you'll be deleting the topic branch
-                after</em>. Run
+                necessarily build, and you're getting ready to merge back to
+                master soon. At this point, you might realize that the situation
+                will never arise that someone wants to explicitly checkout one
+                of the WIP commits, so why not combine them. This is called
+                squashing; it's a feature within Git's interactive rebase. Now,
+                if all your commits are unpushed, you can clean up your commits
+                as you go without messing up anyone's history. Otherwise, you
+                should only perform the interactive rebase when you're about to
+                merge back to master <strong>and you'll be deleting the topic
+                branch after</strong>. Run
             </p>
 
 {% highlight sh %}
-git rebase -i HEAD~<num>
+git rebase -i HEAD~#
 {% endhighlight %}
 
             <p>
-                replacing num with the number of commits you want to rearrange.
-                You'll enter the interactive rebase interface. You'll have
-                instructions there, but in this interface you would type
-                <code>squash</code> next to all your WIP commits to combine them
-                with their downstream commits. You'll have an opportunity later
-                to assign new commit messages to these squashed commits. You can
-                also rearrange and delete commits in this interface, but be
-                careful not to lose any work. And that's it! You've successfully
-                changed your Git history. Again, do not use <code>git push
-                --force</code> when collaborating because you risk undoing
-                someone else's work.
+                replacing &#35; with the number of commits you want to
+                rearrange. You'll enter the interactive rebase interface. You'll
+                see instructions there, but in this interface you would type
+                <code>s</code> or <code>squash</code> next to all your WIP
+                commits to combine them with their downstream commits. You'll
+                have an opportunity later to assign new commit messages to these
+                super-commits. You can also rearrange and delete commits in this
+                interface, but be careful not to lose any work. And that's it!
+                You've successfully changed your Git history. Again, do not use
+                <code>git push --force</code> when collaborating because you'll
+                risk undoing someone else's work.
             </p>
 
             <h5>Conclusion</h5>
@@ -274,9 +280,9 @@ git rebase -i HEAD~<num>
                 maintain their version history just as fastidiously as their
                 code. Not only does a clean history help out your teammates, but
                 it also helps you when bug-hunting (and/or <code>git
-                bisect</code>ing, check that one out). Try out the commands in a
-                test project to get used to them and you'll reap the rewards.
-                Now git outta here!
+                bisect</code>ing, still learning that one). Try out the commands
+                in a test project to get used to them and you'll reap the
+                rewards. Now git outta here!
             </p>
 
         </div>
