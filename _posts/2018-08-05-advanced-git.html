@@ -6,6 +6,7 @@ excerpt: "As a modern software engineer, you probably have a good grasp of
 the fundamentals of Git, but there's actually a surprising
 amount more to it than you might think..."
 ---
+
 <!-- Article -->
 <article>
     <div class="row">
@@ -35,12 +36,16 @@ amount more to it than you might think..."
             </p>
             <p>
                 If you need to, you can clone from a peer machine on the network
-                using clone over SSH using <code>git clone
-                ssh:gituser@hostname:/path/to/project</code>. Then ask the owner
-                of the peer machine to enter their password&mdash;or
-                alternatively, ask them to set up a new user on their machine as
-                a temporary origin with a shared password&mdash;and you're good
-                to go! Push and pull like normal.
+                using clone over SSH using
+
+{% highlight sh %}
+git clone ssh:gituser@hostname:/path/to/project
+{% endhighlight %}
+
+                Then ask the owner of the peer machine to enter their
+                password&mdash;or alternatively, ask them to set up a new user
+                on their machine as a temporary origin with a shared
+                password&mdash;and you're good to go! Push and pull like normal.
             </p>
             <p>
                 Alternatively, you may run into a situation where code is being
@@ -48,13 +53,17 @@ amount more to it than you might think..."
                 server. Perhaps a contractor who doesn't have yet have building
                 network access or a lab machine that doesn't connect to the main
                 network. In this case, you would add the access-less machine as
-                another remote of your project on your machine using <code>git
-                remote add mylabmachine
-                git@gitserver.com:path/to/project.git</code>. Check to make sure
-                it got added correctly with <code>git remote -vv</code>. Now you
-                can simply <code>git pull mylabmachine master</code> and
-                <code>git push origin master</code> whenever you need to check
-                the lab machine's code in to the master network.
+                another remote of your project on your machine using
+
+{% highlight sh %}
+git remote add mylabmachine username@hostname[.domain.com]:path/to/project.git
+{% endhighlight %}
+
+                Check to make sure it got added correctly with <code>git remote
+                -vv</code>. Now you can simply <code>git pull mylabmachine
+                master</code> and <code>git push origin master</code> whenever
+                you need to check the lab machine's code in to the master
+                network.
             </p>
 
             <h4>Branching</h4>
@@ -114,14 +123,6 @@ git reset --hard <commit-hash>
                 problem. Cherry-pick can help you out of tight spots, but be
                 careful not to abuse it.
             </p>
-            <p>
-                For reference, <code>git reset --hard</code> will delete commits
-                locally&mdash;you'd have to <code>git pull</code> to get them
-                back from the remote. Using <code>git reset --soft</code>, on
-                the other hand, will undo the commit but leave the changes from
-                that commit staged. Useful when you realize your commit message
-                has a typo but haven't pushed yet.
-            </p>
         </div>
     </div>
 
@@ -129,6 +130,16 @@ git reset --hard <commit-hash>
 
     <div class="row">
         <div class="offset-md-2 col-md-8">
+            <p>
+                For reference, <code>git reset --hard</code> will delete commits
+                locally&mdash;you'd have to <code>git pull</code> to get them
+                back from the remote. Using <code>git reset --soft</code>, on
+                the other hand, will undo the commit but leave the changes from
+                that commit staged. Useful when you realize your commit message
+                has a typo but haven't pushed yet. (On that note, you can also
+                use <code>git commit --amend</code> to add changes to the last
+                commit and/or change the commit message.)
+            </p>
             <h5>Stashing</h5>
             <p>
                 You might already know this one, but Git's stash is incredibly
