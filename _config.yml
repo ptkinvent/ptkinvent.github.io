@@ -2,12 +2,12 @@
 title: Prateek Sahay
 email: ptkinvent@gmail.com
 description: >- # Ignore newlines
-  Welcome to the personal website of Prateek Sahay. I'm a robotics engineer
-  working at the Autonomy group at Sikorsky Aircraft in Stratford, CT. View all
-  my past projects here.
+  Welcome to the personal website of Prateek Sahay. I'm a robotics perception
+  engineer working at the Autonomy group at Sikorsky Aircraft in Stratford, CT.
+  I use this website to display my past projects and write up some of my
+  thoughts.
 permalink: /:categories/:year/:month/:day/:title:output_ext
-baseurl: "" # The subpath of your site, e.g. /blog
-url: "" # The base hostname & protocol for your site, e.g. http://example.com
+url: "https://prateeksahay.com"
 
 # Build settings
 markdown: kramdown
