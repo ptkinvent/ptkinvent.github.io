@@ -1,11 +1,12 @@
 /*
  * Prateek's Custom CSS
- * Copyright Prateek 2018
+ * Copyright P. Sahay 2018
  */
 
 @import 'bootstrap/functions';
 @import 'bootstrap/variables';
 @import 'bootstrap/custom';
+@import 'bootstrap/mixins/breakpoints';
 
 .full-height {
     min-height: 100%;
@@ -13,7 +14,89 @@
 }
 
 //
-// Headers
+// Home page
+//
+
+.jumbotron-main {
+    background-position: 50% 50%; /* Adjusts how the image shows up on mobile screens */
+    background-repeat: no-repeat;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 900;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.center {
+    @include media-breakpoint-down(xs) {
+        width: 250px;
+        height: 1.9em;
+        position: absolute;
+        left: 50%;
+        margin: -0.75em 0 0 -125px;
+        letter-spacing: 3px;
+    }
+
+    @include media-breakpoint-up(sm) {
+        width: 480px;
+        height: 1.75em;
+        position: absolute;
+        left: 50%;
+        margin: -0.75em 0 0 -240px;
+        letter-spacing: 4px;
+    }
+}
+
+.middle {
+    top:50%;
+    font-size: 24px;
+    background-color: black;
+    border: 5px solid black;
+
+    @include media-breakpoint-up(sm) {
+        font-size: 48px;
+    }
+}
+
+.above {
+    top:35%;
+    font-size: 18px;
+
+    @include media-breakpoint-up(sm) {
+        font-size: 24px;
+    }
+}
+
+.below {
+    top:65%;
+    font-size: 18px;
+
+    @include media-breakpoint-up(sm) {
+        font-size: 24px;
+    }
+}
+
+#chevron {
+    top: 90%;
+    font-size: 18px;
+    background-color: black;
+    height: 1.25em;
+    width: 1.5em;
+    position: absolute;
+    left: 50%;
+    margin: -0.75em 0 0 -0.75em;
+
+    @include media-breakpoint-up(sm) {
+        font-size: 48px;
+    }
+
+    @include media-breakpoint-down(xs) {
+        font-size: 20px;
+    }
+}
+
+//
+// Header
 //
 
 h2 {
@@ -159,10 +242,14 @@ img.header-img {
     font-weight: 400;
 }
 
-.icon {
+.project-thumbnail {
     width: 100%;
     padding-bottom: 100%;
     background-color: #4f4f4f;
     background-size: cover;
     background-repeat: no-repeat;
+
+    &:hover {
+        background-position: bottom;
+    }
 }
