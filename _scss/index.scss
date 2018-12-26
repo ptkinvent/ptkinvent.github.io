@@ -14,7 +14,33 @@
 }
 
 //
-// Home page
+// Navbar (Override Bootstrap's default behavior)
+//
+a.dropdown-item:hover,
+a.dropdown-item:focus {
+    background-color: #343a40;
+}
+
+.dropdown-menu {
+    border: none;
+}
+
+.navbar.navbar-dark .navbar-nav {
+    .dropdown-menu {
+        background-color: #343a40 !important;
+    }
+
+    a.dropdown-item {
+        color: #fff;
+
+        &:hover {
+            color: rgba(255,255,255,0.75);
+        }
+    }
+}
+
+//
+// Home page jumbotron
 //
 
 .jumbotron-main {
@@ -27,8 +53,8 @@
     text-transform: uppercase;
 }
 
-.center {
-    @include media-breakpoint-down(xs) {
+.subtitle-center {
+    @include media-breakpoint-down(sm) {
         width: 250px;
         height: 1.9em;
         position: absolute;
@@ -37,7 +63,7 @@
         letter-spacing: 3px;
     }
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
         width: 480px;
         height: 1.75em;
         position: absolute;
@@ -47,36 +73,36 @@
     }
 }
 
-.middle {
-    top:50%;
+.subtitle-middle {
+    top: 50%;
     font-size: 24px;
     background-color: black;
     border: 5px solid black;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
         font-size: 48px;
     }
 }
 
-.above {
-    top:35%;
+.subtitle-above {
+    top: 35%;
     font-size: 18px;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
         font-size: 24px;
     }
 }
 
-.below {
-    top:65%;
+.subtitle-below {
+    top: 65%;
     font-size: 18px;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
         font-size: 24px;
     }
 }
 
-#chevron {
+.nav-icon {
     top: 90%;
     font-size: 18px;
     background-color: black;
@@ -86,11 +112,11 @@
     left: 50%;
     margin: -0.75em 0 0 -0.75em;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
         font-size: 48px;
     }
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
         font-size: 20px;
     }
 }
