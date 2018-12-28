@@ -8,6 +8,7 @@
 @import 'bootstrap/custom';
 @import 'bootstrap/mixins/breakpoints';
 
+
 .full-height {
     min-height: 100%;
     margin: 0 auto;
@@ -16,6 +17,7 @@
 //
 // Navbar (Override Bootstrap's default behavior)
 //
+
 a.dropdown-item:hover,
 a.dropdown-item:focus {
     background-color: #343a40;
