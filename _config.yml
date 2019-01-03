@@ -18,3 +18,8 @@ plugins:
 sass:
   sass_dir: _scss
   style: compressed # Will take any native Sass options
+
+# Collections
+collections:
+  projects:
+    output: true
