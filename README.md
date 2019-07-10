@@ -53,7 +53,13 @@ afford consistent styling across the site, as shown in the figure below.
 
 
 ## Dependencies ##
-Make sure you have Ruby 2.25 or above installed with `ruby -v`. Then, run
+Make sure you have the development version of Ruby 2.25 or above installed with
+`ruby -v`. If not, run:
+```sh
+sudo apt install ruby-dev
+```
+
+Then, run
 ```sh
 gem install sass jekyll bundler
 ```
