@@ -1,11 +1,11 @@
 ---
 layout: project
 sequence: 1
-thumbnail-img: /img/musicbot-thumbnail.jpg
-banner-img: /img/musicbot-banner.jpg
+thumbnail-img: /img/sikorsky-thumbnail.png
+banner-img: /img/sikorsky-banner.png
 title: Sikorsky Aircraft
 location: Stratford, CT
-year: 2015-2019
+year: 2015&ndash;2019
 ---
         <!-- 01 Background -->
         <div class="row">
@@ -15,37 +15,39 @@ year: 2015-2019
             <div class="col-lg-6 col-md-8">
                 <h2><span class="text-secondary d-md-none">01&ensp;</span>Background</h2>
                 <p>
-                    Sikorsky Aircraft was founded in 1923 and is the oldest
-                    helicopter company in the world. In fact the founder, Igor
-                    Sikorsky, produced the first viable helicopter in the United
-                    States in the 1930s. After a long and respected legacy of
-                    building universally-loved Black Hawks and presidential
-                    aircraft, Sikorsky ventured into autonomous aircraft in
-                    2011. The team was able to acquire an S-76 commercial
-                    helicopter and outfitted it with fly-by-wire and advanced
-                    flight controls. A robust safety-critical software fallback
-                    system gained them FAA approval allow experimental software
-                    on the aircraft.
+                    In 1939, the world's first practical helicopter took flight
+                    in Stratford, Connecticut. It was piloted by Igor Sikorsky,
+                    a prolific inventor and the founder of Sikorsky Aircraft.
+                    After a long and distinguished legacy of building the
+                    universally-recognized Black Hawk and several presidential
+                    aircraft, Sikorsky Aircraft ventured into autonomous
+                    aviation in 2011. A small team with the backing of the
+                    leadership acquired an S-76 commercial helicopter and
+                    outfitted it with fly-by-wire and advanced flight controls.
+                    A robust safety-critical software fallback system gained the
+                    aircraft FAA approval to run experimental software, forming
+                    the foundation for the Autonomy team.
                 </p>
                 <p>
-                    Gains in Sikorsky's autonomous aviation led DARPA to create
-                    the DARPA ALIAS (Aircrew Labor In-cockpit Automation System)
-                    program with Sikorsky, Aurora Flight Sciences, and Lockheed
-                    Martin. (At the time, Sikorsky belonged to United
-                    Technologies.) After three rounds, Sikorsky emerged as the
-                    sole competitor in the program.
-                </p>
-                <p>
-                    One of the main reasons Sikorsky's system was so successful
-                    in the ALIAS program is because it was intended from the
-                    get-go to for commercialization, not for prototyping a
-                    one-off research platform. The core software was written to
-                    obey hard real-time constraints for the purpose of running
-                    in an RTOS, and the supporting software modules were written
-                    with safety-criticality and eventual certification in mind.
+                    Rapid gains and proofs-of-concept in Sikorsky's venture led
+                    DARPA to launch the DARPA ALIAS (Aircrew Labor In-cockpit
+                    Automation System) challenge with Sikorsky, Aurora Flight
+                    Sciences, and Lockheed Martin as competitors (Sikorsky had
+                    not yet been acquired by Lockheed Martin). After three
+                    rounds, Sikorsky emerged as the winner with a smart copilot
+                    and automation kit for fixed-wings and rotorcraft. One of
+                    the major reasons our system was so successful was because
+                    it was geared for certification and commercialization, not
+                    for prototyping and research. The core software was written
+                    to obey hard real-time constraints, and the supporting
+                    software modules were written with safety-criticality and
+                    certification in mind.
                 </p>
             </div>
         </div>
+
+        <!-- Image -->
+        {% include image.html path="img/sikorsky-cessna.png" caption="Our aircraft-agnostic autonomy kit was demonstrated on a fixed-wing aircraft." title="A Cessna 208 and SARA flying over New York." %}
 
         <!-- 02 Design -->
         <div class="row">
@@ -55,65 +57,55 @@ year: 2015-2019
             <div class="col-lg-6 col-md-8">
                 <h2><span class="text-secondary d-md-none">02&ensp;</span>Design</h2>
                 <p>
-                    I built this musical robot for David Nu&ntilde;ez &mdash; it
-                    will be used for researching the efficacy of music for
-                    forming relationships with robots. I put a lot of work into
-                    designing the robot's form around its function, an important
-                    component of human-robot interactions, as I learned. Many of
-                    the contours are inspired by those of old phonographs.
+                    The test aircraft, called SARA (Sikorsky Autonomous Research
+                    Aircraft), was outfitted with three LIDAR sensors and a
+                    multitude of cameras. The main LIDAR had a range of 1
+                    kilometer and was used for collision avoidance and landing
+                    zone detection. The software was designed to be as
+                    aircraft-agnostic as possible, and consisted of
+                    sophisticated motion planners and perception systems.
                 </p>
                 <p>
-                    I began by sketching a few forms out on paper with David,
-                    then went through a few iterations in SolidWorks until the
-                    design was mechanically plausible and had an aesthetically
-                    pleasing yet functional form.
+                    One of the challenges posed by the ALIAS program was to not
+                    only make the aircraft autonomous, but optionally
+                    piloted&mdash;meaning, firstly, that the system needed to
+                    behave in-line with the expectations of a human pilot, and,
+                    secondly, that the system needed to allow some kind of human
+                    input as suggestions to the motion planning. The team was
+                    able to deftly overcome this challenge and the result proved
+                    for a successful <a target="_blank"
+                    href="https://www.youtube.com/watch?v=J06OmgIOdJ4">
+                    demonstration of the Matrix technology to the U.S. Army in
+                    October 2018</a>.
+                </p>
+                <p>
+                    My work at Sikorsky consisted mainly of algorithm
+                    development in perception and motion planning; I researched
+                    and implemented novel data structures and algorithms for our
+                    application, including AABB trees, octrees, and signed
+                    distance fields. I also worked on LIDAR simulation and
+                    calibration.
                 </p>
             </div>
         </div>
 
         <!-- Image -->
-        {% include image.html path="img/musicbot-concept.jpg" caption="Initial designs in SolidWorks." title="A CAD drawing of the musical robot in its early stages." %}
+        {% include image.html path="img/sikorsky-black-hawk.png" caption="The Matrix technology was recently demonstrated on a Black Hawk." title="A Black Hawk and SARA taking off from a runway." %}
 
         <div class="row">
             <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8">
                 <p>
-                    The parts were laser-cut and waterjet from stock sheets of
-                    acrylic and oak wood. The phonograph-like horn was
-                    3D-printed and spray-painted with multiple coats.
-                </p>
-                <p>
-                    After constructing the first prototype, I made many
-                    modifications to the design before building a second
-                    prototype with smoother joints and better motion overall.
-                </p>
-            </div>
-        </div>
-
-        <!-- Image -->
-        {% include image.html path="img/musicbot-construction.jpg" caption="Constructing the first prototype." title="Various water-jet and 3D-printed components being assembled by hand." %}
-
-        <!-- 03 Development-->
-        <div class="row">
-            <div class="col-lg-3 col-md-2 d-none d-md-block">
-                <h2 class="chapter-caption">03</h2>
-            </div>
-            <div class="col-lg-6 col-md-8">
-                <h2><span class="text-secondary d-md-none">03&ensp;</span>Development</h2>
-                <p>
-                    The final design features six degrees of freedom, which will
-                    allow the robot to move fluidly, a must in social robotics.
-                    Two of the motors are high-torque in order to manage the
-                    weight of the head of the robot; two more servos in the head
-                    are very small and lightweight in order to reduce the
-                    weight; and the last two servos are medium-sized to handle
-                    proper rotation of the body and the rolling of the head.
-                    This second design is more robust and puts less strain on
-                    the joints. David Nu&ntilde;ez will be taking the robot to
-                    the Opera of the Future group at the MIT Media Lab to
-                    perform experiments with.
+                    The road ahead for Sikorsky is bright. The team recently got
+                    FAA approval to let non-pilots fly the aircraft from inside
+                    the cockpit (see <a target="_blank"
+                    href="https://www.theverge.com/transportation/2019/3/5/18250996/sikorsky-autonomous-helicopter-flying-taxi-lockheed">here</a>),
+                    and the kit has already been demonstrated to work well on
+                    several different kinds of aircraft. The kit was also ported
+                    to a UH-60 Black Hawk with tighter integrations into its
+                    systems to allow even more sophisticated autonomy.
                 </p>
             </div>
         </div>
 
         <!-- Video -->
-        {% include video.html title="Final Product" path="//player.vimeo.com/video/109550431?title=0&amp;byline=0&amp;portrait=0&amp;color=d86e3e" %}
+        {% include video.html title="Demonstration" path="https://www.youtube.com/embed/J06OmgIOdJ4" %}
