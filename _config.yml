@@ -2,8 +2,8 @@
 title: Prateek Sahay
 email: ptkinvent@gmail.com
 description: >- # Ignore newlines
-  Welcome to the personal website of Prateek Sahay. I'm a robotics perception
-  engineer working at the Autonomy group at Sikorsky Aircraft in Stratford, CT.
+  Welcome to the personal website of Prateek Sahay. I'm a robotics software
+  engineer working at the Advanced Technologies Group at Uber in Pittsburgh, PA.
   I use this website to display my past projects and write up some of my
   thoughts.
 permalink: /:categories/:year/:month/:day/:title:output_ext
@@ -18,3 +18,8 @@ plugins:
 sass:
   sass_dir: _scss
   style: compressed # Will take any native Sass options
+
+# Collections
+collections:
+  projects:
+    output: true

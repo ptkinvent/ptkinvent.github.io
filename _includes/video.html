@@ -6,8 +6,11 @@
                 {% if include.path contains "vimeo" %}
                 <iframe src="{{ include.path }}" width=100% height:auto frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 {% elsif include.path contains "youtube" %}
-                <iframe src="{{ include.path }}" class="embed-responsive-item"></iframe>
+                <iframe src="{{ include.path }}" class="embed-responsive-item" allowfullscreen></iframe>
                 {% endif %}
             </div>
         </div>
     </div>
+
+
+{% comment %} <iframe width="560" height="315" src="https://www.youtube.com/embed/J06OmgIOdJ4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> {% endcomment %}
