@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="600mm"
+   height="300mm"
+   viewBox="0 0 600 300"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="layout.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="1248.0322"
+     inkscape:cy="512.54469"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,3)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 490.31601,120.65684 v 47.51925"
+       id="path4988"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g3830"
+       transform="translate(189.74304,4.2763113)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         y="51.701298"
+         x="60.012291"
+         height="28.348215"
+         width="89.975418"
+         id="rect3713" />
+      <text
+         id="text3717"
+         y="69.8209"
+         x="86.213036"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="fill:#ffffff;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal"
+           y="69.8209"
+           x="86.213036"
+           id="tspan3715"
+           sodipodi:role="line">default</tspan></text>
+    </g>
+    <g
+       id="g3860"
+       transform="translate(2.6543777)">
+      <rect
+         id="rect3740"
+         width="89.975418"
+         height="28.348215"
+         x="51.527992"
+         y="120.65684"
+         style="fill:#333333;stroke:none;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         x="81.309914"
+         y="138.77644"
+         id="text3744"><tspan
+           sodipodi:role="line"
+           id="tspan3742"
+           x="81.309914"
+           y="138.77644"
+           style="fill:#ffffff;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">home</tspan></text>
+    </g>
+    <g
+       id="g3855"
+       transform="translate(2.6543673)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         y="120.65684"
+         x="149.31448"
+         height="28.348215"
+         width="89.975418"
+         id="rect3746" />
+      <text
+         id="text3750"
+         y="138.77644"
+         x="174.66774"
+         style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         xml:space="preserve"><tspan
+           style="fill:#ffffff;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+           y="138.77644"
+           x="174.66774"
+           id="tspan3748"
+           sodipodi:role="line">landing</tspan></text>
+    </g>
+    <g
+       id="g137"
+       transform="translate(2.6543788)">
+      <rect
+         id="rect3752"
+         width="89.975418"
+         height="28.348215"
+         x="247.10095"
+         y="120.65684"
+         style="opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         x="273.36111"
+         y="138.77644"
+         id="text3756"><tspan
+           sodipodi:role="line"
+           id="tspan3754"
+           x="273.36111"
+           y="138.77644"
+           style="fill:#ffffff;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">project</tspan></text>
+    </g>
+    <g
+       id="g3845"
+       transform="translate(2.6543698)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         y="120.65684"
+         x="344.88745"
+         height="28.348215"
+         width="89.975418"
+         id="rect3758" />
+      <text
+         id="text3762"
+         y="138.77644"
+         x="378.09293"
+         style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         xml:space="preserve"><tspan
+           style="fill:#ffffff;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+           y="138.77644"
+           x="378.09293"
+           id="tspan3760"
+           sodipodi:role="line">post</tspan></text>
+    </g>
+    <g
+       id="g3850"
+       transform="translate(2.6543708)">
+      <rect
+         id="rect3764"
+         width="89.975418"
+         height="28.348215"
+         x="442.67395"
+         y="120.65684"
+         style="opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         x="474.54877"
+         y="138.77644"
+         id="text3768"><tspan
+           sodipodi:role="line"
+           id="tspan3766"
+           x="474.54877"
+           y="138.77644"
+           style="fill:#ffffff;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">error</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 99.170079,120.65684 V 103.50799"
+       id="path3832"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3834"
+       d="M 196.95656,120.65684 V 103.50798"
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3838"
+       d="M 392.52953,120.65684 V 103.50798"
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 490.31603,120.65684 V 103.50798"
+       id="path3840"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3842"
+       d="M 294.74304,120.65684 V 84.325831"
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 99.170079,103.50798 H 490.31604"
+       id="path4659"
+       inkscape:connector-curvature="0" />
+    <g
+       transform="translate(52.40931,52.379468)"
+       id="g4692">
+      <rect
+         style="fill:#999999;stroke:none;stroke-width:0.34018168"
+         y="101.94797"
+         x="1.7730598"
+         height="28.348215"
+         width="89.975418"
+         id="rect4681" />
+      <text
+         id="text4685"
+         y="120.06757"
+         x="18.529934"
+         style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         xml:space="preserve"><tspan
+           style="fill:#ffffff;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+           y="120.06757"
+           x="18.529934"
+           id="tspan4683"
+           sodipodi:role="line">index.html</tspan></text>
+    </g>
+    <g
+       style="stroke:none"
+       transform="translate(443.55526,52.379468)"
+       id="g4705">
+      <rect
+         id="rect4694"
+         width="89.975418"
+         height="28.348215"
+         x="1.7730598"
+         y="101.94797"
+         style="fill:#999999;stroke:none;stroke-width:0.34018168" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         x="23.142056"
+         y="120.06757"
+         id="text4698"><tspan
+           sodipodi:role="line"
+           id="tspan4696"
+           x="23.142056"
+           y="120.06757"
+           style="fill:#ffffff;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">404.html</tspan></text>
+    </g>
+    <g
+       style="stroke:none"
+       id="g4713"
+       transform="translate(345.81945,52.379468)">
+      <rect
+         style="fill:#999999;stroke:none;stroke-width:0.34018168"
+         y="101.94797"
+         x="1.7223673"
+         height="28.348215"
+         width="89.975418"
+         id="rect4707" />
+      <text
+         id="text4711"
+         y="120.06757"
+         x="8.174962"
+         style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         xml:space="preserve"><tspan
+           style="fill:#ffffff;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+           y="120.06757"
+           x="8.174962"
+           id="tspan4709"
+           sodipodi:role="line">learn-osg.html</tspan></text>
+    </g>
+    <g
+       style="stroke:none"
+       transform="translate(51.900302,52.379468)"
+       id="g4727">
+      <g
+         style="stroke:none"
+         transform="translate(-22.030679)"
+         id="g4735">
+        <rect
+           style="fill:#999999;stroke:none;stroke-width:0.34018168"
+           y="101.94797"
+           x="122.09923"
+           height="28.348215"
+           width="89.975418"
+           id="rect4715" />
+        <text
+           id="text4719"
+           y="120.06757"
+           x="138.24115"
+           style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+           xml:space="preserve"><tspan
+             style="fill:#ffffff;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+             y="120.06757"
+             x="138.24115"
+             id="tspan4717"
+             sodipodi:role="line">about.html</tspan></text>
+      </g>
+    </g>
+    <g
+       style="stroke:none"
+       transform="translate(51.900302,94.608048)"
+       id="g4745">
+      <g
+         style="stroke:none"
+         id="g4743"
+         transform="translate(-22.030679)">
+        <g
+           style="stroke:none"
+           transform="translate(0,-8.7965839)"
+           id="g4750">
+          <rect
+             style="fill:#999999;stroke:none;stroke-width:0.34018168"
+             y="101.94797"
+             x="122.09923"
+             height="28.348215"
+             width="89.975418"
+             id="rect4737" />
+          <text
+             id="text4741"
+             y="120.06757"
+             x="141.93344"
+             style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+             xml:space="preserve"><tspan
+               style="fill:#ffffff;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+               y="120.06757"
+               x="141.93344"
+               id="tspan4739"
+               sodipodi:role="line">blog.html</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       style="stroke:none"
+       transform="translate(149.68678,52.379468)"
+       id="g4760">
+      <g
+         style="stroke:none"
+         id="g4758"
+         transform="translate(-22.030679)">
+        <rect
+           id="rect4752"
+           width="89.975418"
+           height="28.348215"
+           x="122.09923"
+           y="101.94797"
+           style="fill:#999999;stroke:none;stroke-width:0.34018168" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+           x="143.5535"
+           y="120.06757"
+           id="text4756"><tspan
+             sodipodi:role="line"
+             id="tspan4754"
+             x="143.5535"
+             y="120.06757"
+             style="fill:#ffffff;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">abb.html</tspan></text>
+      </g>
+    </g>
+    <g
+       style="stroke:none"
+       id="g4772"
+       transform="translate(149.68678,94.608048)">
+      <g
+         style="stroke:none"
+         transform="translate(-22.030679)"
+         id="g4770">
+        <g
+           style="stroke:none"
+           id="g4768"
+           transform="translate(0,-8.7965839)">
+          <rect
+             id="rect4762"
+             width="89.975418"
+             height="28.348215"
+             x="122.09923"
+             y="101.94797"
+             style="fill:#999999;stroke:none;stroke-width:0.34018168" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+             x="141.93344"
+             y="120.06757"
+             id="text4766"><tspan
+               sodipodi:role="line"
+               id="tspan4764"
+               x="141.93344"
+               y="120.06757"
+               style="fill:#ffffff;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">art.html</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       style="stroke:none"
+       transform="translate(149.68679,127.1896)"
+       id="g4784">
+      <g
+         style="stroke:none"
+         id="g4782"
+         transform="translate(-22.030679)">
+        <g
+           style="stroke:none"
+           transform="translate(0,-8.7965839)"
+           id="g4780">
+          <rect
+             style="fill:#999999;stroke:none;stroke-width:0.34018168"
+             y="101.94797"
+             x="122.09923"
+             height="28.348215"
+             width="89.975418"
+             id="rect4774" />
+          <text
+             id="text4778"
+             y="120.06757"
+             x="132.49474"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;stroke:none;stroke-width:0.26458332"
+               y="120.06757"
+               x="132.49474"
+               id="tspan4776"
+               sodipodi:role="line">assemly.html</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3878"
+       transform="translate(3.3630656,-4.2333335)">
+      <circle
+         transform="rotate(90)"
+         r="0.83963662"
+         cy="-291.37997"
+         cx="266.3663"
+         id="circle4799"
+         style="fill:#808080;stroke:none;stroke-width:0.01777121;stroke-miterlimit:4;stroke-dasharray:none" />
+      <circle
+         transform="rotate(90)"
+         style="fill:#808080;stroke:none;stroke-width:0.01777121;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path4797"
+         cx="262.77472"
+         cy="-291.37997"
+         r="0.83963662" />
+      <circle
+         transform="rotate(90)"
+         style="fill:#808080;stroke:none;stroke-width:0.01777121;stroke-miterlimit:4;stroke-dasharray:none"
+         id="circle4801"
+         cx="269.95792"
+         cy="-291.37997"
+         r="0.83963662" />
+    </g>
+    <text
+       id="text4826"
+       y="69.286362"
+       x="61.471992"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58333333px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr;text-anchor:start;fill:#333333;stroke-width:0.26458332;"
+         y="69.286362"
+         x="61.471992"
+         id="tspan4824"
+         sodipodi:role="line">Layouts</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58333333px;line-height:1.25;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="61.471992"
+       y="241.9371"
+       id="text4830"><tspan
+         sodipodi:role="line"
+         id="tspan4828"
+         x="61.471992"
+         y="241.9371"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58333333px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr;text-anchor:start;fill:#999999;stroke-width:0.26458332;">Pages</tspan></text>
+    <g
+       transform="translate(101.14956,-69.643858)"
+       id="g3886">
+      <circle
+         style="fill:#808080;stroke:none;stroke-width:0.01777121;stroke-miterlimit:4;stroke-dasharray:none"
+         id="circle3880"
+         cx="266.3663"
+         cy="-291.37997"
+         r="0.83963662"
+         transform="rotate(90)" />
+      <circle
+         r="0.83963662"
+         cy="-291.37997"
+         cx="262.77472"
+         id="circle3882"
+         style="fill:#808080;stroke:none;stroke-width:0.01777121;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="rotate(90)" />
+      <circle
+         r="0.83963662"
+         cy="-291.37997"
+         cx="269.95792"
+         id="circle3884"
+         style="fill:#808080;stroke:none;stroke-width:0.01777121;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="rotate(90)" />
+    </g>
+  </g>
+</svg>

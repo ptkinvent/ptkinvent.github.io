@@ -44,68 +44,14 @@ ssp_weights: '900,400,300'
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="mqp.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-mqp.jpg')"></div>
+            {% assign projects = site.projects | sort: "sequence" %}
+            {% for project in projects %}
+            <div class="col-lg-3 col-md-4 col-sm-6 {% if project.title == 'Enhancing Science Education' %}d-none d-md-block d-lg-none{% endif %} {% if project.title == 'CHT4 Corporation' %}d-none{% endif %}">
+                <a href="{{ project.url }}">
+                    <div class="project-thumbnail" style="background-image: url('{{ project.thumbnail-img }}')"></div>
                 </a>
-                <p class="thumbnail-caption"><span class="text-secondary">01 </span>Robocart Autonomous Ground Vehicle</p>
+                <p class="thumbnail-caption"><span class="text-secondary">{{ project.sequence | prepend: '0' }}</span> {{ project.title }}</p>
             </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="assembly.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-assembly.jpg')"></div>
-                </a>
-                <p class="thumbnail-caption"><span class="text-secondary">02 </span>Assembly Line Robot <br> &nbsp;</p>
-
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="musicbot.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-musicbot.jpg')"></div>
-                </a>
-                <p class="thumbnail-caption"><span class="text-secondary">03 </span>Musical Robot <br> &nbsp;</p>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="iqp.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-iqp.jpg')"></div>
-                </a>
-                <p class="thumbnail-caption"><span class="text-secondary">04 </span>Enhancing Science Education <span class="visible-sm"><br> &nbsp;</span></p>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="abb.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-abb.jpg')"></div>
-                </a>
-                <p class="thumbnail-caption"><span class="text-secondary">05 </span>ABB, Ltd. <br> &nbsp;</p>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="windowwashing.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-windowwashing.jpg')"></div>
-                </a>
-                <p class="thumbnail-caption"><span class="text-secondary">06 </span>Window Washing Robot <br> &nbsp;</p>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="sw.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-sw.jpg')"></div>
-                </a>
-                <p class="thumbnail-caption"><span class="text-secondary">07 </span>SolidWorks Corporation <br> &nbsp;</p>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="art.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-art.jpg')"></div>
-                </a>
-                <p class="thumbnail-caption"><span class="text-secondary">08 </span>Acton Robotics Team <br> &nbsp;</p>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 d-none d-md-block d-lg-none">
-                <a href="cht4.html">
-                    <div class="project-thumbnail" style="background-image: url('img/thumbnail-cht4.jpg')"></div>
-                </a>
-                <p class="thumbnail-caption"><span class="text-secondary">09 </span>CHT4 <br> &nbsp;</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
-
