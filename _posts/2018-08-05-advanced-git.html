@@ -12,26 +12,84 @@ amount more to it than you might think..."
     <div class="row">
         <div class="offset-md-2 col-md-8" id="description">
             <p>
-                As a modern software engineer, you probably have a good grasp of
-                the fundamentals of Git, but there's actually a surprising
-                amount more to the tool than you might think. So much so in fact
-                that it might challenge the way you think of Git. For one thing,
-                your commit history is much more fluid than you might
-                assume&mdash;it isn't written in stone the way you're led to
-                believe early on. This guide is about unlocking some of the
+                As a modern software engineer, you've hopefully been introduced
+                the most fundamental commands of Git, but there's actually a
+                surprising amount more to the tool than you might think. So much
+                so, in fact, that it might challenge the way you think of Git.
+                For one thing, your commit history is much more fluid than you
+                might assume&mdash;it isn't written in stone the way you're led
+                to believe early on. This guide is about unlocking some of the
                 hidden powers of Git and taking your version control to the next
-                level. As such, it assumes you already have a good grasp of
-                committing, branching, and merging. Ready? Good, let's start.
+                level. As such, it assumes you already have a decent grasp of
+                committing, branching, and merging. It's also a helpful
+                reference for me personally&mdash;there's a few super helpful
+                commands that I use so rarely that I have to Google them every
+                time. Ready? Good, let's start.
             </p>
+
+            <h4>Global Gitignore</h4>
+            <p>
+                You might already know that if you create a file called
+                <code>.gitignore</code> in your Git project and add some ignore
+                rules, Git will automatically ignore any files that match those
+                rules. What you may not know is that you can create a global
+                ignore file which will apply globally across all projects. Try
+                creating one in your home directory:
+            </p>
+        </div>
+
+        <!-- Force columns to break to new line -->
+        <div class="w-100"></div>
+
+        <div class="col-md-2 d-none d-md-block image-caption">
+            <p>~/.gitignore</p>
+        </div>
+        <div class="col-md-8">
+{% highlight sh %}
+# Global gitignore
+
+# Build files
+*.bin
+
+# Editor-specific files
+.idea/
+.vscode/
+{% endhighlight %}
+            <p class="image-caption-sm d-md-none">~/.gitignore</p>
+
+            <p>Note that you can name your file anything and keep it anywhere.
+            Then, simply run:</p>
+
+{% highlight sh %}
+git config --global core.excludesfile ~/.gitignore
+{% endhighlight %}
+
+            <p>and all files that match will be ignored in all situations. I
+            recommend keeping editor-specific ignore rules here; this keeps each
+            team member from adding their own editor- and workspace-specific
+            rules to every project's ignore rules.</p>
+
+            <h4>Git Grep</h4>
+            <p>
+                Occasionally, you'll come across a project where the build
+                directory is significantly larger than the codebase. In cases
+                like this, it's often very slow to use regular grep.
+                Fortunately, Git ships with a tool called <code>git grep</code>,
+                which only searches files tracked by Git. Simply use:
+            </p>
+
+{% highlight sh %}
+git grep "search term"
+{% endhighlight %}
 
             <h4>Remotes</h4>
             <p>
-                You've probably read about the distributed nature of Git at some
-                point, but have you ever actually experienced it? It's good to
+                You might have also heard about the distributed nature of Git,
+                but have you ever actually taken advantage of it? It's good to
                 know how to handle origins flexibly in case you ever run into a
                 situation where you need it. For example, your Git server might
                 down for an extended period of time, or you may need to
-                collaborate in a place without Internet access.
+                collaborate with teammates in a place without Internet access.
             </p>
             <p>
                 If you need to, you can clone from a peer machine on the network
@@ -41,59 +99,168 @@ amount more to it than you might think..."
 git clone ssh:gituser@hostname:/path/to/project
 {% endhighlight %}
 
-                Then ask the owner of the peer machine to enter their
-                password&mdash;or alternatively, ask them to set up a new user
-                on their machine as a temporary origin with a shared
-                password&mdash;and you're good to go! Push and pull like normal.
+                Then you'll have to ask the owner of the peer machine to enter
+                their password&mdash;or alternatively, ask them to set up a new
+                user on their machine with a shared password&mdash;and you're
+                good to go! Push and pull like normal.
             </p>
             <p>
                 Alternatively, you may run into a situation where code is being
                 developed on a machine which doesn't have access to your Git
-                server. Perhaps a contractor who doesn't have yet have building
-                network access or a lab machine that doesn't connect to the main
-                network. In this case, you would add the access-less machine as
-                another remote of your project on your machine using
+                server. Perhaps a contractor who isn't allowed network access or
+                a lab machine that isn't on the main building network. In this
+                case, you would add the access-less machine as another remote of
+                your project on your machine using
 
 {% highlight sh %}
 git remote add mylabmachine username@hostname[.domain.com]:path/to/project.git
 {% endhighlight %}
 
                 Check to make sure it got added correctly with <code>git remote
-                -vv</code>. Now you can simply <code>git pull mylabmachine
-                master</code> and <code>git push origin master</code> whenever
-                you need to check the lab machine's code in to the master
-                network.
+                -vv</code>&mdash;you should see two remotes listed now. Now you
+                can simply <code>git pull mylabmachine master</code> and
+                <code>git push origin master</code> whenever you need to pull
+                code from the lab machine and sync it with the common remote.
             </p>
+
+            <h4>Stashing</h4>
+            <p>
+                You might already know this one, but Git's stash is incredibly
+                helpful. It's used to save uncommitted changes without
+                committing to be applied later, even in a different branch. For
+                example, if you're trying to <code>git pull</code> but you have
+                a possibly conflicting change that's preventing Git from
+                pulling, <code>git stash</code> your changes so you can pull,
+                then run <code>git stash pop</code> or <code>git stash
+                apply</code> (pop will also delete the stash unless it causes a
+                merge conflict). Now you can properly deal with merge conflicts
+                if there are any.
+            </p>
+            <p>
+                You can have multiple stashed changes. Run <code>git stash
+                list</code> to see them all and <code>git stash show -p
+                stash@{&#35;}</code> to view the stash in diff form, replacing
+                '&#35;' with the ID of the stash you want. <code>git stash drop
+                stash@{&#35;}</code> is used to delete a stash. It's very
+                helpful when you have uncommitted changes preventing you from
+                performing a Git action, e.g. checking out another branch. Use
+                <code>git stash clear</code> to delete all stashes.
+            </p>
+            <p>
+                All of these commands can be run without a stash ID&mdash;the
+                action will simply apply to the topmost stash
+                (<code>stash@{0}</code>). To keep your stashes from getting out
+                of control, you should attach memorable messages when stashing.
+                Use
+            </p>
+
+{% highlight sh %}
+git stash save "My memorable message"
+{% endhighlight %}
+
+            <h4>Patches</h4>
+            <p>
+                Sometimes you need to move code around but can't or don't want
+                to push it to a remote. Maybe it's test code that you want to
+                send your colleague to debug, and you'd rather not push it, even
+                as a WIP. In this case, you can write your changes into a patch,
+                which is just a text file containing the diff. Simply run
+            </p>
+
+{% highlight sh %}
+git diff > mypatch.patch
+{% endhighlight %}
+
+            <p>
+                and your diff will be saved into the file. Send it to your
+                colleague, and let them apply it to their copy of the project
+                with
+            </p>
+
+{% highlight sh %}
+git apply mypatch.patch
+{% endhighlight %}
 
             <h4>Branching</h4>
             <p>
                 As a mindful developer you should strive to keep your Git
-                history as well-maintained as your code. There's a variety of
+                history as maintanable as your code. There's a variety of
                 techniques you can use, but be forewarned&mdash;some of them
-                sound like heresey because they result in altered histories. You
-                may even hear coworkers call these techniques evil, but the
-                truth is that anything can seem evil if you attempt to use it
+                sound like heresey because they result in altered Git histories.
+                It's common to hear colleagues call these techniques evil, but
+                the truth is that anything can seem evil if attempting to use it
                 without fully understanding how it works. Bear with me and
                 you'll find they actually result in cleaner code bases and
                 easier debugging when used properly.
             </p>
             <p>
-                Also, as a general rule, if you do choose to alter your Git
-                history, either work locally on a branch that isn't pushed, or
-                wait until you're about to merge back to dev/master and your
-                branch will be deleted right after the merge. <strong>Do not
-                ever use</strong>
+                The only rule you need to follow is, if you do choose to alter
+                your Git history, either make sure it only affects a local set
+                of unpushed commits, or wait until you're about to merge and
+                your branch will be deleted right after the merge.
+                <strong>Unless you know what you're doing, do not ever
+                use</strong>
             </p>
 
 {% highlight sh %}
-git push --force # Don't do this. You'll lose friends.
+git push --force # Don't do this unless you know what you're doing.
 {% endhighlight %}
 
             <p>
                 to push your changes to the remote when collaborating. This will
-                overwrite commits on the remote branch and could lead to
-                unintentionally destroying someone else's work.
+                overwrite commits on the remote branch and could unintentionally
+                destroy someone else's work.
             </p>
+
+            <h5>Amend</h5>
+            <p>
+                Amending a commit a handy technique. Say you're in a situation
+                where you just committed your code, only to realize it doesn't
+                build because you missed a semicolon somewhere. What now? Should
+                you make another commit just for the semicolon fix? Well, if you
+                haven't pushed yet, you're in luck! Make the fix, stage the
+                file(s), and use:
+            </p>
+
+{% highlight sh %}
+git commit --amend
+{% endhighlight %}
+
+            <p>
+                You'll end up with the fix amended to your last commit. Note
+                that the hash of that commit is no longer the same after the
+                amend, which is why this technique counts as changing Git's
+                history. Note that you can also use this technique to just edit
+                the last commit's message.
+            </p>
+
+            <p>
+                What happens if you accidentally amend a commit instead of
+                creating a new one? Fortunately, Git has your back there, too.
+                The history of which commit your <code>HEAD</code> pointer was
+                pointing to is maintained in Git's reflog. View the reflog with:
+            </p>
+
+{% highlight sh %}
+git reflog
+{% endhighlight %}
+
+            <p>
+                <code>HEAD</code> should currently be pointing to your amended
+                commit, but <code>HEAD@{1}</code> should be pointing to your
+                pre-amend commit, which still exists but is not part of the
+                source tree. So, to undo the amend, you need to reset back to
+                <code>HEAD@{1}</code>, the commit <code>HEAD</code> was pointing
+                to before now. You don't want to lose the amend changes, so we
+                use a soft reset. Finally, we commit the reset files, but only
+                with the details of that <code>HEAD@{1}</code> commit. This
+                should restore you back to your pre-amend state:
+            </p>
+
+{% highlight sh %}
+git reset --soft HEAD@{1}
+git commit -C HEAD@{1}
+{% endhighlight %}
 
             <h5>Moving Commits</h5>
             <p>
@@ -139,63 +306,6 @@ git reset --hard <commit-hash>
                 use <code>git commit --amend</code> to add changes to the last
                 commit and/or change the commit message.)
             </p>
-            <h5>Stashing</h5>
-            <p>
-                You might already know this one, but Git's stash is incredibly
-                helpful. It's used to save uncommitted changes without
-                committing to be applied later, even in a different branch. For
-                example, if you're trying to <code>git pull</code> but you have
-                a possibly conflicting change that's preventing Git from
-                pulling, <code>git stash</code> your changes so you can pull,
-                then run <code>git stash pop</code> or <code>git stash
-                apply</code> (pop will also delete the stash unless it causes a
-                merge conflict). Now you can properly deal with merge conflicts
-                if there are any.
-            </p>
-            <p>
-                You can have multiple stashed changes. Run <code>git stash
-                list</code> to see them all and <code>git stash show -p
-                stash@{&#35;}</code> to view the stash in diff form, replacing
-                '&#35;' with the ID of the stash you want. <code>git stash drop
-                stash@{&#35;}</code> is used to delete a stash. It's very
-                helpful when you have uncommitted changes preventing you from
-                performing a Git action, e.g. checking out another branch. Use
-                <code>git stash clear</code> to delete all stashes.
-            </p>
-            <p>
-                All of these commands can be run without a stash ID&mdash;the
-                action will simply apply to the topmost stash
-                (<code>stash@{0}</code>). To keep your stashes from getting out
-                of control, you should attach memorable messages when stashing.
-                Use
-            </p>
-
-{% highlight sh %}
-git stash save "My memorable message"
-{% endhighlight %}
-
-            <h5>Patches</h5>
-            <p>
-                Sometimes you need to move code around but can't or don't want
-                to push it to a remote. Maybe it's test code that you want to
-                send your colleague to debug, and you'd rather not push it, even
-                as a WIP. In this case, you can write your changes into a patch,
-                which is just a text file containing the diff. Simply run
-            </p>
-
-{% highlight sh %}
-git diff > mypatch.patch
-{% endhighlight %}
-
-            <p>
-                and your diff will be saved into the file. Send it to your
-                colleague, and let them apply it to their copy of the project
-                with
-            </p>
-
-{% highlight sh %}
-git apply mypatch.patch
-{% endhighlight %}
 
             <h5>Rebase</h5>
             <p>
@@ -276,23 +386,23 @@ git rebase -i HEAD~#
                 super-commits. You can also rearrange and delete commits in this
                 interface, but be careful not to lose any work. And that's it!
                 You've successfully changed your Git history. Again, do not use
-                <code>git push --force</code> when collaborating because you'll
-                risk undoing someone else's work.
+                <code>git push --force</code> when collaborating unless you know
+                what you're doing because you'll risk undoing someone else's
+                work.
             </p>
 
             <h5>Conclusion</h5>
             <p>
-                I hope that these techniques, whether they were life-changing or
-                not, will help you develop better than ever before. For a more
-                thorough guide, I'd encourage you to check out <a
-                href="https://git-scm.com/book/en/v2">Pro Git</a>. Like I
-                mentioned previously, I believe a great developer should
-                maintain their version history just as fastidiously as their
+                I hope that these techniques, life-changing or not, will make
+                you a better developer than ever before. For a more thorough
+                guide, check out <a href="https://git-scm.com/book/en/v2">Pro
+                Git</a>. As mentioned earlier, I believe a great developer
+                should maintain their source tree just as fastidiously as their
                 code. Not only does a clean history help out your teammates, but
-                it also helps you when bug-hunting (and/or <code>git
-                bisect</code>ing, still learning that one). Try out the commands
-                in a test project to get used to them and you'll reap the
-                rewards. Now git outta here!
+                it also helps you when bug-hunting (and/or
+                <code>git bisect</code>ing, another technique for another time).
+                Try out the commands in a test project to get used to them and
+                you'll reap the rewards. Now git outta here!
             </p>
 
         </div>
