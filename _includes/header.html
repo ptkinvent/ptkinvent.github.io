@@ -30,7 +30,7 @@
                         <a class="nav-link {% if include.active-nav == 'blog' %}active{% endif %}" href="{{ page.blog-anchor | default: 'blog.html' | relative_url }}">Blog {% if include.active-nav == 'blog' %}<span class="sr-only">(current)</span>{% endif %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if include.active-nav == 'about' %}active{% endif %}" href="{{ page.about-anchor | default: 'about.html' | relative_url }}">About {% if include.active-nav == 'about' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                        <a class="nav-link {% if include.active-nav == 'about' %}active{% endif %}" href="{{ page.about-anchor | default: 'about.html' | relative_url }}">About Me {% if include.active-nav == 'about' %}<span class="sr-only">(current)</span>{% endif %}</a>
                     </li>
                 </ul>
             </div>
