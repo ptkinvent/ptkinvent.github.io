@@ -46,11 +46,15 @@ ssp_weights: '900,400,300'
         <div class="row">
             {% assign projects = site.projects | sort: "sequence" %}
             {% for project in projects %}
-            <div class="col-lg-3 col-md-4 col-sm-6 {% if project.title == 'Enhancing Science Education' %}d-none d-md-block d-lg-none{% endif %} {% if project.title == 'CHT4 Corporation' %}d-none{% endif %}">
+            <div class="col-lg-3 col-md-4 col-sm-6 {% if project.title == 'Enhancing Science Education' %}d-none d-md-block d-lg-none{% endif %} {% if project.title == 'CHT4 Corporation' %}d-none{% endif %} {% if project.title == 'ABB, Ltd.' %}d-none{% endif %}">
                 <a href="{{ project.url }}">
                     <div class="project-thumbnail" style="background-image: url('{{ project.thumbnail-img }}')"></div>
                 </a>
-                <p class="thumbnail-caption"><span class="text-secondary">{{ project.sequence | prepend: '0' }}</span> {{ project.title }}</p>
+                {% assign padded = project.sequence %}
+                {% if padded < 10 %}
+                    {% assign padded = padded | prepend: '0' %}
+                {% endif %}
+                <p class="thumbnail-caption"><span class="text-secondary">{{ padded }}</span> {{ project.title }}</p>
             </div>
             {% endfor %}
         </div>

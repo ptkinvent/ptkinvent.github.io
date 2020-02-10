@@ -1,0 +1,202 @@
+---
+layout: project
+sequence: 1
+thumbnail-img: /img/frcsim-thumbnail.png
+banner-img: /img/frcsim-banner.png
+title: FIRST Robotics Simulator
+location: Pittsburgh, PA
+year: 2019&ndash;2020
+---
+        <!-- 01 Background -->
+        <div class="row">
+            <div class="col-lg-3 col-md-2 d-none d-md-block">
+                <h2 class="chapter-caption">01</h2>
+            </div>
+            <div class="col-lg-6 col-md-8">
+                <h2><span class="text-secondary d-md-none">01&ensp;</span>Background</h2>
+                <p>
+                    The FIRST Robotics Competition (FRC) is an international
+                    robotics competition for high schoolers. Every year,
+                    thousands of students around the world spend 6 weeks
+                    building a 120-lb robot to play a 3 vs. 3 game that changes
+                    every year. The students are encouraged to use 3D printing,
+                    metalworking techniques, CAD, and Java programming to design
+                    and build their robots.
+                </p>
+                <p>
+                    Although I'd been on a robotics team in high school, we
+                    competed in the smaller FIRST Tech Challenge (FTC)
+                    competition. When I moved to Pittsburgh recently, I wanted
+                    to pass on the robotics knowledge I had gained from WPI and
+                    my career in robotics and sought out a local FRC team. I
+                    recently became a mentor for Team 3260, named the Sarah
+                    Heinz Advanced Robotics Program (SHARP) based out of the
+                    Sarah Heinz House in the North Side neighborhood of
+                    Pittsburgh.
+                </p>
+                <p>
+                    I took a keen interest in understanding the programming
+                    team's major challenges. I learned quickly that their
+                    biggest hurdle every year was that they had a hard time
+                    writing any code until the hardware and electronics teams
+                    were finished building the robot. This had led to flaky
+                    software in the past and no time to tackle more complex
+                    logic, such as safety modes to shut off nonessential
+                    electronics when the robot started browning out due to high
+                    current draw. As a software engineer, I took issue with
+                    this, and resolved to solve the problem to help the students
+                    have an easier time with the software component of the
+                    robot.
+                </p>
+                <p>
+                    Having worked in the industry for a few years, I happened to
+                    know that there was a fairly common solution to this
+                    problem&mdash;working with a simulator! A simulated model of
+                    the robot, although it wouldn't be a perfect reflection of
+                    reality, would allow the software team to develop and test
+                    quickly with simulated encoders, limit switches, and
+                    ultrasonic sensors without having to wait until the physical
+                    robot was done. This technique is common, for example, at
+                    Sikorsky where flying the actual aircraft often was
+                    prohibitively expensive, and at Uber where there are so many
+                    more software developers than actual cars. I set to work,
+                    and built something resembling a videogame that helped
+                    springboard the programming team this year.
+                    <a target="_blank"
+                    href="https://github.com/ptkinvent/frcsim2020">Check out the
+                    result on GitHub</a>.
+                </p>
+            </div>
+        </div>
+
+        <!-- 02 Design -->
+        <div class="row">
+            <div class="col-lg-3 col-md-2 d-none d-md-block">
+                <h2 class="chapter-caption">02</h2>
+            </div>
+            <div class="col-lg-6 col-md-8">
+                <h2><span class="text-secondary d-md-none">02&ensp;</span>Design</h2>
+                <p>
+                    To start, I wrote out some basic requirements and quickly
+                    settled on an architecture. I decided on three separate
+                    modules all communicating over fast UDP using JSON messages.
+                    The first would mimic an Xbox controller (so the students
+                    wouldn't always be forced to share a real one), the second
+                    would run their software (which I called the "core"), and
+                    the third would be the actual simulation of the robot (which
+                    I called the "vehicle" because "robot" is a bit ambiguous).
+                </p>
+            </div>
+        </div>
+
+        <!-- Image -->
+        {% include image.html path="img/frcsim-architecture.png" caption="The simulator architecture." title="The Python joystick, Java core, and C++ sim all talk over UDP." %}
+
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+                <p>
+                    Rather than try to dig into the FRC-provided libraries and
+                    tie myself to Java, I decided to write the simulator in
+                    time- and space-efficient C++. I used OpenSceneGraph for the
+                    3D visualization, which is a lightweight wrapper around
+                    OpenGL, and Box2D, an open-source C++ physics engine most
+                    famous for its use in Angry Birds.
+                </p>
+                <p>
+                    To model the inputs to the robot, I wrote a virtual Xbox
+                    controller so the students wouldn't have to share the
+                    physical controllers and could code even when working
+                    remotely without any controllers around. I decided to write
+                    it in Python to get it working quickly. The visualization is
+                    done with PyQt, and I used Inkscape to quickly trace out the
+                    shape of the controller and joysticks as Git-friendly SVG
+                    images. The virtual controller can be controlled by mouse,
+                    but is much easier to use with the WASD and arrow keys. A
+                    physical Xbox controller can also be plugged into the
+                    computer and used instead by passing <code>physical</code>
+                    instead of <code>virtual</code> as a command line argument
+                    to the application.
+                </p>
+                <p>
+                    Finally, the programmers' code runs in a third module in the
+                    middle, which is a simple Java framework which aims to
+                    provide sensor and joystick inputs in the same way as WPI
+                    Lib, the Java framework published by FRC. By separating
+                    these three components, it becomes very easy to kill the
+                    "core," make a small adjustment, and relaunch it to test
+                    with the joystick and sim still running.
+                </p>
+            </div>
+        </div>
+
+        <!-- Image -->
+        {% include image.html path="img/frcsim.gif" caption="The full simulator pipeline in action." title="A simulated robot drives around the field using a virtual Xbox controller" %}
+
+        <!-- 03 Results -->
+        <div class="row">
+            <div class="col-lg-3 col-md-2 d-none d-md-block">
+                <h2 class="chapter-caption">03</h2>
+            </div>
+            <div class="col-lg-6 col-md-8">
+                <h2><span class="text-secondary d-md-none">03&ensp;</span>Results</h2>
+                <p>
+                    The simulator is still a work in progress, although so far
+                    it's been successful in getting the students curious about
+                    programming and learning to develop faster. We also recently
+                    used the simulator for driver tryouts, and it promises to be
+                    helpful for driving practice if nothing else. Feature
+                    development has been a bit slow, so modules tend to become
+                    available in the simulator at about the same time as they
+                    become available on the real robot so far. I'm hopeful that
+                    in future years, the simulator will progress faster because
+                    it will already have the physics library and other
+                    infrastructure ready to go.
+                </p>
+            </div>
+        </div>
+
+        <!-- Image -->
+        {% include image.html path="img/frcsim-driver-tryouts.jpg" caption="The sim being used for driver tryouts." title="A student drives the simulated robot on a large screen as other students cheer her on" %}
+
+        <div class="row">
+            <div class="col-lg-3 col-md-2 d-none d-md-block">
+                <h2 class="chapter-caption">04</h2>
+            </div>
+            <div class="col-lg-6 col-md-8">
+                <h2><span class="text-secondary d-md-none">04&ensp;</span>Future Work</h2>
+                <p>
+                    For now, the robot simulation itself is still a bit overly
+                    simplistic. For example, a push forward on the controller
+                    results in an instantaneous velocity in the simulation. I'm
+                    working on modeling the actual forces involved, such as the
+                    inertia of the robot, slippage at the wheels, and reduced
+                    lateral friction at the omni wheels, but I've put that aside
+                    for now to focus on other, more crucial game-playing
+                    features first.
+                </p>
+                <p>
+                    I'm also working on adding multiplayer functionality. This
+                    would allow other teammates to play defense and simulate a
+                    full 3 vs. 3 match inside the simulator. One way to do this
+                    might be to add a fourth application which simply receives
+                    the world state from the sim and simply renders it. This
+                    would allow each player to run their own joystick, comms,
+                    and view while all communicating to a single simulator over
+                    the network. To improve the visuals, I think it'd be a lot
+                    of fun to learn to use something more powerful like Unreal
+                    Engine, but that's probably best left for the off-season.
+                </p>
+                <p>
+                    All in all, building this simulator has been a great
+                    experience. It's helped Team 3260 so far, and it's been a
+                    valuable learning experience for me. I hope that by
+                    open-sourcing it, other teams can extend it quickly and
+                    discover more uses than I can alone. Most of all, I hope it
+                    inspires more FIRST students to get excited about
+                    programming and helps evolve the game for years to come.
+                </p>
+                <div class="text-center mt-4">
+                    <a href="https://github.com/ptkinvent/frcsim2020" target="_blank" class="btn btn-primary btn-block btn-lg">View on GitHub</a>
+                </div>
+            </div>
+        </div>

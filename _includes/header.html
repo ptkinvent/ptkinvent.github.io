@@ -16,14 +16,12 @@
                             Portfolio {% if include.active-nav == 'portfolio' %}<span class="sr-only">(current)</span>{% endif %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ 'mqp.html' | relative_url }}"><span class="text-secondary">01</span> Robocart Autonomous Vehicle</a>
-                            <a class="dropdown-item" href="{{ 'assembly.html' | relative_url }}"><span class="text-secondary">02</span> Assembly Line Robot</a>
-                            <a class="dropdown-item" href="{{ 'musicbot.html' | relative_url }}"><span class="text-secondary">03 </span>Musical Robot</a>
-                            <a class="dropdown-item" href="{{ 'iqp.html' | relative_url }}"><span class="text-secondary">04</span> Enhancing Science Education</a>
-                            <a class="dropdown-item" href="{{ 'abb.html' | relative_url }}"><span class="text-secondary">05</span> ABB, Ltd.</a>
-                            <a class="dropdown-item" href="{{ 'windowwashing.html' | relative_url }}"><span class="text-secondary">06</span> Window Washing Robot</a>
-                            <a class="dropdown-item" href="{{ 'sw.html' | relative_url }}"><span class="text-secondary">07</span> SolidWorks Corporation</a>
-                            <a class="dropdown-item" href="{{ 'art.html' | relative_url }}"><span class="text-secondary">08</span> Acton Robotics Team</a>
+                            {% assign projects = site.projects | sort: "sequence" %}
+                            {% for project in projects %}
+                            <div class="col-lg-3 col-md-4 col-sm-6 {% if project.title == 'Enhancing Science Education' %}d-none d-md-block d-lg-none{% endif %} {% if project.title == 'CHT4 Corporation' %}d-none{% endif %} {% if project.title == 'ABB, Ltd.' %}d-none{% endif %}">
+                                <a class="dropdown-item" href="{{ project.url }}"><span class="text-secondary">{{ project.sequence | prepend: '0' }}</span> {{ project.title }}</a>
+                            </div>
+                            {% endfor %}
                         </div>
                     </li>
                     <li class="nav-item">
