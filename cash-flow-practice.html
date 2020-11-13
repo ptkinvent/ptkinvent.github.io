@@ -138,6 +138,16 @@ ssp_weights: '900,400,300'
             radio.setAttribute('value', answer_id);
             radio.addEventListener('click', function(arg){
                 return function() {
+                    // Hide all alerts
+                    q = arg.getAttribute('name');
+                    answers = questions[q];
+                    for (let a in answers)
+                    {
+                        alertId = q + '_' + a + '_alert';
+                        document.getElementById(alertId).style.display = 'none';
+                    }
+
+                    // Show one alert
                     alertId = arg.getAttribute('id') + '_alert';
                     document.getElementById(alertId).style.display = 'block';
                 }
