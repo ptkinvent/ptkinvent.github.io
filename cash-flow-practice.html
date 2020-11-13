@@ -60,6 +60,15 @@ ssp_weights: '900,400,300'
             radio.setAttribute('name', question_id);
             radio.setAttribute('id', answer_id);
             radio.setAttribute('value', answer_id);
+            console.log(radio.getAttribute('id'));
+            radio.addEventListener('click', function(arg){
+                return function() {
+                    alertId = arg.getAttribute('id') + '_alert';
+                    document.getElementById(alertId).style.display = 'block';
+                    console.log(answer_id);
+                    console.log('Hiding ' + alertId);
+                }
+            }(radio));
             formContainer.appendChild(radio);
 
             // Radio label
@@ -71,6 +80,7 @@ ssp_weights: '900,400,300'
 
             // Alert
             var alert = document.createElement('div');
+            alert.setAttribute('style', 'display: none');
             if (questions[q][a])
             {
                 // Success
