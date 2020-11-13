@@ -8,7 +8,7 @@ ssp_weights: '900,400,300'
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h1>Cash Flow Practice</h1>
-            <h2>Name the activity affected.</h2>
+            <h3>Name the activity affected.</h3>
             <div id="js_wrapper"></div>
         </div>
     </div>
@@ -20,16 +20,73 @@ ssp_weights: '900,400,300'
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
+            'No effect' : false,
         },
         'Proceeds from issuance of common stock' : {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
+            'No effect' : false,
         },
         'Collections from customers' : {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
+            'No effect' : false,
+        },
+        'Depreciation expense' : {
+            'CFO' : false,
+            'CFI' : false,
+            'CFF' : false,
+            'No effect' : true,
+        },
+        'Payment of income tax' : {
+            'CFO' : true,
+            'CFI' : false,
+            'CFF' : false,
+            'No effect' : false,
+        },
+        'Purchase of treasury stock (when a company uses its excess cash to buy its own stock)' : {
+            'CFO' : false,
+            'CFI' : false,
+            'CFF' : true,
+            'No effect' : false,
+        },
+        'Payment to suppliers' : {
+            'CFO' : true,
+            'CFI' : false,
+            'CFF' : false,
+            'No effect' : false,
+        },
+        'Purchase of equipment' : {
+            'CFO' : false,
+            'CFI' : true,
+            'CFF' : false,
+            'No effect' : false,
+        },
+        'Payment to employees' : {
+            'CFO' : true,
+            'CFI' : false,
+            'CFF' : false,
+            'No effect' : false,
+        },
+        'Payment of interest on a loan taken' : {
+            'CFO' : true,
+            'CFI' : false,
+            'CFF' : false,
+            'No effect' : false,
+        },
+        'Payment of principal portion on a loan taken' : {
+            'CFO' : false,
+            'CFI' : false,
+            'CFF' : true,
+            'No effect' : false,
+        },
+        'Proceeds from sale of land' : {
+            'CFO' : false,
+            'CFI' : true,
+            'CFF' : false,
+            'No effect' : false,
         },
     };
 
@@ -60,13 +117,10 @@ ssp_weights: '900,400,300'
             radio.setAttribute('name', question_id);
             radio.setAttribute('id', answer_id);
             radio.setAttribute('value', answer_id);
-            console.log(radio.getAttribute('id'));
             radio.addEventListener('click', function(arg){
                 return function() {
                     alertId = arg.getAttribute('id') + '_alert';
                     document.getElementById(alertId).style.display = 'block';
-                    console.log(answer_id);
-                    console.log('Hiding ' + alertId);
                 }
             }(radio));
             formContainer.appendChild(radio);
@@ -91,11 +145,25 @@ ssp_weights: '900,400,300'
             else
             {
                 // Warning
-                alert.setAttribute('class', 'alert alert-warning');
+                alert.setAttribute('class', 'alert alert-warning alert-dismissible');
                 alert.setAttribute('id', answer_id + '_alert');
-                alert.innerHTML = 'Couldn\'t hear you!!';
+                alert.innerHTML = 'Couldn\'t hear you!';
             }
             formContainer.appendChild(alert);
+
+            // Close alert button
+            var closeButton = document.createElement('button');
+            closeButton.setAttribute('type', 'button');
+            closeButton.setAttribute('class', 'close');
+            closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+            closeButton.addEventListener('click', function(arg){
+                return function() {
+                    alertId = arg.getAttribute('id') + '_alert';
+                    document.getElementById(alertId).style.display = 'none';
+                    arg.checked = false;
+                }
+            }(radio));
+            alert.appendChild(closeButton);
         }
     }
 </script>
