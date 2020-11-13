@@ -89,12 +89,31 @@ ssp_weights: '900,400,300'
             'No effect' : false,
         },
     };
+    var numQuestions = Object.keys(questions).length;
+
+    // Create array of [0..n] and randomize its order
+    var arr = Array.from(Array(numQuestions).keys());
+    var questionOrder = [];
+    for (var i=0; i<numQuestions-1; i++)
+    {
+        // Remove a random element from arr and place it into questionOrder
+        questionOrder.push(arr.splice(Math.floor(Math.random()*arr.length),1)[0]);
+    }
+    questionOrder.push(arr[0]); // Push remaining item into questionOrder
+
+    // Create map from [0..n] to question strings
+    i = 0;
+    var mapIntsToQuestions = {};
+    for (let q in questions)
+    {
+        mapIntsToQuestions[i++] = q;
+    }
 
     var wrapper = document.getElementById('js_wrapper');
 
-    var numQuestions = Object.keys(questions).length;
-    for (let q in questions)
+    for (let questionNumber of questionOrder)
     {
+        var q = mapIntsToQuestions[questionNumber];
         var question = document.createElement('h3');
         question.setAttribute('class', 'mt-4');
         question.innerHTML = 'Q. ' + q;
