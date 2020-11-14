@@ -21,114 +21,119 @@ banner-img: img/accounting.png
 </div>
 
 <script>
-    var questions = {
-        'Payment of dividends' : {
+    class Question {
+        constructor(questionText, answers) {
+            this.questionText = questionText;
+            this.answers = answers;
+        }
+    }
+
+    function shuffle(list)
+    {
+        // Randomly reorder the given list
+        length = list.length
+        shuffledList = [];
+        for (var i=0; i<length-1; i++)
+        {
+            // Remove a random element from list and place it into shuffledList
+            shuffledList.push(list.splice(Math.floor(Math.random()*list.length), 1)[0]);
+        }
+        shuffledList.push(list[0]); // Push remaining item into shuffledList
+        return shuffledList;
+    }
+
+    var questions = [
+        new Question('Payment of dividends', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
             'No effect' : false,
-        },
-        'Proceeds from issuance of common stock' : {
+        }),
+        new Question('Proceeds from issuance of common stock', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
             'No effect' : false,
-        },
-        'Collections from customers' : {
+        }),
+        new Question('Collections from customers', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
-        },
-        'Depreciation expense' : {
+        }),
+        new Question('Depreciation expense', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : false,
             'No effect' : true,
-        },
-        'Payment of income tax' : {
+        }),
+        new Question('Payment of income tax', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
-        },
-        'Purchase of treasury stock (when a company uses its excess cash to buy its own stock)' : {
+        }),
+        new Question('Purchase of treasury stock (when a company uses its excess cash to buy its own stock)', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
             'No effect' : false,
-        },
-        'Payment to suppliers' : {
+        }),
+        new Question('Payment to suppliers', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
-        },
-        'Purchase of equipment' : {
+        }),
+        new Question('Purchase of equipment', {
             'CFO' : false,
             'CFI' : true,
             'CFF' : false,
             'No effect' : false,
-        },
-        'Payment to employees' : {
+        }),
+        new Question('Payment to employees', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
-        },
-        'Payment of interest on a loan taken' : {
+        }),
+        new Question('Payment of interest on a loan taken', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
-        },
-        'Payment of principal portion on a loan taken' : {
+        }),
+        new Question('Payment of principal portion on a loan taken', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
             'No effect' : false,
-        },
-        'Proceeds from sale of land' : {
+        }),
+        new Question('Proceeds from sale of land', {
             'CFO' : false,
             'CFI' : true,
             'CFF' : false,
             'No effect' : false,
-        },
-    };
+        }),
+    ];
     var numQuestions = Object.keys(questions).length;
 
-    // Create array of [0..n] and randomize its order
-    var arr = Array.from(Array(numQuestions).keys());
-    var questionOrder = [];
-    for (var i=0; i<numQuestions-1; i++)
-    {
-        // Remove a random element from arr and place it into questionOrder
-        questionOrder.push(arr.splice(Math.floor(Math.random()*arr.length),1)[0]);
-    }
-    questionOrder.push(arr[0]); // Push remaining item into questionOrder
-
-    // Create map from [0..n] to question strings
-    i = 0;
-    var mapIntsToQuestions = {};
-    for (let q in questions)
-    {
-        mapIntsToQuestions[i++] = q;
-    }
+    questions = shuffle(questions)
 
     var wrapper = document.getElementById('js_wrapper');
-
-    for (let questionNumber of questionOrder)
+    for (let q of questions)
     {
-        var q = mapIntsToQuestions[questionNumber];
+        let questionText = q.questionText;
+
         var question = document.createElement('h3');
         question.setAttribute('class', 'mt-4');
-        question.innerHTML = 'Q. ' + q;
+        question.innerHTML = 'Q. ' + questionText;
         wrapper.appendChild(question);
 
-        for (let a in questions[q])
+        for (const [answerText, isAnswerCorrect] of Object.entries(q.answers))
         {
-            var question_id = q;
-            var answer_id = q + '_' + a;
+            let questionId = questionText;
+            let answerId = questionText + '_' + answerText;
 
             // Form container
             var formContainer = document.createElement('div');
@@ -139,14 +144,14 @@ banner-img: img/accounting.png
             var radio = document.createElement('input');
             radio.setAttribute('type', 'radio');
             radio.setAttribute('class', 'form-check-input');
-            radio.setAttribute('name', question_id);
-            radio.setAttribute('id', answer_id);
-            radio.setAttribute('value', answer_id);
-            radio.addEventListener('click', function(arg){
+            radio.setAttribute('name', questionId);
+            radio.setAttribute('id', answerId);
+            radio.setAttribute('value', answerId);
+            radio.addEventListener('click', function(arg) {
                 return function() {
                     // Hide all alerts
                     q = arg.getAttribute('name');
-                    answers = questions[q];
+                    answers = questions.find(x => x.questionText == q).answers;
                     for (let a in answers)
                     {
                         alertId = q + '_' + a + '_alert';
@@ -163,25 +168,24 @@ banner-img: img/accounting.png
             // Radio label
             var label = document.createElement('label');
             label.setAttribute('class', 'form-check-label');
-            label.setAttribute('for', answer_id);
-            label.innerHTML = a;
+            label.setAttribute('for', answerId);
+            label.innerHTML = answerText;
             formContainer.appendChild(label);
 
             // Alert
             var alert = document.createElement('div');
             alert.setAttribute('style', 'display: none');
-            if (questions[q][a])
+            alert.setAttribute('id', answerId + '_alert');
+            if (isAnswerCorrect)
             {
                 // Success
-                alert.setAttribute('class', 'alert alert-success');
-                alert.setAttribute('id', answer_id + '_alert');
+                alert.setAttribute('class', 'alert alert-success alert-dismissible');
                 alert.innerHTML = 'Correct!';
             }
             else
             {
                 // Warning
                 alert.setAttribute('class', 'alert alert-warning alert-dismissible');
-                alert.setAttribute('id', answer_id + '_alert');
                 alert.innerHTML = 'Couldn\'t hear you!';
             }
             formContainer.appendChild(alert);
