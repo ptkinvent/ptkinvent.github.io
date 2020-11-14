@@ -186,7 +186,22 @@ banner-img: img/accounting.png
             {
                 // Warning
                 alert.setAttribute('class', 'alert alert-warning alert-dismissible');
-                alert.innerHTML = 'Couldn\'t hear you!';
+                if (answerText == 'CFO')
+                {
+                    alert.innerHTML = 'Couldn\'t hear you!';
+                }
+                else if (answerText == 'CFI')
+                {
+                    alert.innerHTML = 'Didn\'t catch that!';
+                }
+                else if (answerText == 'CFF')
+                {
+                    alert.innerHTML = 'Say that one more time?';
+                }
+                else
+                {
+                    alert.innerHTML = 'Come again?';
+                }
             }
             formContainer.appendChild(alert);
 
