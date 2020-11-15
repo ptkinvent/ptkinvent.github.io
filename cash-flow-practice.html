@@ -120,6 +120,7 @@ banner-img: img/accounting.png
 
     questions = shuffle(questions)
 
+    let i = 0;
     var wrapper = document.getElementById('js_wrapper');
     for (let q of questions)
     {
@@ -127,7 +128,7 @@ banner-img: img/accounting.png
 
         var question = document.createElement('h3');
         question.setAttribute('class', 'mt-4');
-        question.innerHTML = 'Q. ' + questionText;
+        question.innerHTML = 'Q' + ++i + '. ' + questionText;
         wrapper.appendChild(question);
 
         for (const [answerText, isAnswerCorrect] of Object.entries(q.answers))
