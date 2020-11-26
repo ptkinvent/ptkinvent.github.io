@@ -1,0 +1,91 @@
+---
+layout: home
+title: Prateek Sahay
+ssp_weights: '900,400,300'
+---
+
+<div class="container" style="padding-top: 5em">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1>Cash Flow Practice</h1>
+            <h2>Name the activity affected.</h2>
+            <div id="js_wrapper"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var questions = {
+        'Payment of dividends' : {
+            'CFO' : false,
+            'CFI' : false,
+            'CFF' : true,
+        },
+        'Proceeds from issuance of common stock' : {
+            'CFO' : false,
+            'CFI' : false,
+            'CFF' : true,
+        },
+        'Collections from customers' : {
+            'CFO' : true,
+            'CFI' : false,
+            'CFF' : false,
+        },
+    };
+
+    var wrapper = document.getElementById('js_wrapper');
+
+    var numQuestions = Object.keys(questions).length;
+    for (let q in questions)
+    {
+        var question = document.createElement('h3');
+        question.setAttribute('class', 'mt-4');
+        question.innerHTML = 'Q. ' + q;
+        wrapper.appendChild(question);
+
+        for (let a in questions[q])
+        {
+            var question_id = q;
+            var answer_id = q + '_' + a;
+
+            // Form container
+            var formContainer = document.createElement('div');
+            formContainer.setAttribute('class', 'form-check');
+            wrapper.appendChild(formContainer);
+
+            // Radio button
+            var radio = document.createElement('input');
+            radio.setAttribute('type', 'radio');
+            radio.setAttribute('class', 'form-check-input');
+            radio.setAttribute('name', question_id);
+            radio.setAttribute('id', answer_id);
+            radio.setAttribute('value', answer_id);
+            formContainer.appendChild(radio);
+
+            // Radio label
+            var label = document.createElement('label');
+            label.setAttribute('class', 'form-check-label');
+            label.setAttribute('for', answer_id);
+            label.innerHTML = a;
+            formContainer.appendChild(label);
+
+            // Alert
+            var alert = document.createElement('div');
+            if (questions[q][a])
+            {
+                // Success
+                alert.setAttribute('class', 'alert alert-success');
+                alert.setAttribute('id', answer_id + '_alert');
+                alert.innerHTML = 'Correct!';
+            }
+            else
+            {
+                // Warning
+                alert.setAttribute('class', 'alert alert-warning');
+                alert.setAttribute('id', answer_id + '_alert');
+                alert.innerHTML = 'Couldn\'t hear you!!';
+            }
+            formContainer.appendChild(alert);
+        }
+    }
+</script>
