@@ -1,7 +1,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand smoothScroll" href="{{ layout.home-anchor | default: '/' }}">Prateek Sahay</a>
+            <a class="navbar-brand" href="{{ layout.home-anchor | default: '/' }}">Prateek Sahay</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item {% if include.active-nav == 'portfolio' %}active{% endif %} d-none d-md-block">
-                        <a class="nav-link smoothScroll" href="{{ layout.portfolio-anchor | default: '/' }}">Portfolio {% if include.active-nav == 'portfolio' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                        <a class="nav-link" href="{{ layout.portfolio-anchor | default: '/' }}">Portfolio {% if include.active-nav == 'portfolio' %}<span class="sr-only">(current)</span>{% endif %}</a>
                     </li>
                     <li class="nav-item {% if include.active-nav == 'portfolio' %}active{% endif %} dropdown d-block d-md-none">
                         <a class="nav-link dropdown-toggle" href="{{ layout.home-anchor | default: '/' }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

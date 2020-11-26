@@ -8,6 +8,9 @@
 @import 'bootstrap/custom';
 @import 'bootstrap/mixins/breakpoints';
 
+html {
+    scroll-behavior: smooth;
+}
 
 .full-height {
     min-height: 100%;
