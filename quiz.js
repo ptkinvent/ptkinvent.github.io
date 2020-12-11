@@ -58,9 +58,10 @@ class TextQuestion {
 }
 
 class NumericalQuestion {
-    constructor(questionText, answer) {
+    constructor(questionText, answer, answerIsDollars) {
         this.questionText = questionText;
         this.answer = answer;
+        this.answerIsDollars = answerIsDollars;
     };
 
     render(wrapper) {
@@ -78,10 +79,12 @@ class NumericalQuestion {
         wrapper.appendChild(formContainer);
 
         // Input group prepend
-        var inputPrepend = document.createElement('div');
-        inputPrepend.setAttribute('class', 'input-group-prepend');
-        inputPrepend.innerHTML = '<span class="input-group-text">$</span>';
-        formContainer.appendChild(inputPrepend);
+        if (this.answerIsDollars) {
+            var inputPrepend = document.createElement('div');
+            inputPrepend.setAttribute('class', 'input-group-prepend');
+            inputPrepend.innerHTML = '<span class="input-group-text">$</span>';
+            formContainer.appendChild(inputPrepend);
+        }
 
         // Text input
         var textInput = document.createElement('input');
