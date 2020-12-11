@@ -15,6 +15,20 @@ function createCloseAlertButton(alert) {
     alert.appendChild(closeButton);
 }
 
+class ExplanationQuestion {
+    constructor(questionText) {
+        this.questionText = questionText;
+    }
+
+    render(wrapper) {
+        // Question text
+        let question = document.createElement('h3');
+        question.setAttribute('class', 'mt-4');
+        question.innerHTML = this.questionText;
+        wrapper.appendChild(question);
+    }
+}
+
 class TextQuestion {
     constructor(questionText, answerText) {
         this.questionText = questionText;
@@ -28,7 +42,7 @@ class TextQuestion {
         // Question text
         let question = document.createElement('h3');
         question.setAttribute('class', 'mt-4');
-        question.innerHTML = 'Q. ' + questionText;
+        question.innerHTML = questionText;
         wrapper.appendChild(question);
 
         // Text input
@@ -71,7 +85,7 @@ class NumericalQuestion {
 
         let question = document.createElement('h3');
         question.setAttribute('class', 'mt-4');
-        question.innerHTML = 'Q. ' + this.questionText;
+        question.innerHTML = this.questionText;
         wrapper.appendChild(question);
 
         // Form container
@@ -172,7 +186,7 @@ class MultipleChoiceQuestion {
 
         var question = document.createElement('h3');
         question.setAttribute('class', 'mt-4');
-        question.innerHTML = 'Q' + '. ' + questionText;
+        question.innerHTML = questionText;
         wrapper.appendChild(question);
 
         for (const [answerText, isAnswerCorrect] of Object.entries(this.answers))
