@@ -14,8 +14,6 @@ banner-img: ../img/accounting2.png
 <div class="row">
     <div class="offset-md-2 col-md-8">
         <div id="js_wrapper"></div>
-
-        <button class="btn btn-primary btn-lg btn-block" style="margin-top: 2rem" onClick="window.location.reload()">More Practice</button>
     </div>
 </div>
 
@@ -86,6 +84,6 @@ banner-img: ../img/accounting2.png
             `),
     ];
 
-    quiz = new Quiz(questions);
+    quiz = new Quiz(questions, false);
     quiz.render();
 </script>

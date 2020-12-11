@@ -272,9 +272,10 @@ class MultipleChoiceQuestion {
 }
 
 class Quiz {
-    constructor(questions) {
+    constructor(questions, isShuffle) {
         this.questions = questions;
         this.numQuestions = Object.keys(questions).length;
+        this.isShuffle = isShuffle;
     }
 
     shuffle(list) {
@@ -291,10 +292,12 @@ class Quiz {
     }
 
     render() {
-        questions = this.shuffle(this.questions)
+        if (this.isShuffle == true) {
+            this.questions = this.shuffle(this.questions);
+        }
 
         var wrapper = document.getElementById('js_wrapper');
-        for (let q of questions)
+        for (let q of this.questions)
         {
             q.render(wrapper);
         }
