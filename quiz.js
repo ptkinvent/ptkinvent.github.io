@@ -58,10 +58,11 @@ class TextQuestion {
 }
 
 class NumericalQuestion {
-    constructor(questionText, answer, answerIsDollars) {
+    constructor(questionText, answer, answerIsDollars, answerText) {
         this.questionText = questionText;
         this.answer = answer;
         this.answerIsDollars = answerIsDollars;
+        this.answerText = answerText;
     };
 
     render(wrapper) {
@@ -104,7 +105,7 @@ class NumericalQuestion {
         // Correct answer blurb
         var correctAlert = document.createElement('div');
         correctAlert.setAttribute('class', 'alert alert-success');
-        correctAlert.innerHTML = 'Correct!';
+        correctAlert.innerHTML = 'Correct! ' + this.answerText;
         correctAlert.setAttribute('style', 'display: none');
         createCloseAlertButton(correctAlert);
         wrapper.appendChild(correctAlert);
@@ -120,7 +121,7 @@ class NumericalQuestion {
         // Answer blurb
         var answerAlert = document.createElement('div');
         answerAlert.setAttribute('class', 'alert alert-primary');
-        answerAlert.innerHTML = 'Correct answer: $' + this.answer;
+        answerAlert.innerHTML = this.answerText;
         answerAlert.setAttribute('style', 'display: none');
         createCloseAlertButton(answerAlert);
         wrapper.appendChild(answerAlert);
