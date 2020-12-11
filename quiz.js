@@ -161,9 +161,10 @@ class NumericalQuestion {
 }
 
 class MultipleChoiceQuestion {
-    constructor(questionText, answers) {
+    constructor(questionText, answers, answerText) {
         this.questionText = questionText;
         this.answers = answers;
+        this.answerText = answerText;
     }
 
     render(wrapper) {
@@ -225,6 +226,10 @@ class MultipleChoiceQuestion {
                 // Success
                 alert.setAttribute('class', 'alert alert-success alert-dismissible');
                 alert.innerHTML = 'Correct!';
+                if (this.answerText) {
+                    alert.innerHTML += ' ';
+                    alert.innerHTML += this.answerText;
+                }
             }
             else
             {
@@ -240,11 +245,11 @@ class MultipleChoiceQuestion {
                 }
                 else if (answerText == 'CFF')
                 {
-                    alert.innerHTML = 'Say that one more time?';
+                    alert.innerHTML = 'Come again?';
                 }
                 else
                 {
-                    alert.innerHTML = 'Come again?';
+                    alert.innerHTML = 'Say that again?';
                 }
             }
             formContainer.appendChild(alert);
