@@ -9,8 +9,21 @@ class NumericalQuestion {
         this.answer = answer;
     };
 
+    createCloseAlertButton(alert) {
+        var closeButton = document.createElement('button');
+        closeButton.setAttribute('type', 'button');
+        closeButton.setAttribute('class', 'close');
+        closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+        closeButton.addEventListener('click', function() {
+            // Hides answer
+            alert.setAttribute('style', 'display: none');
+        });
+        alert.appendChild(closeButton);
+    }
+
     render(wrapper) {
         let questionId = this.questionText;
+        let answer = this.answer;
 
         let question = document.createElement('h3');
         question.setAttribute('class', 'mt-4');
@@ -34,6 +47,7 @@ class NumericalQuestion {
         textInput.setAttribute('class', 'form-control');
         textInput.setAttribute('name', questionId);
         textInput.setAttribute('id', questionId);
+        textInput.setAttribute('value', 0);
         formContainer.appendChild(textInput);
 
         // Input group append
@@ -41,31 +55,61 @@ class NumericalQuestion {
         inputAppend.setAttribute('class', 'input-group-append');
         formContainer.appendChild(inputAppend);
 
-        // Check answer button
-        var checkAnswer = document.createElement('button');
-        checkAnswer.setAttribute('class', 'btn btn-outline-primary');
-        checkAnswer.innerHTML = 'Check Answer';
-        inputAppend.appendChild(checkAnswer);
-
-        // Show answer button
-        var showAnswer = document.createElement('button');
-        showAnswer.setAttribute('class', 'btn btn-outline-secondary');
-        showAnswer.innerHTML = 'Show Answer';
-        inputAppend.appendChild(showAnswer);
-
         // Correct answer blurb
         var correctAlert = document.createElement('div');
         correctAlert.setAttribute('class', 'alert alert-success');
         correctAlert.innerHTML = 'Correct!';
         correctAlert.setAttribute('style', 'display: none');
+        this.createCloseAlertButton(correctAlert);
         wrapper.appendChild(correctAlert);
 
         // Incorrect answer blurb
         var incorrectAlert = document.createElement('div');
         incorrectAlert.setAttribute('class', 'alert alert-warning');
-        incorrectAlert.innerHTML = 'Sorry, couldn\'t hear you!';
+        incorrectAlert.innerHTML = 'Sorry, didn\'t catch that!';
         incorrectAlert.setAttribute('style', 'display: none');
+        this.createCloseAlertButton(incorrectAlert);
         wrapper.appendChild(incorrectAlert);
+
+        // Answer blurb
+        var answerAlert = document.createElement('div');
+        answerAlert.setAttribute('class', 'alert alert-primary');
+        answerAlert.innerHTML = 'Correct answer: $' + this.answer;
+        answerAlert.setAttribute('style', 'display: none');
+        this.createCloseAlertButton(answerAlert);
+        wrapper.appendChild(answerAlert);
+
+        // Check answer button
+        var checkAnswer = document.createElement('button');
+        checkAnswer.setAttribute('class', 'btn btn-outline-secondary');
+        checkAnswer.setAttribute('type', 'submit');
+        checkAnswer.innerHTML = 'Check Answer';
+        checkAnswer.addEventListener('click', function() {
+            // Hides answer
+            if (textInput.value == answer) {
+                correctAlert.setAttribute('style', 'display: block');
+                incorrectAlert.setAttribute('style', 'display: none');
+                answerAlert.setAttribute('style', 'display: none');
+            }
+            else {
+                correctAlert.setAttribute('style', 'display: none');
+                incorrectAlert.setAttribute('style', 'display: block');
+                answerAlert.setAttribute('style', 'display: none');
+            }
+        });
+        inputAppend.appendChild(checkAnswer);
+
+        // Show answer button
+        var showAnswer = document.createElement('button');
+        showAnswer.setAttribute('class', 'btn btn-outline-primary');
+        showAnswer.innerHTML = 'Show Answer';
+        showAnswer.addEventListener('click', function() {
+            // Shows answer
+            correctAlert.setAttribute('style', 'display: none');
+            incorrectAlert.setAttribute('style', 'display: none');
+            answerAlert.setAttribute('style', 'display: block');
+        });
+        inputAppend.appendChild(showAnswer);
     }
 }
 
