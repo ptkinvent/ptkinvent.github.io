@@ -3,23 +3,65 @@
  * @copyright Prateek Sahay
  */
 
+function createCloseAlertButton(alert) {
+    var closeButton = document.createElement('button');
+    closeButton.setAttribute('type', 'button');
+    closeButton.setAttribute('class', 'close');
+    closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+    closeButton.addEventListener('click', function() {
+        // Hides answer
+        alert.setAttribute('style', 'display: none');
+    });
+    alert.appendChild(closeButton);
+}
+
+class TextQuestion {
+    constructor(questionText, answerText) {
+        this.questionText = questionText;
+        this.answerText = answerText;
+    }
+
+    render(wrapper) {
+        let questionText = this.questionText;
+        let answerText = this.answerText;
+
+        // Question text
+        let question = document.createElement('h3');
+        question.setAttribute('class', 'mt-4');
+        question.innerHTML = 'Q. ' + questionText;
+        wrapper.appendChild(question);
+
+        // Text input
+        var textInput = document.createElement('textarea');
+        textInput.setAttribute('class', 'form-control mb-3')
+        textInput.setAttribute('rows', '5')
+        wrapper.appendChild(textInput);
+
+        // Answer blurb
+        var answerAlert = document.createElement('div');
+        answerAlert.setAttribute('class', 'alert alert-primary');
+        answerAlert.innerHTML = answerText;
+        answerAlert.setAttribute('style', 'display: none');
+        createCloseAlertButton(answerAlert);
+        wrapper.appendChild(answerAlert);
+
+        // Show answer button
+        var showAnswer = document.createElement('button');
+        showAnswer.setAttribute('class', 'btn btn-outline-primary');
+        showAnswer.innerHTML = 'Show Answer';
+        showAnswer.addEventListener('click', function() {
+            // Shows answer
+            answerAlert.setAttribute('style', 'display: block');
+        });
+        wrapper.appendChild(showAnswer);
+    }
+}
+
 class NumericalQuestion {
     constructor(questionText, answer) {
         this.questionText = questionText;
         this.answer = answer;
     };
-
-    createCloseAlertButton(alert) {
-        var closeButton = document.createElement('button');
-        closeButton.setAttribute('type', 'button');
-        closeButton.setAttribute('class', 'close');
-        closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
-        closeButton.addEventListener('click', function() {
-            // Hides answer
-            alert.setAttribute('style', 'display: none');
-        });
-        alert.appendChild(closeButton);
-    }
 
     render(wrapper) {
         let questionId = this.questionText;
@@ -44,6 +86,7 @@ class NumericalQuestion {
         // Text input
         var textInput = document.createElement('input');
         textInput.setAttribute('type', 'number');
+        textInput.setAttribute('step', '0.01');
         textInput.setAttribute('class', 'form-control');
         textInput.setAttribute('name', questionId);
         textInput.setAttribute('id', questionId);
@@ -60,7 +103,7 @@ class NumericalQuestion {
         correctAlert.setAttribute('class', 'alert alert-success');
         correctAlert.innerHTML = 'Correct!';
         correctAlert.setAttribute('style', 'display: none');
-        this.createCloseAlertButton(correctAlert);
+        createCloseAlertButton(correctAlert);
         wrapper.appendChild(correctAlert);
 
         // Incorrect answer blurb
@@ -68,7 +111,7 @@ class NumericalQuestion {
         incorrectAlert.setAttribute('class', 'alert alert-warning');
         incorrectAlert.innerHTML = 'Sorry, didn\'t catch that!';
         incorrectAlert.setAttribute('style', 'display: none');
-        this.createCloseAlertButton(incorrectAlert);
+        createCloseAlertButton(incorrectAlert);
         wrapper.appendChild(incorrectAlert);
 
         // Answer blurb
@@ -76,7 +119,7 @@ class NumericalQuestion {
         answerAlert.setAttribute('class', 'alert alert-primary');
         answerAlert.innerHTML = 'Correct answer: $' + this.answer;
         answerAlert.setAttribute('style', 'display: none');
-        this.createCloseAlertButton(answerAlert);
+        createCloseAlertButton(answerAlert);
         wrapper.appendChild(answerAlert);
 
         // Check answer button
