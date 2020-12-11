@@ -23,73 +23,73 @@ banner-img: img/accounting.png
 <script src="quiz.js"></script>
 <script>
     var questions = [
-        new Question('Payment of dividends', {
+        new MultipleChoiceQuestion('Payment of dividends', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
             'No effect' : false,
         }),
-        new Question('Proceeds from issuance of common stock', {
+        new MultipleChoiceQuestion('Proceeds from issuance of common stock', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
             'No effect' : false,
         }),
-        new Question('Collections from customers', {
+        new MultipleChoiceQuestion('Collections from customers', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
         }),
-        new Question('Depreciation expense', {
+        new MultipleChoiceQuestion('Depreciation expense', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : false,
             'No effect' : true,
         }),
-        new Question('Payment of income tax', {
+        new MultipleChoiceQuestion('Payment of income tax', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
         }),
-        new Question('Purchase of treasury stock (when a company uses its excess cash to buy its own stock)', {
+        new MultipleChoiceQuestion('Purchase of treasury stock (when a company uses its excess cash to buy its own stock)', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
             'No effect' : false,
         }),
-        new Question('Payment to suppliers', {
+        new MultipleChoiceQuestion('Payment to suppliers', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
         }),
-        new Question('Purchase of equipment', {
+        new MultipleChoiceQuestion('Purchase of equipment', {
             'CFO' : false,
             'CFI' : true,
             'CFF' : false,
             'No effect' : false,
         }),
-        new Question('Payment to employees', {
+        new MultipleChoiceQuestion('Payment to employees', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
         }),
-        new Question('Payment of interest on a loan taken', {
+        new MultipleChoiceQuestion('Payment of interest on a loan taken', {
             'CFO' : true,
             'CFI' : false,
             'CFF' : false,
             'No effect' : false,
         }),
-        new Question('Payment of principal portion on a loan taken', {
+        new MultipleChoiceQuestion('Payment of principal portion on a loan taken', {
             'CFO' : false,
             'CFI' : false,
             'CFF' : true,
             'No effect' : false,
         }),
-        new Question('Proceeds from sale of land', {
+        new MultipleChoiceQuestion('Proceeds from sale of land', {
             'CFO' : false,
             'CFI' : true,
             'CFF' : false,
@@ -98,5 +98,5 @@ banner-img: img/accounting.png
     ];
 
     quiz = new Quiz(questions);
-    quiz.generateHtml();
+    quiz.render();
 </script>
