@@ -3,6 +3,72 @@
  * @copyright Prateek Sahay
  */
 
+class NumericalQuestion {
+    constructor(questionText, answer) {
+        this.questionText = questionText;
+        this.answer = answer;
+    };
+
+    render(wrapper) {
+        let questionId = this.questionText;
+
+        let question = document.createElement('h3');
+        question.setAttribute('class', 'mt-4');
+        question.innerHTML = 'Q. ' + this.questionText;
+        wrapper.appendChild(question);
+
+        // Form container
+        var formContainer = document.createElement('div');
+        formContainer.setAttribute('class', 'input-group mb-3');
+        wrapper.appendChild(formContainer);
+
+        // Input group prepend
+        var inputPrepend = document.createElement('div');
+        inputPrepend.setAttribute('class', 'input-group-prepend');
+        inputPrepend.innerHTML = '<span class="input-group-text">$</span>';
+        formContainer.appendChild(inputPrepend);
+
+        // Text input
+        var textInput = document.createElement('input');
+        textInput.setAttribute('type', 'number');
+        textInput.setAttribute('class', 'form-control');
+        textInput.setAttribute('name', questionId);
+        textInput.setAttribute('id', questionId);
+        formContainer.appendChild(textInput);
+
+        // Input group append
+        var inputAppend = document.createElement('div');
+        inputAppend.setAttribute('class', 'input-group-append');
+        formContainer.appendChild(inputAppend);
+
+        // Check answer button
+        var checkAnswer = document.createElement('button');
+        checkAnswer.setAttribute('class', 'btn btn-outline-primary');
+        checkAnswer.innerHTML = 'Check Answer';
+        inputAppend.appendChild(checkAnswer);
+
+        // Show answer button
+        var showAnswer = document.createElement('button');
+        showAnswer.setAttribute('class', 'btn btn-outline-secondary');
+        showAnswer.innerHTML = 'Show Answer';
+        inputAppend.appendChild(showAnswer);
+
+        // Correct answer blurb
+        var correctAlert = document.createElement('div');
+        correctAlert.setAttribute('class', 'alert alert-success');
+        correctAlert.innerHTML = 'Correct!';
+        correctAlert.setAttribute('style', 'display: none');
+        wrapper.appendChild(correctAlert);
+
+        // Incorrect answer blurb
+        var incorrectAlert = document.createElement('div');
+        incorrectAlert.setAttribute('class', 'alert alert-warning');
+        incorrectAlert.innerHTML = 'Sorry, couldn\'t hear you!';
+        incorrectAlert.setAttribute('style', 'display: none');
+        wrapper.appendChild(incorrectAlert);
+    }
+}
+
 class MultipleChoiceQuestion {
     constructor(questionText, answers) {
         this.questionText = questionText;
