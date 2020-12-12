@@ -31,7 +31,7 @@ banner-img: ../img/accounting2.png
             <tr><td>&emsp;&emsp;&emsp; Credit: Cash</td><td>&emsp;&emsp;&emsp; $10,000</td></tr>
         </table>
         `),
-        new NumericalQuestion('Q2. By how much did Tesla\'s cash change in 2019 (put in thousands) - see recent financial information below. <br><a target="_blank" href="https://www.nasdaq.com/market-activity/stocks/tsla/financials">NASDAQ</a>', 95362, true, 'The cash on the balance went down from $1,894,444 at the end of 2018 to $1,799,082. That means that cash decreased by a total of $95,362.'),
+        new NumericalQuestion('Q2. By how much did Tesla\'s cash change in 2019 (put in thousands) - see recent financial information below. <br><a target="_blank" href="https://www.nasdaq.com/market-activity/stocks/tsla/financials">NASDAQ</a>', function(ans) { return ans == 95362; }, true, 'The cash on the balance went down from $1,894,444 at the end of 2018 to $1,799,082. That means that cash decreased by a total of $95,362.'),
         new MultipleChoiceQuestion('Q3. Murch decides to open a kick-boxing studio for Omri\'s students called "Kicking Assets".  The company collects $5,000 of accounts receivable from its customers who previously purchased on credit.  Indicate whether the current ratio increases, decreases or stays the same. Assume a ratio of 1 before this transaction.', {
             'Increase' : false,
             'Stay the same' : true,
@@ -44,7 +44,7 @@ banner-img: ../img/accounting2.png
             <tr><td>&emsp;&emsp;&emsp; Credit: Accounts Receivable</td><td>&emsp;&emsp;&emsp; $5,000</td></tr>
         </table>
         `),
-        new NumericalQuestion('Q4. Fede decides to open a new store for sun glasses called: "eye caramba". On January 1st, 2019, the company had retained earnings of $8,000,000. During 2019, the company generated net income of $1,500,000 and declared and paid dividends of $500,000. Additionally, the company issued 10,000 shares at $1 par value for a total of $1,000,000. What were the company\'s retained earnings on December 31, 2019?', 9000000, true, `
+        new NumericalQuestion('Q4. Fede decides to open a new store for sun glasses called: "eye caramba". On January 1st, 2019, the company had retained earnings of $8,000,000. During 2019, the company generated net income of $1,500,000 and declared and paid dividends of $500,000. Additionally, the company issued 10,000 shares at $1 par value for a total of $1,000,000. What were the company\'s retained earnings on December 31, 2019?', function(ans) { return ans == 9000000; }, true, `
             <center class="mb-3">Retained Earnings</center>
             <table class="table table-primary table-bordered">
                 <tr><td></td><td>BB $8,000,000</td></tr>
@@ -53,7 +53,7 @@ banner-img: ../img/accounting2.png
                 <tr class="table-active"><td></td><td>EB $9,000,000</td></tr>
             </table>
             Issuing stock affects equity but not retained earnings, whereas dividends when declared go out of retained earnings.`),
-        new NumericalQuestion('Q5. Assume you rent an office space for 2 years for $2,000 a month starting August 1, 20Y1. You prepaid the entire amount ($48,000) upfront. What is the amount of expense you can recognize for the year ending 12/31/Y1 using an accrual basis of accounting?', 8000, true, 'May - December ⇒ 8 months. 8 months’ worth of revenue during the year at $1k a month = $8,000. This resembles the Accrual World example, where revenue is recognized, as the service (occupancy of the space, rather than books) is delivered, rather than when cash changes hands.'),
+        new NumericalQuestion('Q5. Assume you rent an office space for 2 years for $2,000 a month starting August 1, 20Y1. You prepaid the entire amount ($48,000) upfront. What is the amount of expense you can recognize for the year ending 12/31/Y1 using an accrual basis of accounting?', function(ans) { return ans == 8000; }, true, 'May - December ⇒ 8 months. 8 months’ worth of revenue during the year at $1k a month = $8,000. This resembles the Accrual World example, where revenue is recognized, as the service (occupancy of the space, rather than books) is delivered, rather than when cash changes hands.'),
         new TextQuestion('Q6. You\'re currently interested in investing in company A that has a market to book ratio of 0.5.  You expect the company to announce earnings of $12 million in its upcoming earnings announcement.  Given the discussions in class about financial ratios, earnings announcements, analysts expectations, earnings guidance, and your expectations of the company, which factors should you consider to make a decision about whether to sell or buy this company?', 'Open for discussion. Generally speaking, mentioning that the market to book being less than 1 suggests that the company might be undervalued. Also, in order to decide whether you should buy or sell the stock, you should compare your own expectation of $12 million to both what analysts are expecting and to management guidance. If your expectation exceeds that of analysts and the company then it might be a good investment since the market usually reflects the expectations of the company and the analysts who cover the company.'),
         new NumericalQuestion(`Q7. Brad Pitt\'s new bakery, "Bread Pitt", is growing rapidly and you volunteered to calculate their <u>Debt-to-Equity</u>. All of the company\'s accounts are as of December 31, 2019 and are listed below:
             <table class="table table-borderless table-sm table-hover mt-2">
@@ -73,7 +73,7 @@ banner-img: ../img/accounting2.png
             </table>
             *Deferred Revenue is for items sold that will ship within the next 3 months.
             <br>**Taxes Payable are expected to be paid next month.`,
-            0.84,
+            function(ans) { return 0.83 <= ans <= 0.85 },
             false,
             `The Debt-to-equity ratio is equal to total debt divided by total equity. (Debt is defined as any interest-bearing obligations). The ratio measures how much leverage a company has in their capital structure.
             <br>Debt / Equity = (Current Portion of Long-term Debt + Long-term Debt) / (Common Stock + Additional Paid in Capital + Retained Earnings)

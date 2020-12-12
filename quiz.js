@@ -72,16 +72,16 @@ class TextQuestion {
 }
 
 class NumericalQuestion {
-    constructor(questionText, answer, answerIsDollars, answerText) {
+    constructor(questionText, answerFunc, answerIsDollars, answerText) {
         this.questionText = questionText;
-        this.answer = answer;
+        this.answerFunc = answerFunc;
         this.answerIsDollars = answerIsDollars;
         this.answerText = answerText;
     };
 
     render(wrapper) {
         let questionId = this.questionText;
-        let answer = this.answer;
+        let answerFunc = this.answerFunc;
 
         let question = document.createElement('h5');
         question.setAttribute('class', 'mt-4');
@@ -147,7 +147,7 @@ class NumericalQuestion {
         checkAnswer.innerHTML = 'Check Answer';
         checkAnswer.addEventListener('click', function() {
             // Hides answer
-            if (textInput.value == answer) {
+            if (answerFunc(textInput.value) == true) {
                 correctAlert.setAttribute('style', 'display: block');
                 incorrectAlert.setAttribute('style', 'display: none');
                 answerAlert.setAttribute('style', 'display: none');
