@@ -1,0 +1,285 @@
+---
+layout: landing
+title: Accounting Quiz 3 Practice
+banner-img: ../img/accounting4.png
+---
+
+<!-- Header -->
+<div class="row">
+    <div class="offset-md-2 col-md-8">
+        <h2 class="about-intro text-secondary">Accounting Quiz 3 Practice</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="offset-md-2 col-md-8">
+        <div id="js_wrapper"></div>
+    </div>
+</div>
+
+<script src="quiz.js"></script>
+<script>
+    let correct = true;
+    let incorrect = false;
+
+    var questions = [
+        new ExplanationQuestion(
+            `“Wok on Water” (the “Company”) is a business selling cooking Woks to Chinese restaurants across the U.S. Using the footnote below about the company’s Allowance for Sales Returns, please explain the meaning of the following numbers, and whether these number are estimates or not.
+            <br><br>Assume a ratio of 1 before this transaction.
+            <br><br>The following table details the activity and balances of the Company’s sales reserves for the fiscal years ended March 30, 2020, March 30, 2019, and March 30, 2018 (in millions):
+            <table class="table table-responsive mt-3">
+                <thead><tr><td><strong>Allowance for sales returns*</strong></td><td>Balance Beginning of Year</td><td>Additions to Allowance for Returns</td><td>Write-offs Against Allowance</td><td>Balance at Year End</td></tr></thead>
+                <tr><td>Fiscal year ended in March 30, 2020</td><td>$2.5</td><td>$71.7</td><td>$(69.5)</td><td>$4.7</td></tr>
+                <tr><td>Fiscal year ended in March 30, 2019</td><td>$2.3</td><td>$57.0</td><td>$(56.8)</td><td>$2.5</td></tr>
+                <tr><td>Fiscal year ended in March 30, 2018</td><td>$3.2</td><td>$45.6</td><td>$(46.5)</td><td>$2.3</td></tr>
+            </table>`
+        ),
+        new MultipleChoiceQuestion('Q1. $71.7 million:', {
+                'Estimate' : correct,
+                'Not an estimate' : incorrect,
+            }, 'Customers have a right to return unsatisfactory or damaged merchandise and receive a refund or an adjustment to their bill. Such returns are often accumulated in a separate account called Sales Returns and Allowances. The $71.7 million is the additional amount that the company set aside for future returns from revenue earned in the fiscal year ending 3/30/18. This is an estimated amount that the company calculates based on how much merchandise it anticipates clients will return from sales made in fiscal year ending 3/30/18.'
+        ),
+        new MultipleChoiceQuestion('Q2. $69.5 million:', {
+                'Estimate' : incorrect,
+                'Not an estimate' : correct,
+            }, 'The $69.5 million represents the value of goods clients actually returned to the company during the year and the amount the company had to pay to compensate the customer.'
+        ),
+        new MultipleChoiceQuestion('Q3. $4.7 million:', {
+                'Estimate' : correct,
+                'Not an estimate' : incorrect,
+            }, 'The $4.7 million is the ending balance for returns reserve. This is the company’s estimation for future returns by customers from existing sales.'
+        ),
+        new ExplanationQuestion(`
+            After many years of writing short stories about the accounting world, Omri finally signed a deal with McGraw-Hill Education to publish all of his stories into a book named: "Book Keeper". Using the footnote below from his company’s annual report about the company’s accounts receivables, please explain the meaning of the following numbers in 2020, including if it is an estimate or not.
+            <br><br>This table below presents the allowance for Accounts Receivables (A/R):
+            <table class="table table-responsive mt-3">
+                <thead><td></td><th colspan=3><center>Years Ended December 31</center></th></thead>
+                <thead><tr><th></th><th>2020</th><th>2019</th><th>2018</th></tr></thead>
+                <tr><td>AFDA Beginning Balance</td><td>$695</td><td>$548</td><td>$351</td></tr>
+                <tr><td>Provision (addition) for doubtful accounts</td><td>$624</td><td>$604</td><td>$475</td></tr>
+                <tr><td>Write-offs</td><td>$(999)</td><td>$(914)</td><td>$(643)</td></tr>
+                <tr><td>Bad Debt Recoveries</td><td>$487</td><td>$470</td><td>$362</td></tr>
+                <tr><td>Effect of foreign currency</td><td>$(25)</td><td>$(13)</td><td>$3</td></tr>
+                <tr><td>AFDA Ending Balance</td><th>$782</th><th>$695</th><th>$548</th></tr>
+            </table>
+            `),
+        new MultipleChoiceQuestion('Q4. $625 million:', {
+                'Estimate' : correct,
+                'Not an estimate' : incorrect,
+            }, 'This number represents the additional allowance the company put aside during the year. It is an estimated amount that the company calculates.'
+        ),
+        new MultipleChoiceQuestion('Q5. $999 million:', {
+                'Estimate' : correct,
+                'Not an estimate' : correct,
+            }, 'The amount in dollars of customers who will not pay the company for goods purchased. This is the balance of actual customer balances that had to be written off due to uncollectibility (it is not an estimate). <br><br> We also accept answers of students who said this is an estimate. Even though there should be hard evidence about the collectability and write-off a customer, we agree that this might seem as an estimate with a high-certainty not to be collected.'
+        ),
+        new MultipleChoiceQuestion('Q6. $487 million:', {
+                'Estimate' : correct,
+                'Not an estimate' : correct,
+            }, 'This number represents accounts receivables who were written off but that the company now expects to be able to collect. <br><br> We also accept answers of students who said that this is not an estimate. While this is an expectation with high certainty, it should be based on actual news.'
+        ),
+        new MultipleChoiceQuestion('Q7. $782 million:', {
+                'Estimate' : correct,
+                'Not an estimate' : incorrect,
+            }, 'This number represents future estimation by the company of accounts receivables that the company expects not to be paid.'
+        ),
+        new ExplanationQuestion(`
+            During fiscal year 2020, Mat Diamond Distribution Company began selling copies of the new Oscar nominated movie "Goodwill Hunting", a movie based on the true story of a genius accountant who hunts undervalued companies and records a lot of goodwill on its books following their acquisition. The direct cost to make each DVD is $5 per copy, and it is sold to retailers at $10 per copy.
+            <br><br>Please help Mat Diamond Distribution Company understand how the financial statements would be affected if the following transactions occurred. For each transaction, please circle how it would increase, not effect, or decrease a) gross profits b) net income c) assets d) liabilities and e) cash-flow from operations. For all questions, assume that the starting transaction is : <strong>The company sells 100,000 DVDs.</strong>
+            <br><br>Example: The 100,000 DVDs are sold on account. The company estimates that 10% of all DVDs that are sold are defected and would likely be returned to the company. Assume that both the sale entry and the estimation for sale returns have not been recorded yet.
+            <table class="table table-responsive table-borderless table-sm table-active table-hover mt-3">
+                <tr><td>Dr. Accounts receivables, gross</td><td>$1,000,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Allowance for sales returns</td><td>&emsp;&emsp;&emsp; $100,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Net Sales</td><td>&emsp;&emsp;&emsp; $900,000</td></tr>
+                <tr><td>Dr. Cost of Goods Sold</td><td>$500,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Inventory</td><td>&emsp;&emsp;&emsp; $500,000</td></tr>
+            </table>
+            `),
+        new ExplanationQuestion(`Q8. The company estimates that 10% of the customers will not end up paying (assume that both the sale entry and the estimation for sale returns have already been recorded).
+            <table class="table table-responsive table-borderless table-sm table-active table-hover mt-3">
+                <tr><td>Dr. Bad Debt Expense</td><td>$100,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Allowance for Doubtful Accounts</td><td>&emsp;&emsp;&emsp; $100,000</td></tr>
+            </table>
+        `),
+        new MultipleChoiceQuestion('Q8a. Effect on Gross Profit', {
+                'Increase' : correct,
+                'Unchanged' : incorrect,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q8b. Effect on NI', {
+                'Increase' : correct,
+                'Unchanged' : incorrect,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q8c. Effect on Assets', {
+                'Increase' : correct,
+                'Unchanged' : incorrect,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q8d. Effect on Liabilities', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : correct,
+            }, 'Because allowance for sales returns can also be treated as a liability, Increase and Unchanged are both acceptable.'
+        ),
+        new MultipleChoiceQuestion('Q8e. Effect on CFO', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new ExplanationQuestion(`Q9. It turned out that 15% of the cusomters actually returned their DVD (above the company’s estimation).
+            <table class="table table-responsive table-borderless table-sm table-active table-hover mt-3">
+                <tr><td>Dr. Allowance for sales returns</td><td>$100,000</td></tr>
+                <tr><td>Dr. Sales Returns</td><td>$50,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Accounts receivables, gross</td><td>&emsp;&emsp;&emsp; $150,000</td></tr>
+            </table>
+        `),
+        new MultipleChoiceQuestion('Q9a. Effect on Gross Profit', {
+                'Increase' : incorrect,
+                'Unchanged' : incorrect,
+                'Decrease' : correct,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q9b. Effect on NI', {
+                'Increase' : incorrect,
+                'Unchanged' : incorrect,
+                'Decrease' : correct,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q9c. Effect on Assets', {
+                'Increase' : incorrect,
+                'Unchanged' : incorrect,
+                'Decrease' : correct,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q9d. Effect on Liabilities', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : correct,
+            }, 'Because allowance for sales returns can be treated as a liability, Decrease and Unchanged are both acceptable.'
+        ),
+        new MultipleChoiceQuestion('Q9e. Effect on CFO', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new ExplanationQuestion(`Q10. At the end of the year, the company writes-off $50,000 of uncollectible accounts from Customer A. A sufficient allowance has already been previously booked.
+            <table class="table table-responsive table-borderless table-sm table-active table-hover mt-3">
+                <tr><td>Dr. Allowance for doubtful account</td><td>$50,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Accounts receivables, gross</td><td>&emsp;&emsp;&emsp; $50,000</td></tr>
+            </table>
+        `),
+        new MultipleChoiceQuestion('Q10a. Effect on Gross Profit', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q10b. Effect on NI', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q10c. Effect on Assets', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q10d. Effect on Liabilities', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q10e. Effect on CFO', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new ExplanationQuestion(`Q11. Customer A suddenly pays up $25,000. This amount had been previously written off by the company before.
+            <table class="table table-responsive table-borderless table-sm table-active table-hover mt-3">
+                <tr><td>Dr. Accounts receivables, gross</td><td>$25,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Allowance for doubtful account</td><td>&emsp;&emsp;&emsp; $25,000</td></tr>
+                <tr><td>Dr. Cash</td><td>$25,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Accounts recivables, gross</td><td>&emsp;&emsp;&emsp; $25,000</td></tr>
+            </table>
+        `),
+        new MultipleChoiceQuestion('Q11a. Effect on Gross Profit', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q11b. Effect on NI', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q11c. Effect on Assets', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q11d. Effect on Liabilities', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q11e. Effect on CFO', {
+                'Increase' : correct,
+                'Unchanged' : incorrect,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new ExplanationQuestion(`Q12. The company learned that the market value of its inventory is lower by $10,000 than its current inventory book value.
+            <table class="table table-responsive table-borderless table-sm table-active table-hover mt-3">
+                <tr><td>Dr. COGS</td><td>$10,000</td></tr>
+                <tr><td>&emsp;&emsp;&emsp; Cr. Inventory</td><td>&emsp;&emsp;&emsp; $10,000</td></tr>
+            </table>
+        `),
+        new MultipleChoiceQuestion('Q12a. Effect on Gross Profit', {
+                'Increase' : incorrect,
+                'Unchanged' : incorrect,
+                'Decrease' : correct,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q12b. Effect on NI', {
+                'Increase' : incorrect,
+                'Unchanged' : incorrect,
+                'Decrease' : correct,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q12c. Effect on Assets', {
+                'Increase' : incorrect,
+                'Unchanged' : incorrect,
+                'Decrease' : correct,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q12d. Effect on Liabilities', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+        new MultipleChoiceQuestion('Q12e. Effect on CFO', {
+                'Increase' : incorrect,
+                'Unchanged' : correct,
+                'Decrease' : incorrect,
+            }, ''
+        ),
+    ];
+
+    quiz = new Quiz(questions, false);
+    quiz.render();
+</script>
