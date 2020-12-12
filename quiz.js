@@ -22,7 +22,7 @@ class ExplanationQuestion {
 
     render(wrapper) {
         // Question text
-        let question = document.createElement('h3');
+        let question = document.createElement('h5');
         question.setAttribute('class', 'mt-4');
         question.innerHTML = this.questionText;
         wrapper.appendChild(question);
@@ -40,7 +40,7 @@ class TextQuestion {
         let answerText = this.answerText;
 
         // Question text
-        let question = document.createElement('h3');
+        let question = document.createElement('h5');
         question.setAttribute('class', 'mt-4');
         question.innerHTML = questionText;
         wrapper.appendChild(question);
@@ -83,7 +83,7 @@ class NumericalQuestion {
         let questionId = this.questionText;
         let answer = this.answer;
 
-        let question = document.createElement('h3');
+        let question = document.createElement('h5');
         question.setAttribute('class', 'mt-4');
         question.innerHTML = this.questionText;
         wrapper.appendChild(question);
@@ -184,7 +184,7 @@ class MultipleChoiceQuestion {
     render(wrapper) {
         let questionText = this.questionText;
 
-        var question = document.createElement('h3');
+        var question = document.createElement('h5');
         question.setAttribute('class', 'mt-4');
         question.innerHTML = questionText;
         wrapper.appendChild(question);
