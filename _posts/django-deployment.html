@@ -1,0 +1,88 @@
+---
+layout: post
+title: Launching an App Server from Scratch
+banner-img: img/blog-django-deployment.jpg
+excerpt: "This post is a work in progress..."
+---
+
+<article>
+    <div class="row">
+        <div class="offset-md-2 col-md-8">
+            <div class="alert alert-warning">
+                <b>Note:</b> This post is a work in progress.
+            </div>
+            <p>
+                If you're making a sophisticated website with forms and user
+                login, you'll need two things: a web server and an app server.
+                We've already walked through setting up an app server in <a
+                href="server-setup.html">Launching a Web Server from
+                Scratch</a>.
+            </p>
+            <p>
+                Websites with advanced features like user login and database
+                interaction can be built using one of many different frameworks,
+                including .NET, Java, Ruby on Rails, and more. One of the most
+                popular frameworks for launching Python websites today is called
+                Django. The purpose of this post is to walk you through
+                deploying a working Django app to a production server. We'll use
+                a tool called Gunicorn (our app server) to run our Django app,
+                which will communicate with NGINX (our web server). Note that
+                Gunicorn will run any kind of WSGI app, which includes Flask in
+                addition to Django.
+            </p>
+            <p>
+                Note that tools like AWS's <a
+                href="https://aws.amazon.com/elasticbeanstalk/">Elastic
+                Beanstalk</a> are also available for deploying Django projects,
+                but may cost more and hide some advanced functionality from you.
+                Instead, for this tutorial we'll deploy our project to a web
+                server by hand.
+            </p>
+            <div class="alert alert-dark">
+                TODO: Explain why you can't just use <code>django
+                runserver</code>.
+            </div>
+            <div class="alert alert-dark">
+                TODO: Walk through cloning repo to AWS machine under folder
+                <code>~/myproject</code>.
+            </div>
+
+            <h4>Part 1: Configuring Gunicorn</h4>
+            <ol>
+                <li>
+                    Inside your Django project, look for a file called
+                    <code>wsgi.py</code>&mdash;it should have automatically been
+                    placed there when you created your Django project. We'll
+                    point Gunicorn at this file to run it on your app. Note down
+                    the name of the folder this <code>wsgi.py</code>
+                    file is in, e.g. <code>my-main-app</code>.
+                </li>
+                <li>
+                    Run <code>sudo apt install gunicorn</code>.
+                </li>
+                <li>
+                    Run the following:
+
+{% highlight sh %}
+sudo su
+cd location/of/your/Django/project
+gunicorn --workers 4 --bind 0:8000 my-main-app.wsgi:application
+{% endhighlight %}
+                </li>
+            </ol>
+
+            <div class="alert alert-dark">
+                TODO: Explain how you can run Gunicorn with a config file.
+                TODO: `pip install` everything with `sudo`
+            </div>
+
+            <div class="alert alert-dark">
+                TODO: The above command will start Gunicorn, but Gunicorn will
+                stop as soon as you kill your SSH session. You can prefix the
+                command with <code>nohup</code> and suffix it with
+                <code>&</code> as a band-aid solution, but there's probably a
+                smarter solution.
+            </div>
+        </div>
+    </div>
+</article>
