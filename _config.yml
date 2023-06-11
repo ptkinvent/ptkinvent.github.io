@@ -6,7 +6,7 @@ description: >- # Ignore newlines
   engineer working at the Advanced Technologies Group at Uber in Pittsburgh, PA.
   I use this website to display my past projects and write up some of my
   thoughts.
-permalink: /blog/:categories/:title:output_ext
+permalink: pretty
 url: "https://prateeksahay.com"
 
 # Build settings
