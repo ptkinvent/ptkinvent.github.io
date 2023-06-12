@@ -25,6 +25,9 @@
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {% if include.active-nav == 'watchlist' %}active{% endif %}" href="{{ page.watchlist-anchor | default: 'watchlist' | relative_url }}">Watchlist {% if include.active-nav == 'watchlist' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {% if include.active-nav == 'blog' %}active{% endif %}" href="{{ page.blog-anchor | default: 'blog' | relative_url }}">Blog {% if include.active-nav == 'blog' %}<span class="sr-only">(current)</span>{% endif %}</a>
                     </li>
                     <li class="nav-item">

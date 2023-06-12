@@ -1,0 +1,103 @@
+---
+layout: landing
+active-nav: watchlist
+banner-img: img/watchlist-banner.jpg
+title: Watchlist
+movies-anchor: #
+---
+<!-- Header -->
+<div class="row">
+    <div class="offset-md-2 col-md-8">
+        {%- assign date_format = "%B %-d, %Y" -%}
+        <h2 class="about-intro"><span class="text-secondary">Watch.</span> These are some movies and shows on my watchlist.</h2>
+        <p>
+            I love movies and TV shows but I don't enjoy watching alone. Feel
+            free to <a href="mailto:ptkinvent@gmail.com">message me</a> if you
+            want to watch any of these together!
+        </p>
+        <p>Last updated: {{ site.time | date: date_format }}.</p>
+    </div>
+</div>
+
+<!-- Movies -->
+<div class="row">
+    <div class="col">
+        <div class="row" id="movieWrapper">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    movies = fetch("{{ 'watchlist.json' | relative_url }}").then((response) => response.json()).then((movies) => render(movies));
+
+    function render(movies) {
+        var movieWrapper = document.getElementById('movieWrapper');
+        for (let movie in movies) {
+            var col = document.createElement('div');
+            col.setAttribute('class', 'col-xl-3 col-lg-3 col-md-4 col-6 mt-3');
+            movieWrapper.appendChild(col);
+
+            var card = document.createElement('div');
+            card.setAttribute('class', 'card h-100');
+            col.appendChild(card);
+
+            var header = document.createElement('img');
+            header.setAttribute('class', 'card-img-top');
+            header.setAttribute('src', movies[movie].img);
+            card.appendChild(header);
+
+            var body = document.createElement('div');
+            body.setAttribute('class', 'card-body');
+            card.appendChild(body);
+
+            var title = document.createElement('a');
+            if ('tickets' in movies[movie]) {
+                title.setAttribute('href', movies[movie].tickets);
+            }
+            else {
+                title.setAttribute('href', movies[movie].stream);
+            }
+            title.setAttribute('target', '_blank');
+            if (movies[movie].watched) {
+                title.innerHTML = '<h5 class="card-title">' + movie + ' <span class="badge badge-secondary">Watched</span>' + '</h5>';
+            }
+            else {
+                title.innerHTML = '<h5 class="card-title">' + movie + '</h5>';
+            }
+            body.appendChild(title);
+
+            var description = document.createElement('p');
+            description.setAttribute('class', 'card-text');
+            description.innerHTML = 'Release date: ' + new Date(movies[movie].releaseDate).toString().substring(0, 15);
+            body.appendChild(description);
+
+            var ticketsButtonSm = document.createElement('a');
+            ticketsButtonSm.setAttribute('class', 'btn btn-outline-primary d-xl-none btn-block mb-2');
+            ticketsButtonSm.setAttribute('target', '_blank');
+            ticketsButtonSm.setAttribute('href', movies[movie].tickets);
+            ticketsButtonSm.innerHTML = '<i class="fas fa-ticket-alt"></i> Tickets';
+            body.appendChild(ticketsButtonSm);
+
+            var ticketsButtonLg = document.createElement('a');
+            ticketsButtonLg.setAttribute('class', 'btn btn-outline-primary d-none d-xl-inline-block mr-2');
+            ticketsButtonLg.setAttribute('target', '_blank');
+            ticketsButtonLg.setAttribute('href', movies[movie].tickets);
+            ticketsButtonLg.innerHTML = '<i class="fas fa-ticket-alt"></i> Tickets';
+            body.appendChild(ticketsButtonLg);
+
+            var trailerButtonSm = document.createElement('a');
+            trailerButtonSm.setAttribute('class', 'btn btn-outline-secondary btn-block d-xl-none');
+            trailerButtonSm.setAttribute('target', '_blank');
+            trailerButtonSm.setAttribute('href', movies[movie].trailer);
+            trailerButtonSm.innerHTML = '<i class="fas fa-film"></i> Trailer';
+            body.appendChild(trailerButtonSm);
+
+            var trailerButtonLg = document.createElement('a');
+            trailerButtonLg.setAttribute('class', 'btn btn-outline-secondary d-none d-xl-inline-block');
+            trailerButtonLg.setAttribute('target', '_blank');
+            trailerButtonLg.setAttribute('href', movies[movie].trailer);
+            trailerButtonLg.innerHTML = '<i class="fas fa-film"></i> Trailer';
+            body.appendChild(trailerButtonLg);
+        }
+    }
+</script>
