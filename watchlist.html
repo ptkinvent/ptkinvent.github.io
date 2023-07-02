@@ -62,8 +62,15 @@ movies-anchor: #
             body.appendChild(title);
 
             var description = document.createElement('p');
-            description.setAttribute('class', 'card-text');
-            description.innerHTML = 'Release date: ' + new Date(movies[movie].releaseDate).toString().substring(0, 15);
+            const releaseDate = new Date(movies[movie].releaseDate);
+            const today = new Date();
+            if (releaseDate > today) {
+                description.setAttribute('class', 'card-text text-secondary');
+            }
+            else {
+                description.setAttribute('class', 'card-text');
+            }
+            description.innerHTML = 'Release date: ' + releaseDate.toString().substring(4, 15);
             body.appendChild(description);
 
             var ticketsButtonSm = document.createElement('a');
