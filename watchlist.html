@@ -67,8 +67,15 @@ movies-anchor: #
             body.appendChild(title);
 
             var description = document.createElement('p');
-            description.setAttribute('class', 'card-text');
-            description.innerHTML = 'Release date: ' + new Date(movies[movie].releaseDate).toString().substring(0, 15);
+            const releaseDate = new Date(movies[movie].releaseDate);
+            const today = new Date();
+            if (releaseDate > today) {
+                description.setAttribute('class', 'card-text text-secondary');
+            }
+            else {
+                description.setAttribute('class', 'card-text');
+            }
+            description.innerHTML = 'Release date: ' + releaseDate.toString().substring(4, 15);
             body.appendChild(description);
 
             var ticketsButtonSm = document.createElement('a');
@@ -98,14 +105,14 @@ movies-anchor: #
             body.appendChild(ticketsButtonLg);
 
             var trailerButtonSm = document.createElement('a');
-            trailerButtonSm.setAttribute('class', 'btn btn-outline-secondary btn-block d-xl-none');
+            trailerButtonSm.setAttribute('class', 'btn btn-outline-dark btn-block d-xl-none');
             trailerButtonSm.setAttribute('target', '_blank');
             trailerButtonSm.setAttribute('href', movies[movie].trailer);
             trailerButtonSm.innerHTML = '<i class="fas fa-film"></i> Trailer';
             body.appendChild(trailerButtonSm);
 
             var trailerButtonLg = document.createElement('a');
-            trailerButtonLg.setAttribute('class', 'btn btn-outline-secondary d-none d-xl-inline-block');
+            trailerButtonLg.setAttribute('class', 'btn btn-outline-dark d-none d-xl-inline-block');
             trailerButtonLg.setAttribute('target', '_blank');
             trailerButtonLg.setAttribute('href', movies[movie].trailer);
             trailerButtonLg.innerHTML = '<i class="fas fa-film"></i> Trailer';
