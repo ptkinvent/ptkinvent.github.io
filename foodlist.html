@@ -1,0 +1,121 @@
+---
+layout: landing
+active-nav: foodlist
+banner-img: img/foodlist-banner.jpg
+title: Foodlist
+foodlist-anchor: #
+---
+<!-- Header -->
+<div class="row">
+    <div class="offset-md-2 col-md-8">
+        {%- assign date_format = "%B %-d, %Y" -%}
+        <h2 class="about-intro"><span class="text-secondary">Eat.</span> These are some restaurants I want to try.</h2>
+        <p>
+            I love exploring new restaurants, but I don't enjoy eating alone.
+            Feel free to <a href="mailto:ptkinvent@gmail.com">message me</a> if
+            you'd like to try any of these together!
+        </p>
+        <p>Last updated: {{ site.time | date: date_format }}.</p>
+    </div>
+</div>
+
+<!-- Foodlist -->
+<div class="row">
+    <div class="offset-lg-2 col-lg-8">
+        <div class="accordion" id="wrapper">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    cities = fetch("{{ 'foodlist.json' | relative_url }}").then((response) => response.json()).then((cities) => render(cities));
+
+    function render(cities) {
+        let i = 1;
+        let wrapper = document.getElementById('wrapper');
+
+        for (let city in cities) {
+            let cityCard = document.createElement('div');
+            cityCard.setAttribute('class', 'card');
+            wrapper.appendChild(cityCard);
+
+            let cityHeader = document.createElement('div');
+            cityHeader.setAttribute('class', 'card-header');
+            cityHeader.id = 'heading' + i;
+            cityCard.appendChild(cityHeader);
+
+            let cityTitle = document.createElement('h4');
+            cityTitle.setAttribute('class', 'mb-0');
+            cityHeader.appendChild(cityTitle);
+
+            let cityButton = document.createElement('button');
+            cityButton.setAttribute('class', 'btn btn-lg btn-link btn-block text-left');
+            cityButton.setAttribute('type', 'button');
+            cityButton.setAttribute('data-toggle', 'collapse');
+            cityButton.setAttribute('data-target', '#collapse' + i);
+            cityButton.setAttribute('aria-expanded', 'false');
+            cityButton.setAttribute('aria-controls', 'collapse' + i);
+            cityButton.innerHTML = city + ' <i class="fa fa-caret-down"></i>'
+            cityTitle.appendChild(cityButton);
+
+            let cityContainer = document.createElement('div');
+            cityContainer.id = 'collapse' + i;
+            cityContainer.setAttribute('class', 'collapse');
+            cityContainer.setAttribute('aria-labelledby', 'heading' + i);
+            cityContainer.setAttribute('data-parent', '#wrapper');
+            cityCard.appendChild(cityContainer);
+
+            let cityBody = document.createElement('div');
+            cityBody.setAttribute('class', 'card-body');
+            cityContainer.appendChild(cityBody);
+
+            for (let restaurant in cities[city]) {
+                let card = document.createElement('div');
+                card.setAttribute('class', 'card mb-3')
+                cityBody.appendChild(card);
+
+                let row = document.createElement('div');
+                row.setAttribute('class', 'row no-gutters');
+                card.appendChild(row);
+
+                let imgWrapper = document.createElement('div');
+                imgWrapper.setAttribute('class', 'col-md-4');
+                row.appendChild(imgWrapper);
+
+                let img = document.createElement('img');
+                img.setAttribute('src', cities[city][restaurant]['img']);
+                img.setAttribute('class', 'w-100');
+                img.setAttribute('height', '180px');
+                img.setAttribute('style', 'object-fit: cover');
+                imgWrapper.appendChild(img);
+
+                let textWrapper = document.createElement('div');
+                textWrapper.setAttribute('class', 'col-md-8');
+                row.appendChild(textWrapper);
+
+                let body = document.createElement('div');
+                body.setAttribute('class', 'card-body');
+                textWrapper.appendChild(body);
+
+                let title = document.createElement('h5');
+                title.setAttribute('class', 'card-title');
+                title.innerHTML = '<a href="' + cities[city][restaurant]['link'] + '" target="_blank">' + restaurant + '</a>';
+                if (cities[city][restaurant]['visited']) {
+                    title.innerHTML += ' <span class="badge badge-secondary">Visited</span>';
+                }
+                body.appendChild(title);
+
+                let description = document.createElement('p');
+                description.setAttribute('class', 'card-text');
+                description.innerHTML = cities[city][restaurant]['description'];
+                body.appendChild(description);
+
+                let cuisine = document.createElement('p');
+                cuisine.setAttribute('class', 'card-text');
+                cuisine.innerHTML = '<small class="text-secondary">' + cities[city][restaurant]['cuisine'] + '</small>';
+                body.appendChild(cuisine);
+            }
+            i++;
+        }
+    }
+</script>
