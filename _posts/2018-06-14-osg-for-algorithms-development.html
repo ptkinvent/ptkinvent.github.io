@@ -1,10 +1,10 @@
 ---
 layout: post
-title: OpenSceneGraph for Algorithms Development
+title: OpenSceneGraph for Robotics Development
 banner-img: img/blog-osg.png
-excerpt: "It happens too often that I meet a bright developer researching
-a new data structure or algorithm whose efforts are hindered by
-the visualization tools they possess..."
+excerpt: "While researching new algorithms and data structures in
+robotics, it's often helpful to visualize data in 3D. Certainly,
+it's possible to plot much larger amounts of data and perform..."
 ---
 
 <!-- Article -->
@@ -12,41 +12,40 @@ the visualization tools they possess..."
     <div class="row">
         <div class="offset-md-2 col-md-8" id="description">
             <p>
-                It happens too often that I meet a bright developer researching
-                a new data structure or algorithm whose efforts are hindered by
-                the visualization tools they possess. Often they end up trying
-                to visualize complex 3D environments in 2D grayscale OpenCV maps
-                because they've just never been exposed to the right tools.
+                While working on new algorithms and data structures in robotics,
+                it's often helpful to visualize data in 3D. Certainly, it's
+                possible for our minds to comprehend much larger amounts of data
+                and perform visual error-checking in 3D than in the console. But
+                I've met many bright developers who feel daunted by tools like
+                Unity and Unreal Engine and end up trying to visualize complex
+                3D environments using 2D grayscale maps instead.
             </p>
             <p>
-                OpenSceneGraph has helped me debug my algorithms many times
-                over. Many times, visual tests of an algorithm have proven more
-                useful and less error-prone than software tests. And because OSG
-                is open and cross-platform, I don't have to worry about changing
-                environments.
+                Enter OpenSceneGraph (OSG). OSG is an open source,
+                cross-platform 3D rendering library written in C++ that's much
+                easier to get up and running. There's still a learning curve,
+                but it's short enough to be covered in a blog post like the one
+                you're reading.
             </p>
             <p>
-                This guide is meant as a springboard to help those developers
-                looking to visualize 3D scenes in a practical and efficient
-                manner&mdash;without worrying about realistic shadows,
-                transparency, and other effects. If that sounds like you, keep
-                on reading!
+                "Why not use a standard tool like Gazebo for this?" you may be
+                wondering. Well, in most cases, especially in professional
+                environments, you may not be building in ROS. Perhaps ROS will
+                one day become widely adopted enough that we can rely on Gazebo,
+                but such is still not the case today.
+            </p>
+            <p>
+                This guide is meant to springboard those developers looking to
+                visualize 3D scenes in a quick-and-dirty manner&mdash;we won't
+                be worrying about realistic shadows, materials, and other
+                effects. If that sounds like you, keep on reading!
             </p>
 
             <h3>Introduction</h3>
             <p>
-                This guide is meant to be a springboard for new developers who
-                want to learn OpenSceneGraph. As such, it's not the most
-                comprehensive nor detailed guide to the variety of capabilities
-                of OpenSceneGraph, but it'll get you on your feet so you at
-                least know what to Google and how to parse the forums. I won't
-                be getting into the installation of OpenSceneGraph,
-                though&mdash;hopefully you can figure that out on your own.
-            </p>
-
-            <p>
-                For reference, after installation, if you don't know how to link
-                your practice examples to the OpenSceneGraph library, here is a
+                I won't be getting into the installation of OpenSceneGraph. But
+                for reference, after installation, if you have trouble linking
+                your first project to the OpenSceneGraph library, here is a
                 sample CMakeLists.txt file to get you started (don't worry, I
                 was new to CMake when I started, too).
             </p>
@@ -74,13 +73,12 @@ TARGET_LINK_LIBRARIES(osgExample
 )
             {% endcapture %}
             {% include code.html caption="CMakeLists.txt" lang="cmake" code=code %}
-            <!-- <p class="image-caption-sm d-md-none">CMakeLists.txt</p> -->
         <div class="offset-md-2 col-md-8">
             <h3>Smart Pointers</h3>
             <p>
-                Before we dive into scene graphs, just be aware that OSG ships
-                with its own brand of smart pointers, called
-                <code>osg::ref_ptr<></code>. Just like
+                Before we dive into building your first scene graph, just be
+                aware that OSG ships with its own brand of smart pointers,
+                called <code>osg::ref_ptr<></code>. Just like
                 <code>std::shared_ptr<></code>, which you may be used to, these
                 pointers maintain a count of how many times an object is
                 referenced and will automatically delete the object when its
@@ -92,8 +90,8 @@ TARGET_LINK_LIBRARIES(osgExample
                 You'll find in examples that even the helper methods for
                 constructing OSG objects for us will generally return a smart
                 pointer to the constructed object rather than a regular pointer.
-                Good practices like these will help prevent our objects from
-                being deleted underneath us when we least expect.
+                Good practices like these will help prevent memory leaks or our
+                objects being deleted when we least expect it.
             </p>
 
             <h3>Nodes</h3>
@@ -117,14 +115,13 @@ TARGET_LINK_LIBRARIES(osgExample
                 special properties to all downstream children. Leaf nodes, on
                 the other hand, cannot have children. They describe some sort of
                 geometry or specific 2D/3D object in the scene, like a triangle
-                or a <code>.obj</code> or
-                <code>.3ds</code> model imported from a CAD program.
+                or a <code>.3ds</code> model imported from a CAD program.
             </p>
 
             <h3>Geodes</h3>
             <p>
                 With that, let's jump right in. Geodes are a special type of
-                node which contain geometries; in fact geode is short for
+                leaf node which define geometries; in fact geode is short for
                 geometry node. The way to use these is to create one or more
                 <code>osg::Drawable</code>s defining some geometry (like a line,
                 triangle, sphere, text, etc.) and add it to your geode using
@@ -382,18 +379,18 @@ int main(int argc, char** argv)
         <div class="offset-md-2 col-md-8">
             <h4>Transforms</h4>
             <p>
-                "That covers objects in the scene, but how do you actually move
-                them around in the scene?" you may be wondering. Well, there's
-                two main ways of transforming objects in OSG:
+                You might be thinking, "That covers adding objects to the scene,
+                but how do you actually position them in the scene?". Well,
+                there's two main ways of transforming objects in OSG:
                 <code>PositionAttitudeTransform</code> and
-                <code>MatrixTransform</code>. Both are identical in their
-                functionality, but their interfaces differ.
+                <code>MatrixTransform</code>. Both achieve the same results, but
+                their interfaces differ.
             </p>
             <p>
                 For PositionAttitudeTransforms, or PATs for short you apply a
                 <code>setPosition()</code>, <code>setAttitude()</code>, and/or
                 <code>setScale()</code> to transform all children downstream in
-                the scene graph. You can imagine how this could be used to
+                the scene graph. Try to imagine how this could be used to
                 construct a robot arm in OSG&mdash;a relatively linear scene
                 graph where each linkage of the arm would be added under its own
                 <code>osg::PositionAttitudeTransform</code>, which itself would
@@ -404,6 +401,10 @@ int main(int argc, char** argv)
             <p>
                 MatrixTransforms behave the same way, but rather than setting a
                 position or attitude, you set a <code>Matrix</code> instead.
+            </p>
+            <p>
+                Try running the following example to iteratively rotate a 3D
+                model of a glider:
             </p>
         </div>
 
