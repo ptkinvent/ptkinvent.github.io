@@ -12,40 +12,33 @@ the visualization tools they possess..."
     <div class="row">
         <div class="offset-md-2 col-md-8" id="description">
             <p>
-                It happens too often that I meet a bright developer researching
-                a new data structure or algorithm whose efforts are hindered by
-                the visualization tools they possess. Often they end up trying
-                to visualize complex 3D environments in 2D grayscale OpenCV maps
-                because they've just never been exposed to the right tools.
+                While researching new algorithms and data structures in
+                robotics, it's often helpful to visualize data in 3D. Certainly,
+                it's possible to plot much larger amounts of data and perform
+                visual error-checking in 3D than in the console. But I've met
+                many bright developers who end up trying to visualize complex 3D
+                environments using something like 2D grayscale maps in OpenCV
+                because tools like Unity and Unreal Engine seem daunting and
+                difficult to learn.
             </p>
             <p>
-                OpenSceneGraph has helped me debug my algorithms many times
-                over. Many times, visual tests of an algorithm have proven more
-                useful and less error-prone than software tests. And because OSG
-                is open and cross-platform, I don't have to worry about changing
-                environments.
+                Enter OpenSceneGraph (OSG). OSG is an open source,
+                cross-platform 3D rendering library written in C++. There's
+                still a learning curve, but it's short enough to be covered in a
+                blog post like the one you're reading.
             </p>
             <p>
-                This guide is meant as a springboard to help those developers
-                looking to visualize 3D scenes in a practical and efficient
-                manner&mdash;without worrying about realistic shadows,
-                transparency, and other effects. If that sounds like you, keep
-                on reading!
+                This guide is meant to springboard those developers looking to
+                visualize 3D scenes in a quick-and-dirty manner&mdash;we won't
+                be worrying about realistic shadows, transparency, and other
+                effects. If that sounds like you, keep on reading!
             </p>
 
             <h3>Introduction</h3>
             <p>
-                This guide is meant to be a springboard for new developers who
-                want to learn OpenSceneGraph. As such, it's not the most
-                comprehensive nor detailed guide to the variety of capabilities
-                of OpenSceneGraph, but it'll get you on your feet so you at
-                least know what to Google and how to parse the forums. I won't
-                be getting into the installation of OpenSceneGraph,
-                though&mdash;hopefully you can figure that out on your own.
-            </p>
-
-            <p>
-                For reference, after installation, if you don't know how to link
+                I won't be getting into the installation of OpenSceneGraph,
+                though&mdash;hopefully you can figure that out on your own. But
+                for reference, after installation, if you don't know how to link
                 your practice examples to the OpenSceneGraph library, here is a
                 sample CMakeLists.txt file to get you started (don't worry, I
                 was new to CMake when I started, too).
@@ -74,13 +67,12 @@ TARGET_LINK_LIBRARIES(osgExample
 )
             {% endcapture %}
             {% include code.html caption="CMakeLists.txt" lang="cmake" code=code %}
-            <!-- <p class="image-caption-sm d-md-none">CMakeLists.txt</p> -->
         <div class="offset-md-2 col-md-8">
             <h3>Smart Pointers</h3>
             <p>
-                Before we dive into scene graphs, just be aware that OSG ships
-                with its own brand of smart pointers, called
-                <code>osg::ref_ptr<></code>. Just like
+                Before we dive into building your first scene graph, just be
+                aware that OSG ships with its own brand of smart pointers,
+                called <code>osg::ref_ptr<></code>. Just like
                 <code>std::shared_ptr<></code>, which you may be used to, these
                 pointers maintain a count of how many times an object is
                 referenced and will automatically delete the object when its
