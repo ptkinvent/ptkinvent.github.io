@@ -34,9 +34,11 @@ active-nav: blog
                     </a>
                     <!-- Post preview body -->
                     <div class="card-body">
-                        <a href="{{ post.url }}"><h5 class="card-title">{{ post.title }}</h5></a>
-                        <p class="card-text">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
-                        <a href="{{ post.url }}" class="btn btn-primary">Continue Reading</a>
+                        {%- assign date_format = "%B %-d, %Y" -%}
+                        <a href="{{ post.url }}"><h5 class="card-title mb-2">{{ post.title }}</h5></a>
+                        <h6 class="card-subtitle text-secondary mb-2"><small>{{ post.date | date: date_format }}</small></h6>
+                        <p class="card-text">{{ post.excerpt }}</p>
+                        <a href="{{ post.url }}" class="btn btn-primary">Continue reading</a>
                     </div>
                 </div>
 
