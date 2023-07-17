@@ -55,11 +55,7 @@ the visualization tools they possess..."
         <!-- Force columns to break to new line -->
         <div class="w-100"></div>
 
-        <div class="col-md-2 d-none d-md-block image-caption">
-            <p>CMakeLists.txt</p>
-        </div>
-        <div class="col-md-8">
-{% highlight cmake %}
+        {% capture code %}
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(osgExample)
 
@@ -76,9 +72,10 @@ ADD_EXECUTABLE(osgExample main.cpp)
 TARGET_LINK_LIBRARIES(osgExample
     ${OPENSCENEGRAPH_LIBRARIES}
 )
-{% endhighlight %}
-            <p class="image-caption-sm d-md-none">CMakeLists.txt</p>
-
+            {% endcapture %}
+            {% include code.html caption="CMakeLists.txt" lang="cmake" code=code %}
+            <!-- <p class="image-caption-sm d-md-none">CMakeLists.txt</p> -->
+        <div class="offset-md-2 col-md-8">
             <h3>Smart Pointers</h3>
             <p>
                 Before we dive into scene graphs, just be aware that OSG ships
@@ -152,7 +149,7 @@ TARGET_LINK_LIBRARIES(osgExample
             </p>
         </div>
 
-                {% capture code %}
+        {% capture code %}
 #include <osg/Referenced>
 #include <osg/Geometry>
 #include <osg/Geode>
