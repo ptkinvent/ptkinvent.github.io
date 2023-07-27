@@ -9,7 +9,7 @@ active-nav: blog
         <!-- Header -->
         <div class="row">
             <div class="offset-lg-2 col-lg-8">
-                <h2 class="about-intro"><span class="text-secondary">Welcome.</span> This is my blog.</h2>
+                <h2 class="about-intro"><span class="text-danger">Welcome.</span> This is my blog.</h2>
                 <p>
                     I got started in software later than many of my friends, so
                     I can appreciate just how steep the learning curve can be.
@@ -36,9 +36,9 @@ active-nav: blog
                     <div class="card-body">
                         {%- assign date_format = "%B %-d, %Y" -%}
                         <a href="{{ post.url }}"><h5 class="card-title mb-2">{{ post.title }}</h5></a>
-                        <h6 class="card-subtitle text-secondary mb-2"><small>{{ post.date | date: date_format }}</small></h6>
+                        <h6 class="card-subtitle text-danger mb-2"><small>{{ post.date | date: date_format }}</small></h6>
                         <p class="card-text">{{ post.excerpt }}</p>
-                        <a href="{{ post.url }}" class="btn btn-primary">Continue reading</a>
+                        <a href="{{ post.url }}" class="btn btn-outline-primary">Read more</a>
                     </div>
                 </div>
 

@@ -9,13 +9,13 @@ foodlist-anchor: #
 <div class="row">
     <div class="offset-lg-2 col-lg-8">
         {%- assign date_format = "%B %-d, %Y" -%}
-        <h2 class="about-intro"><span class="text-secondary">Eat.</span> These are some restaurants I want to try.</h2>
+        <h2 class="about-intro"><span class="text-danger">Eat.</span> These are some restaurants I want to try.</h2>
         <p>
             I love exploring new restaurants, but I don't enjoy eating alone.
             Feel free to <a href="mailto:ptkinvent@gmail.com">message me</a> if
             you'd like to try any of these together!
         </p>
-        <p>Last updated: {{ site.time | date: date_format }}.</p>
+        <p class="text-danger">Last updated: {{ site.time | date: date_format }}</p>
     </div>
 </div>
 
@@ -28,7 +28,7 @@ foodlist-anchor: #
 </div>
 
 <script type="text/javascript">
-    cities = fetch("{{ 'foodlist.json' | relative_url }}").then((response) => response.json()).then((cities) => render(cities));
+    cities = fetch("{{ 'foodlist.json' | relative_url }}").then(response => response.json()).then(cities => render(cities));
 
     function render(cities) {
         let i = 1;
@@ -101,7 +101,7 @@ foodlist-anchor: #
                 title.setAttribute('class', 'card-title');
                 title.innerHTML = '<a href="' + cities[city][restaurant]['link'] + '" target="_blank">' + restaurant + '</a>';
                 if (cities[city][restaurant]['visited']) {
-                    title.innerHTML += ' <span class="badge badge-secondary">Visited</span>';
+                    title.innerHTML += ' <span class="badge badge-danger">Visited</span>';
                 }
                 body.appendChild(title);
 
@@ -112,7 +112,7 @@ foodlist-anchor: #
 
                 let cuisine = document.createElement('p');
                 cuisine.setAttribute('class', 'card-text');
-                cuisine.innerHTML = '<small class="text-secondary">' + cities[city][restaurant]['cuisine'] + '</small>';
+                cuisine.innerHTML = '<small class="text-danger">' + cities[city][restaurant]['cuisine'] + '</small>';
                 body.appendChild(cuisine);
             }
             i++;

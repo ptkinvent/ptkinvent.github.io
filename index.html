@@ -54,7 +54,7 @@ ssp_weights: '900,400,300'
                 {% if padded < 10 %}
                     {% assign padded = padded | prepend: '0' %}
                 {% endif %}
-                <p class="thumbnail-caption"><span class="text-secondary">{{ padded }}</span> {{ project.title }}</p>
+                <p class="thumbnail-caption"><span class="text-danger">{{ padded }}</span> {{ project.title }}</p>
             </div>
             {% endfor %}
         </div>

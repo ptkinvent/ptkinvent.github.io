@@ -19,7 +19,7 @@
                             {% assign projects = site.projects | sort: "sequence" %}
                             {% for project in projects %}
                             <div class="col-lg-3 col-md-4 col-sm-6 {% if project.title == 'Enhancing Science Education' %}d-none d-md-block d-lg-none{% endif %} {% if project.title == 'CHT4 Corporation' %}d-none{% endif %} {% if project.title == 'ABB, Ltd.' %}d-none{% endif %}">
-                                <a class="dropdown-item" href="{{ project.url }}"><span class="text-secondary">{{ project.sequence | prepend: '0' }}</span> {{ project.title }}</a>
+                                <a class="dropdown-item" href="{{ project.url }}"><span class="text-danger">{{ project.sequence | prepend: '0' }}</span> {{ project.title }}</a>
                             </div>
                             {% endfor %}
                         </div>
