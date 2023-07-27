@@ -27,6 +27,42 @@ movies-anchor: #
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="video">
+                    <iframe id="modalVideo" src="" class="embed-responsive-item" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var name = button.data('name')
+        var url = button.data('url')
+        url = 'https://youtube.com/embed/' + url.slice(32)
+        var modal = $(this)
+        modal.find('.modal-title').text(name)
+        modal.find('.modal-body iframe').attr('src', url)
+    })
+
+    $('#modal').on('hide.bs.modal', function (event) {
+        var modal = $(this)
+        modal.find('.modal-body iframe').attr('src', '')
+    })
+</script>
+
 <script type="text/javascript">
     movies = fetch("{{ 'watchlist.json' | relative_url }}").then(response => response.json()).then(movies => render(movies));
 
@@ -111,10 +147,13 @@ movies-anchor: #
             trailerButtonSm.innerHTML = '<i class="fas fa-film"></i> Trailer';
             body.appendChild(trailerButtonSm);
 
-            var trailerButtonLg = document.createElement('a');
+            var trailerButtonLg = document.createElement('button');
             trailerButtonLg.setAttribute('class', 'btn btn-outline-secondary d-none d-xl-inline-block');
-            trailerButtonLg.setAttribute('target', '_blank');
-            trailerButtonLg.setAttribute('href', movies[movie].trailer);
+            trailerButtonLg.setAttribute('type', 'button');
+            trailerButtonLg.setAttribute('data-toggle', 'modal');
+            trailerButtonLg.setAttribute('data-target', '#modal');
+            trailerButtonLg.setAttribute('data-name', movie);
+            trailerButtonLg.setAttribute('data-url', movies[movie].trailer);
             trailerButtonLg.innerHTML = '<i class="fas fa-film"></i> Trailer';
             body.appendChild(trailerButtonLg);
         }
