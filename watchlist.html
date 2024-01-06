@@ -15,7 +15,7 @@ movies-anchor: #
             free to <a href="mailto:ptkinvent@gmail.com">message me</a> if you'd
             like to watch any of these together!
         </p>
-        <p class="text-danger">Last updated: {{ site.time | date: date_format }}.</p>
+        <p class="text-primary">Last updated: {{ site.time | date: date_format }}.</p>
     </div>
 </div>
 
@@ -87,6 +87,8 @@ movies-anchor: #
             card.appendChild(body);
 
             var title = document.createElement('a');
+            const releaseDate = new Date(movies[movie].releaseDate);
+            const today = new Date();
             if ('tickets' in movies[movie]) {
                 title.setAttribute('href', movies[movie].tickets);
             }
@@ -94,24 +96,22 @@ movies-anchor: #
                 title.setAttribute('href', movies[movie].stream);
             }
             title.setAttribute('target', '_blank');
-            if (movies[movie].watched) {
-                title.innerHTML = '<h5 class="card-title">' + movie + ' <span class="badge badge-danger">Watched</span>' + '</h5>';
+            let badge = '';
+            if (releaseDate > today) {
+                badge = ' <span class="badge badge-danger">Unreleased</span>';
             }
-            else {
-                title.innerHTML = '<h5 class="card-title">' + movie + '</h5>';
+            else if (movies[movie].status == 'watched') {
+                badge = ' <span class="badge badge-success">Watched</span>';
             }
+            else if (movies[movie].status == 'watching') {
+                badge = ' <span class="badge badge-warning">Watching</span>';
+            }
+            title.innerHTML = '<h5 class="card-title">' + movie + badge + '</h5>';
             body.appendChild(title);
 
             var description = document.createElement('p');
-            const releaseDate = new Date(movies[movie].releaseDate);
-            const today = new Date();
             description.setAttribute('class', 'card-text');
-            if (releaseDate > today) {
-                description.innerHTML = 'Release date: <span class="text-danger">' + releaseDate.toString().substring(4, 15) + '</span>';
-            }
-            else {
-                description.innerHTML = 'Release date: ' + releaseDate.toString().substring(4, 15);
-            }
+            description.innerHTML = 'Release date: ' + releaseDate.toString().substring(4, 15);
             body.appendChild(description);
 
             var ticketsButtonSm = document.createElement('a');
