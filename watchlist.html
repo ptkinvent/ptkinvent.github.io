@@ -67,26 +67,26 @@ movies-anchor: #
     movies = fetch("{{ 'watchlist.json' | relative_url }}").then(response => response.json()).then(movies => render(movies));
 
     function render(movies) {
-        var movieWrapper = document.getElementById('movieWrapper');
+        const movieWrapper = document.getElementById('movieWrapper');
         for (let movie in movies) {
-            var col = document.createElement('div');
-            col.setAttribute('class', 'col-xl-3 col-lg-3 col-md-4 col-6 mt-3');
+            const col = document.createElement('div');
+            col.className = 'col-xl-3 col-lg-3 col-md-4 col-6 mt-3';
             movieWrapper.appendChild(col);
 
-            var card = document.createElement('div');
-            card.setAttribute('class', 'card h-100');
+            const card = document.createElement('div');
+            card.className = 'card h-100';
             col.appendChild(card);
 
-            var header = document.createElement('img');
-            header.setAttribute('class', 'card-img-top');
+            const header = document.createElement('img');
+            header.className = 'card-img-top';
             header.setAttribute('src', movies[movie].img);
             card.appendChild(header);
 
-            var body = document.createElement('div');
-            body.setAttribute('class', 'card-body');
+            const body = document.createElement('div');
+            body.className = 'card-body';
             card.appendChild(body);
 
-            var title = document.createElement('a');
+            const title = document.createElement('a');
             const releaseDate = new Date(movies[movie].releaseDate);
             const today = new Date();
             if ('tickets' in movies[movie]) {
@@ -109,13 +109,13 @@ movies-anchor: #
             title.innerHTML = '<h5 class="card-title">' + movie + badge + '</h5>';
             body.appendChild(title);
 
-            var description = document.createElement('p');
-            description.setAttribute('class', 'card-text');
+            const description = document.createElement('p');
+            description.className = 'card-text';
             description.innerHTML = 'Release date: ' + releaseDate.toString().substring(4, 15);
             body.appendChild(description);
 
-            var ticketsButtonSm = document.createElement('a');
-            ticketsButtonSm.setAttribute('class', 'btn btn-outline-primary d-xl-none btn-block mb-2');
+            const ticketsButtonSm = document.createElement('a');
+            ticketsButtonSm.className = 'btn btn-outline-primary d-xl-none btn-block mb-2';
             ticketsButtonSm.setAttribute('target', '_blank');
             if ('tickets' in movies[movie]) {
                 ticketsButtonSm.innerHTML = '<i class="fa fa-ticket-alt"></i> Tickets';
@@ -127,8 +127,8 @@ movies-anchor: #
             }
             body.appendChild(ticketsButtonSm);
 
-            var ticketsButtonLg = document.createElement('a');
-            ticketsButtonLg.setAttribute('class', 'btn btn-outline-primary d-none d-xl-inline-block mr-2');
+            const ticketsButtonLg = document.createElement('a');
+            ticketsButtonLg.className = 'btn btn-outline-primary d-none d-xl-inline-block mr-2';
             ticketsButtonLg.setAttribute('target', '_blank');
             if ('tickets' in movies[movie]) {
                 ticketsButtonLg.innerHTML = '<i class="fa fa-ticket-alt"></i> Tickets';
@@ -140,15 +140,15 @@ movies-anchor: #
             }
             body.appendChild(ticketsButtonLg);
 
-            var trailerButtonSm = document.createElement('a');
-            trailerButtonSm.setAttribute('class', 'btn btn-outline-secondary btn-block d-xl-none');
+            const trailerButtonSm = document.createElement('a');
+            trailerButtonSm.className = 'btn btn-outline-secondary btn-block d-xl-none';
             trailerButtonSm.setAttribute('target', '_blank');
             trailerButtonSm.setAttribute('href', movies[movie].trailer);
             trailerButtonSm.innerHTML = '<i class="fas fa-film"></i> Trailer';
             body.appendChild(trailerButtonSm);
 
-            var trailerButtonLg = document.createElement('button');
-            trailerButtonLg.setAttribute('class', 'btn btn-outline-secondary d-none d-xl-inline-block');
+            const trailerButtonLg = document.createElement('button');
+            trailerButtonLg.className = 'btn btn-outline-secondary d-none d-xl-inline-block';
             trailerButtonLg.setAttribute('type', 'button');
             trailerButtonLg.setAttribute('data-toggle', 'modal');
             trailerButtonLg.setAttribute('data-target', '#modal');
@@ -156,6 +156,13 @@ movies-anchor: #
             trailerButtonLg.setAttribute('data-url', movies[movie].trailer);
             trailerButtonLg.innerHTML = '<i class="fas fa-film"></i> Trailer';
             body.appendChild(trailerButtonLg);
+
+            if (movies[movie].notes) {
+                const footer = document.createElement('div');
+                footer.className = 'card-footer';
+                footer.innerHTML = movies[movie].notes;
+                card.appendChild(footer);
+            }
         }
     }
 </script>
