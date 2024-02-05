@@ -97,8 +97,11 @@ foodlist-anchor: #
                 const title = document.createElement('h5');
                 title.className = 'card-title';
                 title.innerHTML = '<a href="' + foodlist[city][restaurant]['link'] + '" target="_blank">' + restaurant + '</a>';
-                if (foodlist[city][restaurant]['visited']) {
-                    title.innerHTML += ' <span class="badge badge-danger">Visited</span>';
+                if (foodlist[city][restaurant]['status'] === 'visited') {
+                    title.innerHTML += ' <span class="badge badge-success">Visited</span>';
+                }
+                else if (foodlist[city][restaurant]['status'] === 'closed') {
+                    title.innerHTML += ' <span class="badge badge-danger">Closed</span>';
                 }
                 body.appendChild(title);
 
@@ -109,7 +112,7 @@ foodlist-anchor: #
 
                 const cuisine = document.createElement('p');
                 cuisine.className = 'card-text';
-                cuisine.innerHTML = '<small class="text-danger">' + foodlist[city][restaurant]['cuisine'] + '</small>';
+                cuisine.innerHTML = '<small class="text-muted">' + foodlist[city][restaurant]['cuisine'] + '</small>';
                 body.appendChild(cuisine);
 
                 if (foodlist[city][restaurant]['notes']) {
