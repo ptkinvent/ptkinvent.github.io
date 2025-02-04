@@ -1,9 +1,0 @@
-    <div class="row image">
-        <div class="{% if include.width != '8' %}offset-lg-1{% endif %} col-lg-2 d-none d-lg-block image-caption">
-            <p>{{ include.caption }}</p>
-        </div>
-        <div class="col-lg-{{ include.width | default: '6' }} col-md-8 offset-lg-0 offset-md-2">
-            <img src="{{ include.path | relative_url }}" title="{{ include.title }}" alt="{{ include.title }}">
-            <p class="image-caption-sm d-lg-none">{{ include.caption }}</p>
-        </div>
-    </div>
