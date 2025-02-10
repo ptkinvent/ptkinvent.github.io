@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 import "@/styles/bootstrap/bootstrap.scss";
 import "@/styles/index.scss";
 import Header from "@/components/header";
@@ -48,6 +49,8 @@ export default function RootLayout({ children }) {
         {children}
 
         <Footer />
+
+        <Analytics />
       </body>
     </html>
   );
