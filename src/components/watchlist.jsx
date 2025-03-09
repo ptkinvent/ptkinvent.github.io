@@ -25,18 +25,18 @@ function MovieModal({ selectedMovie }) {
 }
 
 function Movie({ movie, setSelectedMovie }) {
-  const unreleased = new Date(movie.releaseDate) > new Date();
+  const unreleased = new Date(movie.release_date) > new Date();
 
   return (
     <div className="card h-100">
       <img
         className="card-img-top"
-        src={movie.img || "https://www.flixster.com/images/defaultPoster.svg"}
+        src={movie.img_url || "https://www.flixster.com/images/defaultPoster.svg"}
         alt={movie.name}
       />
       <div className="card-body">
         <h5 className="card-title">
-          <a href={movie.tickets ? movie.tickets : movie.stream} target="_blank">
+          <a href={movie.detail_url} target="_blank">
             {movie.name}
           </a>{" "}
           {unreleased ? (
@@ -48,35 +48,42 @@ function Movie({ movie, setSelectedMovie }) {
             </>
           )}
         </h5>
-        <p className="card-text">Release date: {new Date(movie.releaseDate).toLocaleDateString()}</p>
+        <p className="card-text">Release date: {new Date(movie.release_date).toLocaleDateString()}</p>
 
-        {movie.tickets && (
+        {movie.detail_url &&
+          (movie.detail_url.includes("fandango") ? (
+            <>
+              <a href={movie.detail_url} target="_blank" className="btn btn-outline-primary d-xl-none btn-block mb-2">
+                <i className="fa fa-ticket-alt"></i> Tickets
+              </a>
+
+              <a
+                href={movie.detail_url}
+                target="_blank"
+                className="btn btn-outline-primary d-none d-xl-inline-block mr-2"
+              >
+                <i className="fa fa-ticket-alt"></i> Tickets
+              </a>
+            </>
+          ) : (
+            <>
+              <a href={movie.detail_url} target="_blank" className="btn btn-outline-primary d-xl-none btn-block mb-2">
+                <i className="fa fa-play-circle"></i> Stream
+              </a>
+
+              <a
+                href={movie.detail_url}
+                target="_blank"
+                className="btn btn-outline-primary d-none d-xl-inline-block mr-2"
+              >
+                <i className="fa fa-play-circle"></i> Stream
+              </a>
+            </>
+          ))}
+
+        {movie.trailer_url && (
           <>
-            <a href={movie.tickets} target="_blank" className="btn btn-outline-primary d-xl-none btn-block mb-2">
-              <i className="fa fa-ticket-alt"></i> Tickets
-            </a>
-
-            <a href={movie.tickets} target="_blank" className="btn btn-outline-primary d-none d-xl-inline-block mr-2">
-              <i className="fa fa-ticket-alt"></i> Tickets
-            </a>
-          </>
-        )}
-
-        {movie.stream && (
-          <>
-            <a href={movie.stream} target="_blank" className="btn btn-outline-primary d-xl-none btn-block mb-2">
-              <i className="fa fa-play-circle"></i> Stream
-            </a>
-
-            <a href={movie.stream} target="_blank" className="btn btn-outline-primary d-none d-xl-inline-block mr-2">
-              <i className="fa fa-play-circle"></i> Stream
-            </a>
-          </>
-        )}
-
-        {movie.trailer && (
-          <>
-            <a className="btn btn-outline-secondary btn-block d-xl-none" target="_blank" href={movie.trailer}>
+            <a className="btn btn-outline-secondary btn-block d-xl-none" target="_blank" href={movie.trailer_url}>
               <i className="fas fa-film"></i> Trailer
             </a>
 
@@ -86,7 +93,7 @@ function Movie({ movie, setSelectedMovie }) {
               onClick={() =>
                 setSelectedMovie({
                   name: movie.name,
-                  trailer: "https://youtube.com/embed/" + movie.trailer.slice(32),
+                  trailer: "https://youtube.com/embed/" + movie.trailer_url.slice(32),
                 })
               }
               data-toggle="modal"

@@ -1,11 +1,16 @@
 import Watchlist from "@/components/watchlist";
-import { watchlist } from "@/data/watchlist";
+import { createClient } from "@supabase/supabase-js";
 
 export const metadata = {
   title: "Watchlist",
 };
 
-export default function WatchListPage() {
+export default async function WatchListPage() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  const { data: watchlist } = await supabase.from("watchlist").select();
+
   return (
     <>
       <div className="row">
@@ -28,7 +33,7 @@ export default function WatchListPage() {
         </div>
       </div>
 
-      <Watchlist watchlist={watchlist} />
+      <Watchlist watchlist={watchlist.sort((a, b) => new Date(b.release_date) - new Date(a.release_date))} />
     </>
   );
 }
