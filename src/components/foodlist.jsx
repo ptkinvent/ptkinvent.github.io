@@ -46,12 +46,12 @@ function Restaurant({ restaurant }) {
     <div className="card mb-3">
       <div className="row no-gutters">
         <div className="col-md-4">
-          <img src={restaurant.img} className="w-100" height="180px" style={{ objectFit: "cover" }} />
+          <img src={restaurant.img_url} className="w-100" height="180px" style={{ objectFit: "cover" }} />
         </div>
         <div className="col-md-8">
           <div className="card-body">
             <h5 className="card-title">
-              <a href={restaurant.link} target="_blank">
+              <a href={restaurant.detail_url} target="_blank">
                 {restaurant.name}
               </a>{" "}
               {badge}
@@ -68,7 +68,16 @@ function Restaurant({ restaurant }) {
   );
 }
 
-export default function Foodlist({ foodlist }) {
+export default function Foodlist({ cities, foodlist }) {
+  cities
+    .sort((a, b) => a.order - b.order)
+    .forEach(
+      (city) =>
+        (city.restaurants = foodlist
+          .filter((restaurant) => restaurant.city === city.id)
+          .sort((a, b) => a.order - b.order))
+    );
+
   const [query, setQuery] = useState("");
   const [cuisines, setCuisines] = useState([
     { name: "Thai", checked: false },
@@ -117,7 +126,7 @@ export default function Foodlist({ foodlist }) {
 
   const checkedCuisines = cuisines.filter((cuisine) => cuisine.checked).map((cuisine) => cuisine.name.toLowerCase());
   const checkedStatuses = statuses.filter((status) => status.checked).map((status) => status.name);
-  const filteredFoodlist = foodlist.map((city) => ({
+  const filteredFoodlist = cities.map((city) => ({
     ...city,
     restaurants: city.restaurants
       .filter((restaurant) => checkedStatuses.length === 0 || checkedStatuses.includes(restaurant.status))
@@ -148,7 +157,7 @@ export default function Foodlist({ foodlist }) {
                 checked={status.checked}
                 onChange={handleCheckStatus}
               />
-              <label className="form-check-label uppercase" for={`checkbox-${status.name}`}>
+              <label className="form-check-label uppercase" htmlFor={`checkbox-${status.name}`}>
                 <span className={`badge badge-${status.color}`}>{status.displayName}</span>
               </label>
             </div>
@@ -164,7 +173,7 @@ export default function Foodlist({ foodlist }) {
                 checked={cuisine.checked}
                 onChange={handleCheckCuisine}
               />
-              <label className="form-check-label uppercase" for={`checkbox-${cuisine.name}`}>
+              <label className="form-check-label uppercase" htmlFor={`checkbox-${cuisine.name}`}>
                 {cuisine.name}
               </label>
             </div>
