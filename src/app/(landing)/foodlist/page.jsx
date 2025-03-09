@@ -1,11 +1,19 @@
 import Foodlist from "@/components/foodlist";
-import { foodlist } from "@/data/foodlist";
+import { createClient } from "@supabase/supabase-js";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Foodlist",
 };
 
-export default function FoodListPage() {
+export default async function FoodListPage() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  const { data: cities } = await supabase.from("cities").select();
+  const { data: foodlist } = await supabase.from("foodlist").select();
+
   return (
     <>
       <div className="row">
@@ -28,7 +36,7 @@ export default function FoodListPage() {
         </div>
       </div>
 
-      <Foodlist foodlist={foodlist} />
+      <Foodlist cities={cities} foodlist={foodlist} />
     </>
   );
 }
