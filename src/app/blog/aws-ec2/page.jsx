@@ -4,7 +4,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export async function generateMetadata() {
-  const blog = blogs.find((blog) => blog.id === "web-server");
+  const blog = blogs.find((blog) => blog.id === "aws-ec2");
 
   return {
     title: blog.title,
@@ -12,7 +12,7 @@ export async function generateMetadata() {
 }
 
 export default function WebServer() {
-  const blog = blogs.find((blog) => blog.id === "web-server");
+  const blog = blogs.find((blog) => blog.id === "aws-ec2");
 
   return (
     <>
@@ -68,7 +68,7 @@ export default function WebServer() {
                 Navigate to{" "}
                 <a className="font-weight-bold" href="console.aws.amazon.com/" target="_blank">
                   console.aws.amazon.com
-                </a>
+                </a>{" "}
                 and log in/sign up.
               </li>
               <li>
@@ -104,7 +104,7 @@ export default function WebServer() {
                 However, web servers need to accept HTTP and HTTPS connections, so let's add those. Click{" "}
                 <span className="font-weight-bold">Add Rule</span> and choose{" "}
                 <span className="font-weight-bold">HTTP</span> under Type. Click{" "}
-                <span className="font-weight-bold">Add Rule</span> again and choose
+                <span className="font-weight-bold">Add Rule</span> again and choose{" "}
                 <span className="font-weight-bold">HTTPS</span> under Type.
               </li>
             </ol>
@@ -134,7 +134,7 @@ export default function WebServer() {
                 is necessary to SSH into your AWS machine. You'll have to modify the permissions on this file before you
                 can use it with SSH. Run the following command in your terminal:
                 <SyntaxHighlighter language="sh" style={monokaiSublime}>
-                  {`chmod 400 <path/to/your/identity/file.pem>`}
+                  {`chmod 400 path/to/your/identity/file.pem`}
                 </SyntaxHighlighter>
               </li>
             </ol>
@@ -398,7 +398,7 @@ sudo ln -s /etc/nginx/sites-available/mywebsitename.com mywebsitename.com`}
             </p>
             <p>
               Lastly, if you're planning to run a complex app with forms and user log in, you should build a web app
-              using a tool like{" "}
+              with a backend using a tool like{" "}
               <a href="https://www.djangoproject.com/" target="_blank">
                 Django
               </a>{" "}
@@ -413,7 +413,9 @@ sudo ln -s /etc/nginx/sites-available/mywebsitename.com mywebsitename.com`}
               if you're comfortable with JavaScript. These require some additional setup&mdash;perhaps to be covered in
               another blog post&mdash;but will plug right into your current configuration.
             </p>
-            <p>For now though, congratulations netizen, you have your very own website! Happy serving!</p>
+            <p>
+              For now though, congratulations netizen, you have your very own corner of the internet! Happy serving!
+            </p>
           </div>
         </div>
       </article>

@@ -43,16 +43,12 @@ export default function RDS() {
             <p>
               How do you know when it's time to move to RDS? Well, for one thing, if your website is receiving more than
               5-10 simultaneous visitors, your single EC2 machine may struggle to handle all the traffic. In that case,
-              you should consider enabling EC2 auto-scaling, which allows AWS to automatically spin up and down
-              additional EC2 instances to keep up with demand. But in order to enable EC2 auto-scaling, you'll need to
-              have a centralized database for all the EC2 instances to talk to. When this happens, it's time to move to
-              RDS.
+              you should consider scaling up to multiple EC2 servers to keep up with demand. But in order to enable
+              multiple servers, you'll need to have a centralized database for all the EC2 instances to talk to. When
+              this happens, it's time to move to RDS. In this blog post, we'll walk through a migration from your SQLite
+              database to a PostgreSQL database hosted in AWS RDS.
             </p>
-            <p>
-              The purpose of this blog post is to guide you through a migration from your SQLite database to a
-              PostgreSQL database hosted in AWS RDS. If that sounds like what you need, read on!
-            </p>
-            <h4>Part 1: Launching an RDS Instance</h4>
+            <h4>Part 1: Launch an RDS Instance</h4>
             <ol>
               <li>
                 Navigate to{" "}
@@ -129,13 +125,12 @@ export RDS_PORT="5432"
               </li>
               <li>Select 'Save'</li>
             </ol>
-            Great! Now your RDS instance is setup.
-            <h4>Part 2: Connecting the RDS Instance to EC2</h4>
+            <p>Great! Now your RDS instance is setup.</p>
+            <h4>Part 2: Connect EC2 to RDS</h4>
             <p>
               Ideally, we want to continue testing our app locally using SQLite while allowing the production EC2 server
-              to communicate with RDS. We can enable this in our <code>settings.py</code>
-              file by replacing the default values for <code>DATABASES</code>
-              with:
+              to communicate with RDS. We can enable this in our <code>settings.py</code> file by replacing the default
+              values for <code>DATABASES</code> with:
             </p>
             <SyntaxHighlighter language="python" style={monokaiSublime}>
               {`...
@@ -176,7 +171,7 @@ else:
               If everything worked, we should get a PostgreSQL prompt allowing us to query the newly created SQL
               database. But hang on, there's no tables yet!
             </p>
-            <h4>Part 3: Loading Tables and Data into RDS</h4>
+            <h4>Part 3: Migrate Tables and Data to RDS</h4>
             <p>
               Now that everything's connected, the final step is initializing our database with the tables it needs to
               get started. If we want to start fresh with an empty database, simply run:
@@ -187,14 +182,14 @@ else:
             <p>Otherwise, if we want to bring data over from our old SQLite database, run these commands:</p>
             <ol>
               <li>
-                For this step, temporarily point the terminal to the old SQLite database (e.g. by fudging the{" "}
+                For this step, temporarily point the code to the old SQLite database (e.g. by fudging the{" "}
                 <code>if</code> statement we made in <code>settings.py</code>). Then, run:
                 <SyntaxHighlighter language="sh" style={monokaiSublime}>
                   {`python manage.py dumpdata > data.json`}
                 </SyntaxHighlighter>
               </li>
               <li>
-                Now, point the server back to the new RDS machine. Then, run:
+                Now, point the server back to the new RDS instance. Then, run:
                 <SyntaxHighlighter language="sh" style={monokaiSublime}>
                   {`python manage.py migrate --run-syncdb # Creates all the tables without filling out the django_migrations table`}
                 </SyntaxHighlighter>
