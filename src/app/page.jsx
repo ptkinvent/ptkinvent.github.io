@@ -1,4 +1,6 @@
 import { projects } from "@/data/projects";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 export const metadata = {
@@ -27,7 +29,7 @@ export default function Home() {
 
           <a href="#portfolio" style={{ color: "white" }} title="Portfolio">
             <div className="nav-icon">
-              <i className="fas fa-chevron-down" data-fa-transform="up-1"></i>
+              <FontAwesomeIcon icon={faChevronDown} transform="up-1" />
             </div>
           </a>
         </div>
