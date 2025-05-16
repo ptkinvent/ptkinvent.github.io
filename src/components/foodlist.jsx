@@ -1,5 +1,7 @@
 "use client";
 
+import { faMapPin, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 function RestaurantCity({ cityId, city }) {
@@ -13,9 +15,10 @@ function RestaurantCity({ cityId, city }) {
             data-toggle="collapse"
             data-target={`#collapse${cityId}`}
           >
-            <i className="fa fa-map-pin"></i>&nbsp;{city.name}{" "}
+            <FontAwesomeIcon icon={faMapPin} />
+            &nbsp;{city.name}{" "}
             <span className="text-secondary">
-              <i className="fa fa-caret-down"></i>
+              <FontAwesomeIcon icon={faCaretDown} />
             </span>
           </button>
         </h4>

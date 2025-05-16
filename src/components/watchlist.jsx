@@ -1,5 +1,7 @@
 "use client";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTicket, faPlayCircle, faFilm } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 function MovieModal({ selectedMovie }) {
@@ -54,7 +56,7 @@ function Movie({ movie, setSelectedMovie }) {
           (movie.detail_url.includes("fandango") ? (
             <>
               <a href={movie.detail_url} target="_blank" className="btn btn-outline-primary d-xl-none btn-block mb-2">
-                <i className="fa fa-ticket-alt"></i> Tickets
+                <FontAwesomeIcon icon={faTicket} /> Tickets
               </a>
 
               <a
@@ -62,13 +64,13 @@ function Movie({ movie, setSelectedMovie }) {
                 target="_blank"
                 className="btn btn-outline-primary d-none d-xl-inline-block mr-2"
               >
-                <i className="fa fa-ticket-alt"></i> Tickets
+                <FontAwesomeIcon icon={faTicket} /> Tickets
               </a>
             </>
           ) : (
             <>
               <a href={movie.detail_url} target="_blank" className="btn btn-outline-primary d-xl-none btn-block mb-2">
-                <i className="fa fa-play-circle"></i> Stream
+                <FontAwesomeIcon icon={faPlayCircle} /> Stream
               </a>
 
               <a
@@ -76,7 +78,7 @@ function Movie({ movie, setSelectedMovie }) {
                 target="_blank"
                 className="btn btn-outline-primary d-none d-xl-inline-block mr-2"
               >
-                <i className="fa fa-play-circle"></i> Stream
+                <FontAwesomeIcon icon={faPlayCircle} /> Stream
               </a>
             </>
           ))}
@@ -84,7 +86,7 @@ function Movie({ movie, setSelectedMovie }) {
         {movie.trailer_url && (
           <>
             <a className="btn btn-outline-secondary btn-block d-xl-none" target="_blank" href={movie.trailer_url}>
-              <i className="fas fa-film"></i> Trailer
+              <FontAwesomeIcon icon={faFilm} /> Trailer
             </a>
 
             <button
@@ -99,7 +101,7 @@ function Movie({ movie, setSelectedMovie }) {
               data-toggle="modal"
               data-target="#modal"
             >
-              <i className="fas fa-film"></i> Trailer
+              <FontAwesomeIcon icon={faFilm} /> Trailer
             </button>
           </>
         )}
@@ -150,7 +152,7 @@ export default function Watchlist({ watchlist }) {
                 checked={status.checked}
                 onChange={handleCheck}
               />
-              <label className="form-check-label uppercase" for={`checkbox-${status.name}`}>
+              <label className="form-check-label uppercase" htmlFor={`checkbox-${status.name}`}>
                 <span className={`badge badge-${status.color}`}>{status.displayName}</span>
               </label>
             </div>

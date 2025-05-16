@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 export const metadata = {
@@ -83,11 +86,13 @@ export default function About() {
         {/* Links */}
         <div className="offset-md-0 col-md-4 offset-sm-2 col-sm-8">
           <p className="text-primary">
-            <i className="fa-fw far fa-envelope"></i>&nbsp; <a href="mailto:ptkinvent@gmail.com">ptkinvent@gmail.com</a>
+            <FontAwesomeIcon icon={faEnvelope} fixedWidth />
+            &nbsp; <a href="mailto:ptkinvent@gmail.com">ptkinvent@gmail.com</a>
           </p>
           <p className="text-primary">
             <b>
-              <i className="fa-fw fas fa-file-pdf"></i>&nbsp;{" "}
+              <FontAwesomeIcon icon={faFilePdf} fixedWidth />
+              &nbsp;{" "}
               <a href="/ResumePrateekSahay.pdf" target="_blank">
                 Download my r&eacute;sum&eacute;
               </a>
