@@ -3,7 +3,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export async function generateMetadata() {
-  const blog = blogs.find((blog) => blog.id === "app-server");
+  const blog = blogs.find((blog) => blog.id === "aws-django");
 
   return {
     title: blog.title,
@@ -11,7 +11,7 @@ export async function generateMetadata() {
 }
 
 export default async function AppServer() {
-  const blog = blogs.find((blog) => blog.id === "app-server");
+  const blog = blogs.find((blog) => blog.id === "aws-django");
 
   return (
     <>
@@ -36,28 +36,38 @@ export default async function AppServer() {
           <div className="offset-md-2 col-md-8">
             <p>
               For building simple websites such as this one, you can use static website generators like{" "}
-              <a href="https://jekyllrb.com/">Jekyll</a> or <a href="https://gohugo.io/">Hugo</a>. But for building more
-              sophisticated websites that require forms, user login, and database interaction, you'll need to develop a
-              web app using one of many frameworks, including .NET, Java, Ruby on Rails, and more. Two of the most
-              popular frameworks for developing Python web apps are{" "}
+              <a href="https://react.dev/">React</a>, <a href="https://jekyllrb.com/">Jekyll</a>, or{" "}
+              <a href="https://gohugo.io/">Hugo</a>. But for building more sophisticated websites with forms, user
+              login, and database interaction, you'll need to develop a web app with a backend using one of many
+              frameworks, including .NET, Java, Ruby on Rails, and more. Three of the most popular frameworks for
+              developing Python web apps are{" "}
               <a target="_blank" href="https://www.djangoproject.com/">
                 Django
               </a>
-              and{" "}
+              ,{" "}
               <a target="_blank" href="https://flask.palletsprojects.com/">
                 Flask
               </a>
-              . The purpose of this post is to walk you through deploying a working Django or Flask app to a production
-              server.
+              , and{" "}
+              <a target="_blank" href="https://fastapi.tiangolo.com/">
+                FastAPI
+              </a>
+              . The purpose of this post is to walk you through deploying a working Python web app to a production
+              server. We'll focus on Django, but the steps are similar for the other Python frameworks. This post
+              assumes you have a working Django web app already. If not, you can follow the steps in{" "}
+              <a target="_blank" href="https://docs.djangoproject.com/en/5.2/intro/tutorial01/">
+                Django's tutorial
+              </a>
+              .
             </p>
             <p>
               During development, you can test your web app locally using <code>python manage.py runserver</code>, but
               when it's time to deploy your code to a server you'll need to use a different tool for serving the app.
               This is because local tools are optimized for refreshing content quickly during development, not for
-              serving multiple users quickly, efficiently, and reliably. For this blog post, we'll deploy our website
-              using a tool called Gunicorn (an app server) to run our Python code, which will communicate with NGINX (a
-              web server). Note that Gunicorn will run any kind of WSGI app, which includes Flask and Django, but we'll
-              stick with Django for the examples.
+              serving multiple users efficiently and reliably. For this blog post, we'll deploy our website using a tool
+              called Gunicorn (an app server) to run our Python code, which will communicate with NGINX (a web server)
+              to serve pages to our users. Note that Gunicorn will run any kind of WSGI app, which includes Flask,
+              Django, and FastAPI, but we'll stick with Django for the examples.
             </p>
             <p>
               Note that tools like AWS's <a href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a> are
@@ -114,7 +124,7 @@ workers = 4
 # The socket to bind
 bind = "0.0.0.0:8000"
 # Restart workers when code changes (development only!)
-reload = True
+reload = False
 # Write access and error info to /var/log
 accesslog = errorlog = "/var/log/gunicorn/gunicorn.log"
 # Redirect stdout/stderr to log file
@@ -132,8 +142,7 @@ max_requests_jitter = 90`}
             <p>
               Now that Gunicorn is successfully launched and running on port 8000, we simply need to hook it up to NGINX
               so that it can be served at port 443, which is where HTTPS traffic is served. Modify your{" "}
-              <code>/etc/nginx/sites-enabled/mywebsite.com</code>
-              file to look like this:
+              <code>/etc/nginx/sites-enabled/mywebsite.com</code> file to look like this:
             </p>
 
             <SyntaxHighlighter language="sh" style={monokaiSublime}>
@@ -157,6 +166,27 @@ server {
 }`}
             </SyntaxHighlighter>
             <h4>Next Steps</h4>
+            <p>
+              Optionally, you can set up a process manager like <code>supervisor</code> to automatically start gunicorn
+              whenever the server boots and automatically restart gunicorn if it ever crashes. Create a file with sudo
+              privileges called <code>/etc/supervisor/conf.d/gunicorn.conf</code> and add the following:
+            </p>
+            <SyntaxHighlighter language="sh" style={monokaiSublime}>
+              {`[program:django_gunicorn]
+directory=/home/ubuntu/website/
+command=/usr/bin/gunicorn -c /home/ubuntu/.gunicorn/config.py
+autostart=true
+environment=PROCURESPARK_DEBUG="false"
+autorestart=true
+stdout_logfile=/var/log/supervisor/django-gunicorn-out.log
+stderr_logfile=/var/log/supervisor/django-gunicorn-err.log`}
+            </SyntaxHighlighter>
+            <p>Now you can start and stop gunicorn via supervisor:</p>
+            <SyntaxHighlighter language="sh" style={monokaiSublime}>
+              {`sudo systemctl start supervisor
+sudo systemctl stop supervisor
+sudo systemctl restart supervisor`}
+            </SyntaxHighlighter>
             <p>
               You did it! You now have a web server serving your Django app. This is good enough for a personal project,
               but if you're trying to launch a business that supports hundreds or thousands of users, there's still a

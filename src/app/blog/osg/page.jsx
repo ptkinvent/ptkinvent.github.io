@@ -374,7 +374,7 @@ int main(int argc, char** argv)
     osg::ref_ptr<osg::Node> mynode = osgDB::readNodeFile("cessna.osg");
     if (!mynode)
     {
-        printf("Node not loaded, model not found\n");
+        printf("Node not loaded, model not found\\n");
         return 1;
     }
 
@@ -431,7 +431,7 @@ int main(int argc, char** argv)
     osg::ref_ptr<osg::Node> axesNode = osgDB::readNodeFile("axes.osgt");
     if (!axesNode)
     {
-        printf("Origin node not loaded, model not found\n");
+        printf("Origin node not loaded, model not found\\n");
         return 1;
     }
     root->addChild(axesNode);
@@ -444,7 +444,7 @@ int main(int argc, char** argv)
     osg::ref_ptr<osg::Node> gliderNode = osgDB::readNodeFile("glider.osg");
     if (!gliderNode)
     {
-        printf("Glider node not loaded, model not found\n");
+        printf("Glider node not loaded, model not found\\n");
         return 1;
     }
     mt->addChild(gliderNode);
