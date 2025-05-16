@@ -21,8 +21,8 @@ export default function Blog() {
             <span className="text-danger">Welcome.</span> This is my blog.
           </h2>
           <p>
-            I got started in software later than many of my friends, so I can appreciate just how steep the learning
-            curve can be. My hope for this blog is to ease the journey for others&mdash;and to teach myself just how
+            I got started in software later than many of my friends, and I can appreciate just how steep the learning
+            curve can be. My hope for this blog is to ease the journey for others&mdash;and to remind myself just how
             much more I have to learn!
           </p>
         </div>
