@@ -4,7 +4,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export async function generateMetadata() {
-  const blog = blogs.find((blog) => blog.id === "aws-cloudfront");
+  const blog = blogs.find((blog) => blog.slug === "aws-cloudfront");
 
   return {
     title: blog.title,
@@ -12,38 +12,20 @@ export async function generateMetadata() {
 }
 
 export default function AwsCloudfront() {
-  const blog = blogs.find((blog) => blog.id === "aws-cloudfront");
-
   return (
     <>
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <hr style={{ width: "200px" }} />
-          <img src={blog.bannerImg} className="header-img" alt="" />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <h2 className="about-intro">{blog.title}</h2>
-          <p className="post-meta">
-            <span className="text-danger">{blog.date}</span>
-          </p>
-        </div>
-      </div>
-
-      <article>
+      <article className="container">
         <div className="row">
-          <div className="offset-md-2 col-md-8">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
               This blog post is part of a series of posts about how to deploy a Django app to AWS. If you haven't
-              deployed a web app to EC2 and S3 yet, I recommend reading the{" "}
+              deployed your Django app to EC2 and S3 yet, I recommend reading the{" "}
               <Link href="/blog/aws-ec2">
-                <span className="font-weight-bold">AWS EC2</span>
+                <span className="fw-bold">AWS EC2</span>
               </Link>{" "}
               and{" "}
               <Link href="/blog/aws-s3">
-                <span className="font-weight-bold">AWS S3</span>
+                <span className="fw-bold">AWS S3</span>
               </Link>{" "}
               posts first.
             </p>
@@ -60,7 +42,7 @@ export default function AwsCloudfront() {
             <ol>
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/cloudfront/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/cloudfront/">
                   AWS CloudFront console
                 </a>{" "}
                 and select <b>Create distribution</b>.
@@ -94,20 +76,20 @@ export default function AwsCloudfront() {
             <ol>
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/s3/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/s3/">
                   AWS S3 console
                 </a>
                 , and select the bucket we created in the previous blog post.
               </li>
               <li>
-                In the <span className="font-weight-bold">Permissions</span> tab, edit the public access setting to{" "}
-                <span className="font-weight-bold">Block public access</span>. We no longer want to allow the public to
-                access our S3 bucket directly&mdash;instead, only Cloudfront will access our bucket and periodically
-                cache the files that users request.
+                In the <span className="fw-bold">Permissions</span> tab, edit the public access setting to{" "}
+                <span className="fw-bold">Block public access</span>. We no longer want to allow the public to access
+                our S3 bucket directly&mdash;instead, only Cloudfront will access our bucket and periodically cache the
+                files that users request.
               </li>
               <li>Keep ACL disabled.</li>
               <li>
-                In the <span className="font-weight-bold">Policy</span> tab, add the following policy:
+                In the <span className="fw-bold">Policy</span> tab, add the following policy:
                 <SyntaxHighlighter language="json" style={monokaiSublime}>
                   {`{
   "Version": "2012-10-17",
@@ -155,7 +137,7 @@ export default function AwsCloudfront() {
             <ol>
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/cloudfront/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/cloudfront/">
                   AWS CloudFront console
                 </a>{" "}
                 and select the distribution you just created.

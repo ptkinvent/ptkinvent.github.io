@@ -1,14 +1,36 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { projects } from "@/data/projects";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const active = usePathname();
+  const pathname = usePathname();
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const theme = localStorage.getItem("theme") || "light";
+    setTheme(theme);
+    document.documentElement.setAttribute("data-bs-theme", theme);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-bs-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  function handleChangeTheme(e) {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  }
 
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav
+      data-bs-theme="dark"
+      className="navbar navbar-expand-md navbar-dark bg-dark border-bottom border-tertiary fixed-top"
+    >
       <div className="container">
         <Link className="navbar-brand" href="/">
           Prateek Sahay
@@ -16,8 +38,8 @@ export default function Header() {
         <button
           className="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -26,15 +48,16 @@ export default function Header() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto">
-            <li
-              className={`nav-item ${active === "/" || active.includes("/projects") ? "active" : ""} d-none d-md-block`}
-            >
-              <Link className="nav-link" href="/#portfolio">
+          <ul className="navbar-nav">
+            <li className={`nav-item d-none d-md-block`}>
+              <Link
+                className={`nav-link ${pathname === "/" || pathname.includes("/portfolio") ? "active" : ""}`}
+                href="/#portfolio"
+              >
                 Portfolio
               </Link>
             </li>
-            <li className={`nav-item ${active === "/" ? "active" : ""} dropdown d-block d-md-none`}>
+            <li className="nav-item dropdown d-block d-md-none">
               <Link
                 className="nav-link dropdown-toggle"
                 href="/"
@@ -51,7 +74,7 @@ export default function Header() {
                   .filter((project) => project.show)
                   .map((project, index) => (
                     <div key={index} className="col-lg-3 col-md-4 col-sm-6">
-                      <Link className="dropdown-item" href={`/projects/${project.id}`}>
+                      <Link className="dropdown-item" href={`/projects/${project.slug}`}>
                         <span className="text-danger">{String(index + 1).padStart(2, "0")}</span> {project.title}
                       </Link>
                     </div>
@@ -59,27 +82,45 @@ export default function Header() {
               </div>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${active === "/watchlist" ? "active" : ""}`} href="/watchlist">
+              <Link className={`nav-link ${pathname === "/watchlist" ? "active" : ""}`} href="/watchlist">
                 Watchlist
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${active === "/foodlist" ? "active" : ""}`} href="/foodlist">
+              <Link className={`nav-link ${pathname === "/foodlist" ? "active" : ""}`} href="/foodlist">
                 Foodlist
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${active.includes("/blog") ? "active" : ""}`} href="/blog">
+              <Link className={`nav-link ${pathname.includes("/blog") ? "active" : ""}`} href="/blog">
                 Blog
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${active === "/about" ? "active" : ""}`} href="/about">
+              <Link className={`nav-link ${pathname === "/about" ? "active" : ""}`} href="/about">
                 About
               </Link>
             </li>
+            <li className="nav-item d-md-none">
+              <div className="form-check form-switch">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  checked={theme === "dark"}
+                  id="darkModeSwitch"
+                  switch="true"
+                  onChange={handleChangeTheme}
+                />
+                <label className="form-check-label" htmlFor="darkModeSwitch">
+                  Dark mode
+                </label>
+              </div>
+            </li>
           </ul>
         </div>
+        <button className="btn btn-dark d-none d-md-block" onClick={handleChangeTheme}>
+          <FontAwesomeIcon fixedWidth icon={theme === "light" ? faMoon : faSun} />
+        </button>
       </div>
     </nav>
   );

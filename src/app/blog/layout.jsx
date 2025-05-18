@@ -1,7 +1,11 @@
+import BlogHeading from "@/components/blog-heading";
+
 export default function BlogLayout({ children }) {
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <>
+      <BlogHeading />
+
       {children}
-    </div>
+    </>
   );
 }

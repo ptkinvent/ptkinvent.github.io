@@ -1,30 +1,27 @@
 "use client";
 
-import { faMapPin, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 function RestaurantCity({ cityId, city }) {
   return (
-    <div className="card">
-      <div className="card-header">
-        <h4 className="mb-0">
-          <button
-            className="btn btn-lg btn-link btn-block text-left"
-            type="button"
-            data-toggle="collapse"
-            data-target={`#collapse${cityId}`}
-          >
+    <div className="accordion-item">
+      <div className="accordion-header">
+        <button
+          className="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target={`#collapse${cityId}`}
+        >
+          <div className="d-flex gap-2 align-items-center">
             <FontAwesomeIcon icon={faMapPin} />
-            &nbsp;{city.name}{" "}
-            <span className="text-secondary">
-              <FontAwesomeIcon icon={faCaretDown} />
-            </span>
-          </button>
-        </h4>
+            <h4 className="mb-0">{city.name}</h4>
+          </div>
+        </button>
       </div>
-      <div id={`collapse${cityId}`} className="collapse">
-        <div className="card-body">
+      <div id={`collapse${cityId}`} className="accordion-collapse collapse">
+        <div className="accordion-body">
           {city.restaurants.map((restaurant, index) => (
             <Restaurant key={index} restaurant={restaurant} />
           ))}
@@ -38,10 +35,10 @@ function Restaurant({ restaurant }) {
   let badge = "";
   switch (restaurant.status) {
     case "visited":
-      badge = <span className="badge badge-success">Visited</span>;
+      badge = <span className="badge text-bg-success">Visited</span>;
       break;
     case "closed":
-      badge = <span className="badge badge-danger">Closed</span>;
+      badge = <span className="badge text-bg-danger">Closed</span>;
       break;
   }
 
@@ -72,14 +69,9 @@ function Restaurant({ restaurant }) {
 }
 
 export default function Foodlist({ cities, foodlist }) {
-  cities
-    .sort((a, b) => a.order - b.order)
-    .forEach(
-      (city) =>
-        (city.restaurants = foodlist
-          .filter((restaurant) => restaurant.city === city.id)
-          .sort((a, b) => a.order - b.order))
-    );
+  cities.forEach((city) => {
+    city.restaurants = foodlist.filter((restaurant) => restaurant.city === city.id);
+  });
 
   const [query, setQuery] = useState("");
   const [cuisines, setCuisines] = useState([
@@ -146,7 +138,7 @@ export default function Foodlist({ cities, foodlist }) {
 
   return (
     <div className="row">
-      <div className="offset-lg-2 col-lg-8">
+      <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
         <div className="mb-4 mt-2">
           <input value={query} onChange={handleChange} className="form-control mb-1" placeholder="Search..." />
 
@@ -161,7 +153,7 @@ export default function Foodlist({ cities, foodlist }) {
                 onChange={handleCheckStatus}
               />
               <label className="form-check-label uppercase" htmlFor={`checkbox-${status.name}`}>
-                <span className={`badge badge-${status.color}`}>{status.displayName}</span>
+                <span className={`badge text-bg-${status.color}`}>{status.displayName}</span>
               </label>
             </div>
           ))}

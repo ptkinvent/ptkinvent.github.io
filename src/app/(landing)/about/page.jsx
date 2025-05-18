@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import Image from "next/image";
+import aboutBanner from "@/assets/img/about-banner.jpg";
 
 export const metadata = {
   title: "About",
@@ -11,22 +13,17 @@ export default function About() {
   return (
     <>
       <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <hr style={{ width: "200px", marginTop: "20px", marginBottom: "20px" }} />
-          <img src="/img/about-banner.jpg" className="header-img" />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <h2 className="about-intro">
+        <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
+          <hr style={{ width: "200px", margin: "20px auto" }} />
+          <Image src={aboutBanner} className="w-100 h-auto" alt="" placeholder="blur" />
+          <h2 className="landing-header">
             <span className="text-danger">Hi.</span> My name is Prateek Sahay.
           </h2>
         </div>
       </div>
 
       <div className="row">
-        <div className="offset-lg-2 col-lg-6 col-md-8" id="description">
+        <div className="offset-xl-3 col-xl-4 offset-lg-2 col-lg-8">
           <article>
             <section>
               <p>
@@ -45,19 +42,23 @@ export default function About() {
                 <a href="https://waymo.com" target="_blank">
                   Waymo
                 </a>
-                .
+                . Soon after, I founded a startup called{" "}
+                <Link href="https://procurespark.ai" target="_blank">
+                  ProcureSpark
+                </Link>{" "}
+                to accelerate the way companies apply for bids and proposals (RFPs) using AI.
               </p>
               <p>
                 Outside of work, I enjoy giving back to the community through volunteer work; I've{" "}
-                <Link href="/projects/frcsim">mentored a FIRST Robotics team</Link>, volunteered at the Museum of
-                Science in Boston, and done some graphic design work for
+                <Link href="/projects/frcsim">mentored for FIRST Robotics</Link>, volunteered at the Museum of Science
+                in Boston, and done some graphic design work for{" "}
                 <a href="http://www.essenceofindia.org/" target="_blank">
                   Essence of India
                 </a>
                 , an annual celebration of classical Indian culture and heritage in my hometown.
               </p>
               <p>
-                In my free time I practice badminton, photography, and woodworking. I've always thrived at the
+                In my free time, I practice badminton, photography, and woodworking. I've always thrived at the
                 intersection of disciplined engineering and vibrant arts, so I'm especially drawn to environments where
                 I can continue learning both.
               </p>
@@ -84,12 +85,12 @@ export default function About() {
         </div>
 
         {/* Links */}
-        <div className="offset-md-0 col-md-4 offset-sm-2 col-sm-8">
-          <p className="text-primary">
+        <div className="offset-xl-0 col-xl-2 offset-lg-2 col-lg-8">
+          <p className="text-primary-emphasis">
             <FontAwesomeIcon icon={faEnvelope} fixedWidth />
             &nbsp; <a href="mailto:ptkinvent@gmail.com">ptkinvent@gmail.com</a>
           </p>
-          <p className="text-primary">
+          <p className="text-primary-emphasis">
             <b>
               <FontAwesomeIcon icon={faFilePdf} fixedWidth />
               &nbsp;{" "}

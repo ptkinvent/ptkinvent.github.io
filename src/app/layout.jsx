@@ -1,6 +1,5 @@
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
-import "@/styles/bootstrap/bootstrap.scss";
 import "@/styles/index.scss";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -15,14 +14,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-100">
+    <html lang="en" className="h-100" data-bs-theme="light">
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
         {/* JS */}
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.js"></script>
+        <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" />
         <Script>
           {`(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
