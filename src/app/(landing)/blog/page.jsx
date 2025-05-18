@@ -1,5 +1,7 @@
 import { blogs } from "@/data/blogs";
 import Link from "next/link";
+import Image from "next/image";
+import uberKrypton from "@/assets/img/uber-krypton.jpg";
 
 export const metadata = {
   title: "Blog",
@@ -9,15 +11,10 @@ export default function Blog() {
   return (
     <>
       <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <hr style={{ width: "200px", marginTop: "20px", marginBottom: "20px" }} />
-          <img src="/img/uber-krypton.jpg" className="header-img" />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <h2 className="about-intro">
+        <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
+          <hr style={{ width: "200px", margin: "20px auto" }} />
+          <Image src={uberKrypton} className="w-100 h-auto" alt="" placeholder="blur" />
+          <h2 className="landing-header">
             <span className="text-danger">Welcome.</span> This is my blog.
           </h2>
           <p>
@@ -29,32 +26,36 @@ export default function Blog() {
       </div>
 
       <div className="row">
-        <div className="offset-lg-2 col-lg-8 offset-md-1 col-md-10">
+        <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
           <h3 className="panel-subtitle">Posts</h3>
 
-          {blogs
-            .filter((blog) => blog.show)
-            .map((blog) => (
-              <div key={blog.id} className="card w-100 mb-4">
-                {/* Post preview image */}
-                <Link href={`/blog/${blog.id}`}>
-                  <img className="card-img-top" src={blog.bannerImg} alt="Card image cap" />
-                </Link>
-                {/* Post preview body */}
-                <div className="card-body">
-                  <Link href={`/blog/${blog.id}`}>
-                    <h5 className="card-title mb-2">{blog.title}</h5>
-                  </Link>
-                  <h6 className="card-subtitle text-danger mb-2">
-                    <small>{blog.date}</small>
-                  </h6>
-                  <p className="card-text">{blog.excerpt}</p>
-                  <Link href={`/blog/${blog.id}`} className="btn btn-outline-primary">
-                    Read more
-                  </Link>
+          <div className="row">
+            {blogs
+              .filter((blog) => blog.show)
+              .map((blog) => (
+                <div key={blog.slug} className="col-12">
+                  <div className="card mb-4">
+                    {/* Post preview image */}
+                    <Link href={`/blog/${blog.slug}`}>
+                      <Image className="card-img-top h-auto" src={blog.bannerImg} alt="" placeholder="blur" />
+                    </Link>
+                    {/* Post preview body */}
+                    <div className="card-body">
+                      <Link href={`/blog/${blog.slug}`}>
+                        <h5 className="card-title mb-2">{blog.title}</h5>
+                      </Link>
+                      <h6 className="card-subtitle text-danger mb-2">
+                        <small>{blog.date}</small>
+                      </h6>
+                      <p className="card-text">{blog.excerpt}</p>
+                      <Link href={`/blog/${blog.slug}`} className="btn btn-outline-secondary">
+                        Read more
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
       </div>
     </>

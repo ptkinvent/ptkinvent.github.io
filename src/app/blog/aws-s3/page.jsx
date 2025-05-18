@@ -1,9 +1,10 @@
 import { blogs } from "@/data/blogs";
+import Link from "next/link";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export async function generateMetadata() {
-  const blog = blogs.find((blog) => blog.id === "aws-s3");
+  const blog = blogs.find((blog) => blog.slug === "aws-s3");
 
   return {
     title: blog.title,
@@ -11,29 +12,16 @@ export async function generateMetadata() {
 }
 
 export default function AwsS3() {
-  const blog = blogs.find((blog) => blog.id === "aws-s3");
-
   return (
     <>
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <hr style={{ width: "200px" }} />
-          <img src={blog.bannerImg} className="header-img" alt="" />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <h2 className="about-intro">{blog.title}</h2>
-          <p className="post-meta">
-            <span className="text-danger">{blog.date}</span>
-          </p>
-        </div>
-      </div>
-
-      <article>
+      <article className="container">
         <div className="row">
-          <div className="offset-md-2 col-md-8">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
+            <p>
+              This blog post is part of a series about how to deploy a Django app to AWS. If you haven't deployed your
+              Django app to EC2 and S3 yet, I recommend reading the <Link href="/blog/aws-ec2">AWS EC2</Link> and{" "}
+              <Link href="/blog/aws-django">AWS Django</Link> posts first.
+            </p>
             <p>
               Currently, our web app is serving static files, such as images and CSS files, directly from our server.
               This is a simple and straightforward way to serve static files, but it won't scale well as our website
@@ -50,30 +38,30 @@ export default function AwsS3() {
             <ol>
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/s3/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/s3/">
                   AWS S3 console
                 </a>{" "}
-                and select <span className="font-weight-bold">Create bucket</span>.
+                and select <span className="fw-bold">Create bucket</span>.
               </li>
               <li>
                 Give your bucket a name and ensure{" "}
-                <span className="font-weight-bold">Server-side encryption with S3 managed keys</span> is selected.
+                <span className="fw-bold">Server-side encryption with S3 managed keys</span> is selected.
               </li>
               <li>
-                Select <span className="font-weight-bold">ACLs enabled</span>.
+                Select <span className="fw-bold">ACLs enabled</span>.
               </li>
               <li>
-                Turn off <span className="font-weight-bold">Block all public access</span> for now. This will get fixed
-                later when we add a CDN.
+                Turn off <span className="fw-bold">Block all public access</span> for now. This will get fixed later
+                when we add a CDN.
               </li>
               <li>
-                Then click <span className="font-weight-bold">Create bucket</span>.
+                Then click <span className="fw-bold">Create bucket</span>.
               </li>
               <li>
                 Next, we need to configure CORS (cross-origin resource sharing) to restrict only our website to access
                 the bucket. In your newly created bucket, navigate to the Permissions tab, scroll down to the CORS
-                configuration, and select <span className="font-weight-bold">Edit</span>. Add the below CORS
-                configuration to the bucket:
+                configuration, and select <span className="fw-bold">Edit</span>. Add the below CORS configuration to the
+                bucket:
                 <SyntaxHighlighter language="json" style={monokaiSublime}>
                   {`[
     {
@@ -98,34 +86,33 @@ export default function AwsS3() {
 
             <p>
               At this point, we could start uploading files to our new bucket by clicking the{" "}
-              <span className="font-weight-bold">Upload</span> button. However, we'd rather Django automatically collect
-              and upload our static files for us as we develop our website. To do this, we need our EC2 machine to
-              directly access the S3 bucket on our behalf. Let's create a new role that allows reading and writing to S3
-              buckets that we can assign to our EC2 machine:
+              <span className="fw-bold">Upload</span> button. However, we'd rather Django automatically collect and
+              upload our static files for us as we develop our website. To do this, we need our EC2 machine to directly
+              access the S3 bucket on our behalf. Let's create a new role that allows reading and writing to S3 buckets
+              that we can assign to our EC2 machine:
             </p>
             <ol>
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/iam/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/iam/">
                   AWS IAM console
                 </a>{" "}
-                and select <span className="font-weight-bold">Roles</span>.
+                and select <span className="fw-bold">Roles</span>.
               </li>
               <li>
-                Select <span className="font-weight-bold">Create role</span>.
+                Select <span className="fw-bold">Create role</span>.
               </li>
               <li>
-                Select <span className="font-weight-bold">AWS Service</span> and{" "}
-                <span className="font-weight-bold">EC2</span>, then select{" "}
-                <span className="font-weight-bold">Next</span>.
+                Select <span className="fw-bold">AWS Service</span> and <span className="fw-bold">EC2</span>, then
+                select <span className="fw-bold">Next</span>.
               </li>
               <li>
-                On the permissions page, select <span className="font-weight-bold">AmazonS3FullAccess</span> and select{" "}
-                <span className="font-weight-bold">Next</span>.
+                On the permissions page, select <span className="fw-bold">AmazonS3FullAccess</span> and select{" "}
+                <span className="fw-bold">Next</span>.
               </li>
               <li>
                 On the final page, give your role a name like <code>ec2-role</code> and select{" "}
-                <span className="font-weight-bold">Create role</span>.
+                <span className="fw-bold">Create role</span>.
               </li>
             </ol>
 
@@ -133,18 +120,17 @@ export default function AwsS3() {
             <ol>
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" href="https://console.aws.amazon.com/ec2/">
+                <a className="fw-bold" href="https://console.aws.amazon.com/ec2/">
                   AWS EC2 console
                 </a>{" "}
                 and select your EC2 machine.
               </li>
               <li>
-                Select the <span className="font-weight-bold">Actions</span> dropdown. Under{" "}
-                <span className="font-weight-bold">Security</span>, select{" "}
-                <span className="font-weight-bold">Modify IAM role</span>.
+                Select the <span className="fw-bold">Actions</span> dropdown. Under{" "}
+                <span className="fw-bold">Security</span>, select <span className="fw-bold">Modify IAM role</span>.
               </li>
               <li>
-                Select the role we just created and select <span className="font-weight-bold">Save</span>.
+                Select the role we just created and select <span className="fw-bold">Save</span>.
               </li>
             </ol>
 
