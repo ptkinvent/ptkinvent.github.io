@@ -2,6 +2,8 @@ import { projects } from "@/data/projects";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import Image from "next/image";
+import indexBanner from "@/assets/img/index-banner.jpg";
 
 export const metadata = {
   title: "Prateek Sahay",
@@ -12,20 +14,14 @@ export default function Home() {
     <>
       <div
         className="full-height jumbotron-main"
-        style={{ backgroundSize: "cover", backgroundImage: "url('/img/index-banner.jpg')" }}
+        style={{ backgroundSize: "cover", backgroundImage: `url(${indexBanner.src})` }}
       >
         <div className="container">
-          <div className="subtitle-center subtitle-above">
-            <p>Design</p>
-          </div>
+          <div className="subtitle-center subtitle-above">Design</div>
 
-          <div className="subtitle-center subtitle-middle">
-            <p>Prateek Sahay</p>
-          </div>
+          <div className="subtitle-center subtitle-middle">Prateek Sahay</div>
 
-          <div className="subtitle-center subtitle-below">
-            <p>Engineering</p>
-          </div>
+          <div className="subtitle-center subtitle-below">Engineering</div>
 
           <a href="#portfolio" style={{ color: "white" }} title="Portfolio">
             <div className="nav-icon">
@@ -36,7 +32,7 @@ export default function Home() {
       </div>
 
       {/* Image for social media sites like LinkedIn to use as a thumbnail */}
-      <img src="/img/index-banner.jpg" className="d-none" alt="" />
+      <Image src={indexBanner} className="d-none" alt="" placeholder="blur" />
 
       {/* Portfolio */}
       <div className="container">
@@ -52,10 +48,13 @@ export default function Home() {
             .filter((project) => project.show)
             .map((project, index) => (
               <div key={index} className="col-lg-3 col-md-4 col-sm-6">
-                <Link href={`/projects/${project.id}`}>
-                  <div className="project-thumbnail" style={{ backgroundImage: `url(${project.thumbnailImg})` }}></div>
+                <Link href={`/portfolio/${project.slug}`}>
+                  <div
+                    className="project-thumbnail"
+                    style={{ backgroundImage: `url(${project.thumbnailImg.src})` }}
+                  ></div>
                 </Link>
-                <p className="thumbnail-caption">
+                <p className="project-thumbnail-caption">
                   <span className="text-danger">{String(index + 1).padStart(2, "0")}</span> {project.title}
                 </p>
               </div>

@@ -1,10 +1,13 @@
 import { blogs } from "@/data/blogs";
-import Image from "@/components/image";
+import ResponsiveCaption from "@/components/responsive-caption";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import Image from "next/image";
+import osgExample from "@/assets/img/blog-osg-example.png";
+import osgGlider from "@/assets/img/blog-osg-glider.gif";
 
 export async function generateMetadata() {
-  const blog = blogs.find((blog) => blog.id === "osg");
+  const blog = blogs.find((blog) => blog.slug === "osg");
 
   return {
     title: blog.title,
@@ -12,29 +15,11 @@ export async function generateMetadata() {
 }
 
 export default function OSG() {
-  const blog = blogs.find((blog) => blog.id === "osg");
-
   return (
     <>
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <hr style={{ width: "200px" }} />
-          <img src={blog.bannerImg} className="header-img" alt="" />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <h2 className="about-intro">{blog.title}</h2>
-          <p className="post-meta">
-            <span className="text-danger">{blog.date}</span>
-          </p>
-        </div>
-      </div>
-
-      <article>
+      <article className="container">
         <div className="row">
-          <div className="offset-md-2 col-md-8" id="description">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
               While working on new algorithms and data structures in robotics, it's often helpful to visualize data in
               3D. Certainly, it's possible for our minds to comprehend much larger amounts of data and perform visual
@@ -84,7 +69,7 @@ TARGET_LINK_LIBRARIES(osgExample
 )`}
             </SyntaxHighlighter>
           </div>
-          <div className="offset-md-2 col-md-8">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <h3>Smart Pointers</h3>
             <p>
               Before we dive into building your first scene graph, just be aware that OSG ships with its own brand of
@@ -191,15 +176,17 @@ int main(int argc, char** argv)
           </div>
         </div>
 
-        <Image
-          width={8}
-          src="/img/blog-osg-example.png"
-          caption="Your first OSG geometry."
-          title="A green triangle with a purple backdrop"
-        />
+        <ResponsiveCaption caption="Your first OSG geometry.">
+          <Image
+            src={osgExample}
+            className="w-100 h-auto"
+            alt="A green triangle with a purple backdrop"
+            placeholder="blur"
+          />
+        </ResponsiveCaption>
 
         <div className="row">
-          <div className="offset-md-2 col-md-8">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
               In this case, we chose to <code>BIND_OVERALL</code>, meaning we assigned a single color to the entire
               geometry. But we can actually assign individual colors at each vertex&mdash;OSG will blend the colors
@@ -487,15 +474,12 @@ int main(int argc, char** argv)
           </div>
         </div>
 
-        <Image
-          width={8}
-          src="/img/blog-osg-glider.gif"
-          caption="The glider is translated along the x-axis then rotated about its z-axis."
-          title="A glider rotating next to a set of 3D axes"
-        />
+        <ResponsiveCaption caption="The glider is translated along the x-axis then rotated about its z-axis.">
+          <Image src={osgGlider} className="w-100 h-auto" alt="A glider rotating next to a set of 3D axes" />
+        </ResponsiveCaption>
 
         <div className="row">
-          <div className="offset-md-2 col-md-8">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <h4>Switches</h4>
             <p>
               Switches are used to selectively hide or show objects in the scene. It's hard to find this written down
