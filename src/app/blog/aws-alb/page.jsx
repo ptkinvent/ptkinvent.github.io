@@ -2,9 +2,11 @@ import { blogs } from "@/data/blogs";
 import Link from "next/link";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import ResponsiveHeading from "@/components/responsive-heading";
+import ResponsiveCaption from "@/components/responsive-caption";
 
 export async function generateMetadata() {
-  const blog = blogs.find((blog) => blog.id === "aws-alb");
+  const blog = blogs.find((blog) => blog.slug === "aws-alb");
 
   return {
     title: blog.title,
@@ -12,62 +14,46 @@ export async function generateMetadata() {
 }
 
 export default function AwsAlb() {
-  const blog = blogs.find((blog) => blog.id === "aws-alb");
-
   return (
     <>
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <hr style={{ width: "200px" }} />
-          <img src={blog.bannerImg} className="header-img" alt="" />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <h2 className="about-intro">{blog.title}</h2>
-          <p className="post-meta">
-            <span className="text-danger">{blog.date}</span>
-          </p>
-        </div>
-      </div>
-
-      <article>
+      <article className="container">
         <div className="row">
-          <div className="offset-md-2 col-md-8">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
-              This post is part of a series of posts about how to deploy a Django app to AWS. If you haven't deployed
-              your app to EC2 and RDS yet, I recommend reading the{" "}
+              This blog post is part of a series about how to deploy a Django app to AWS. If you haven't deployed your
+              app to EC2 and RDS yet, I recommend reading the{" "}
               <Link href="/blog/aws-ec2">
-                <span className="font-weight-bold">AWS EC2</span>
+                <span className="fw-bold">AWS EC2</span>
               </Link>{" "}
               and{" "}
               <Link href="/blog/aws-rds">
-                <span className="font-weight-bold">AWS RDS</span>
+                <span className="fw-bold">AWS RDS</span>
               </Link>{" "}
-              first.
+              posts first.
             </p>
             <p>
               So your website's getting so much traffic that you're ready to scale your web app to multiple servers?
-              Great! In this blog post, we'll walk through how to set up our single EC2 machine for scalability, create
-              a template to spin up more instances on-demand, and use an AWS Application Load Balancer (ALB) to
+              Great! In this post, we'll walk through how to prepare our single EC2 server for scalability, create a
+              template from it to spin up more instances, and create an AWS Application Load Balancer (ALB) to
               distribute traffic amongst them. Let's get started!
             </p>
           </div>
         </div>
+
+        {/* Move logging to AWS CloudWatch */}
+        <ResponsiveHeading numbering="01">Move Logging to AWS CloudWatch</ResponsiveHeading>
         <div className="row">
-          <div className="offset-md-2 col-md-8">
-            <h4>Part 1: Move Logging to AWS CloudWatch</h4>
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
-              At the moment, our EC2 instance logs to its own hard drive. This doesn't scale because each server will
-              have its own logs, and it's difficult to aggregate them. Instead, we'll use AWS CloudWatch to send our
-              logs to a centralized location.
+              At the moment, our EC2 instance logs to its own hard drive. This won't scale because each server will have
+              its own logs, and we'll have a hard time aggregating them to find bugs or anomalies. Instead, we'll stream
+              our logs to AWS CloudWatch so they're stored in a centralized location.
             </p>
-            <p>First, let's grant permissions to our EC2 machine to send metrics to CloudWatch.</p>
+            <p>First, let's grant permissions to our EC2 machine to stream logs to CloudWatch:</p>
             <ol>
               <li>
                 If you don't already have an IAM role for your EC2 machines, create a new role for sending metrics to
-                CloudWatch called <code>ec2-role</code>. Give your new (or existing) role the permission called{" "}
+                CloudWatch called <code>web-server</code>. Give your new (or existing) role the permission called{" "}
                 <code>CloudWatchAgentServerPolicy</code>.
               </li>
               <li>
@@ -76,9 +62,7 @@ export default function AwsAlb() {
               </li>
             </ol>
 
-            <p>
-              Next, let's install the CloudWatch Agent on our EC2 machine so that our logs are forwarded to CloudWatch.
-            </p>
+            <p>Next, let's install and configure CloudWatch Agent on our EC2 machine to stream logs to CloudWatch.</p>
             <ol start="3">
               <li>SSH into your EC2 machine.</li>
               <li>
@@ -89,12 +73,16 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard`
                 </SyntaxHighlighter>
               </li>
               <li>
-                Say yes to all defaults except "Do you want to store the config in the SSM parameter store?" and "Do you
-                want the CloudWatch agent to also retrieve X-ray traces?"
+                Say <b>yes</b> to all defaults except "Do you want to store the config in the SSM parameter store?" and
+                "Do you want the CloudWatch agent to also retrieve X-ray traces?"
               </li>
               <li>
-                Also say yes to "Do you want to monitor any log files?" and add these four log files:
+                Also say <b>yes</b> to "Do you want to monitor any log files?" and add our log files, which should look
+                something like these:
                 <ul>
+                  <li>
+                    <code>/home/ubuntu/my-public-repo/myapp/myapp.log</code>
+                  </li>
                   <li>
                     <code>/var/log/nginx/access.log</code>
                   </li>
@@ -105,11 +93,26 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard`
                     <code>/var/log/gunicorn/gunicorn.log</code>
                   </li>
                   <li>
-                    <code>/var/log/gunicorn/myapp.log</code>
+                    <code>/var/log/gunicorn/gunicorn-err.log</code>
                   </li>
                 </ul>
                 <strong>Note:</strong> For retention policy, <code>-1</code> means "never delete." <br />
               </li>
+            </ol>
+            <p>
+              The wizard will generate a configuration file that is stored at{" "}
+              <code>/opt/aws/amazon-cloudwatch-agent/bin/config.json</code>. Note that our configuration is also saved
+              to{" "}
+              <a target="_blank" href="https://console.aws.amazon.com/systems-manager/" className="fw-bold">
+                AWS Systems Manager
+              </a>{" "}
+              &gt; Parameter Store for us. When we launch the CloudWatch Agent, we can choose to launch it with a local
+              JSON file or by grabbing a config from the parameter store. Grabbing from the parameter store is
+              considered best practice, but for the simplicity of this tutorial we're using the local file. If we ever
+              did want to fetch a config from the parameter store, we would use{" "}
+              <code>-c ssm:&lt;parameterName&gt;</code> below instead.
+            </p>
+            <ol start="7">
               <li>
                 Finally, start the CloudWatch agent using:{" "}
                 <SyntaxHighlighter language="sh" style={monokaiSublime}>
@@ -118,44 +121,44 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard`
               </li>
             </ol>
             <p>
-              <strong>Note:</strong> The wizard's generated configuration is stored at{" "}
-              <code>/opt/aws/amazon-cloudwatch-agent/bin/config.json</code>. This configuration is also saved to AWS
-              Systems Manager &gt; Parameter Store for us. When we launch the CloudWatch agent, we can choose to launch
-              it with a local JSON file or by grabbing a config from the parameter store. Good practice is to grab from
-              the parameter store, but let's just use the local file for the simplicity of this tutorial. If we ever
-              wanted to fetch a different config from the parameter store, we could use{" "}
-              <code>-c ssm:&lt;parameterName&gt;</code>.
-            </p>
-            <p>
-              Great! The CloudWatch Agent is now configured and is forwarding our logs to CloudWatch. We can check the
-              status of the CloudWatch Agent on any of our EC2 machines at any time using:{" "}
-              <code>amazon-cloudwatch-agent-ctl -a status</code>. If we navigate to CloudWatch &gt; Log groups we should
-              be able to see our logs streaming in.
+              Great! Our CloudWatch Agent is now streaming our web server's logs to CloudWatch. We can check the status
+              of the CloudWatch Agent on any of our EC2 machines at any time using:{" "}
+              <code>amazon-cloudwatch-agent-ctl -a status</code>. If we navigate to{" "}
+              <a target="_blank" href="https://console.aws.amazon.com/cloudwatch" className="fw-bold">
+                AWS CloudWatch
+              </a>{" "}
+              &gt; Log groups we should be able to see our logs streaming in. We now have a scalable way to monitor our
+              web servers' usage.
             </p>
           </div>
         </div>
+
+        {/* Move secrets to AWS Secrets Manager */}
+        <ResponsiveHeading numbering="02">Move Secrets to AWS Secrets Manager</ResponsiveHeading>
         <div className="row">
-          <div className="offset-md-2 col-md-8">
-            <h4>Part 2: Migrate Secrets to AWS Secrets Manager</h4>
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
               Currently, our secrets (such as database password, API keys, etc.) might be stored as environment
               variables on our EC2 machine. This also won't scale, since creating, modifying, or deleting these secrets
-              will get very cumbersome, especially as we increase the number of servers. This also isn't a secure way to
-              store secrets. Instead, we'll use AWS Secrets Manager to store our secrets where fewer people can access
-              them.
+              can get messy, especially as we increase the number of servers. More importantly, this also isn't a secure
+              way to store secrets. Instead, we'll use{" "}
+              <a target="_blank" href="https://aws.amazon.com/secrets-manager/" className="fw-bold">
+                AWS Secrets Manager
+              </a>{" "}
+              to store them in a centralized location where it's easier to manage access.
             </p>
             <p>First, let's grant our EC2 machine access to Secrets Manager:</p>
             <ol>
               <li>
                 Navigate to{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/iam/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/iam/">
                   AWS IAM console
                 </a>{" "}
                 and select <b>Roles</b>.
               </li>
               <li>
-                If you don't already have an IAM role for your EC2 machines, create a new role for sending secrets to
-                Secrets Manager called <code>ec2-role</code>. Give your new (or existing) role the permission called{" "}
+                If you don't already have an IAM role for your EC2 machines, create a new role for access to Secrets
+                Manager called <code>web-server</code>. Give your new (or existing) role the permission called{" "}
                 <code>SecretsManagerReadWrite</code>.
               </li>
               <li>
@@ -164,11 +167,14 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard`
               </li>
             </ol>
 
-            <p>Now, let's create a new secret in Secrets Manager:</p>
-            <ol>
+            <p>
+              Now, let's create a test secret in Secrets Manager so we can try reading it from Django on our EC2
+              machine:
+            </p>
+            <ol start="4">
               <li>
                 Navigate to{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/secretsmanager/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/secretsmanager/">
                   AWS Secrets console
                 </a>{" "}
                 and select <b>Store a new secret</b>.
@@ -189,11 +195,16 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard`
 
             <p>
               Now that our secret is created, let's access it from Django. Keep in mind that good practice mandates
-              using different secrets for development vs production&mdash;for example, different API keys or database
-              passwords. With that in mind, modify <code>settings.py</code> to look like the following:
+              using different secrets for development vs production&mdash;e.g. different API keys or database passwords.
+              With that in mind, modify <code>settings.py</code> to look like the following:
             </p>
-            <SyntaxHighlighter language="py" style={monokaiSublime}>
-              {`if DEBUG:
+          </div>
+        </div>
+
+        <ResponsiveCaption caption="settings.py">
+          <SyntaxHighlighter language="py" style={monokaiSublime}>
+            {`...
+if DEBUG:
   MYSECRET = os.environ['MYSECRET]
 else:
   session = boto3.session.Session()
@@ -204,17 +215,22 @@ else:
   response = client.get_secret_value(SecretId='my-secret')
   secrets = json.loads(response['SecretString'])
   MYSECRET = secrets['MYSECRET']
-  `}
-            </SyntaxHighlighter>
+...`}
+          </SyntaxHighlighter>
+        </ResponsiveCaption>
+
+        <div className="row">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
-              Now, we can access and apply our secrets in <code>settings.py</code> using AWS Secrets Manager.
+              Great! Now we have access to our secrets in <code>settings.py</code> in a scalable way.
             </p>
           </div>
         </div>
 
+        {/* Create an EC2 Launch Template */}
+        <ResponsiveHeading numbering="03">Create an EC2 Launch Template</ResponsiveHeading>
         <div className="row">
-          <div className="offset-md-2 col-md-8">
-            <h4>Part 3: Create an EC2 Launch Template</h4>
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
               Great! Now that our EC2 machine is ready for scaling, let's create a template so that we can quickly
               launch more EC2 instances without having to painstakingly set each one up manually. There are various
@@ -229,7 +245,7 @@ else:
             <ol>
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
                   AWS EC2 console
                 </a>
                 .
@@ -435,27 +451,29 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
             </ol>
 
             <p>
-              Great! Now we can launch one or multiple new web servers by selecting our template &gt; Actions &gt;
+              Great! Now we can easily launch multiple new web servers by selecting our template &gt; Actions &gt;
               Launch instance from template. Feel free to modify this template as you go, for example by adding extra
-              configurations for .gitignore, tmux, or npm by selecting our template &gt; Actions &gt; Modify template
-              (Create new version).
+              setup instructions for npm by selecting our template &gt; Actions &gt; Modify template (Create new
+              version).
             </p>
           </div>
         </div>
 
+        {/* Add an AWS Application Load Balancer */}
+        <ResponsiveHeading numbering="04">Add an AWS Application Load Balancer</ResponsiveHeading>
         <div className="row">
-          <div className="offset-md-2 col-md-8">
-            <h4>Part 4: Add an AWS Application Load Balancer</h4>
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
-              Let's create a target group for our web servers. A target group is simply a group of EC2 instances that we
-              want to distribute traffic to. We'll also need an endpoint where our target group can ping our web servers
-              to see if they're still responding. We could use a custom middleware to intercept this request and put
-              less load on our server, but let's just add a regular view for simplicity at the endpoint{" "}
-              <code>/status</code>:
+              Before creating our load balancer, we need to create a target group for our web servers, which is simply a
+              group of EC2 instances that our load balancer will point to. But first, we'll need to create an endpoint
+              where our target group can ping our web servers to check if they're still responding. If they stop
+              responding with a 200 status, the server will automatically be marked unhealthy by the target group. We
+              could add a custom middleware to intercept this request and put less load on our server, but let's just
+              add a regular view instead for simplicity at the endpoint <code>/status</code>:
             </p>
             <ol>
               <li>
-                Add a new view to our top-level <code>views.py</code> that simply returns a basic HTTP response:
+                Add a new view to our top-level <code>views.py</code> that returns a simple HTTP response:
               </li>
               <SyntaxHighlighter language="py" style={monokaiSublime}>
                 {`def status_view(request):
@@ -472,13 +490,13 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
             </ol>
 
             <p>
-              Now that we have a status endpoint, we can create a target group for our web servers that periodically
-              sends health checks to this endpoint:
+              Now that our endpoint is created, we can create a target group for our web servers that periodically sends
+              health checks to this endpoint:
             </p>
-            <ol>
+            <ol start="3">
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
                   AWS EC2 console
                 </a>{" "}
                 and select <b>Target Groups</b> &gt; <b>Create target group</b>.
@@ -505,19 +523,22 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
             </ol>
             <p>
               Now that our instance(s) are added to the target group, we should see each one receiving a ping to{" "}
-              <code>/status</code> every few seconds. If we select the newly created target group, we should see a count
-              of healthy and unhealthy web servers. Eventually, we can use this to automatically stop sending requests
-              to unhealthy servers and even automatically spin up new web servers when the number of healthy web servers
-              drops below a certain threshold.
+              <code>/status</code> every 30 seconds. If we select the newly created target group, we should see a count
+              of healthy and unhealthy web servers. By default, a server is marked as unhealthy if it fails to respond
+              to 5 pings in a row, and is marked healthy again when it responds to 2 pings in a row (all of this can be
+              configured as desired in the target group). The target group will use this information to automatically
+              instruct our load balancer to stop sending requests to unhealthy servers, and in the future we can even
+              configure it to automatically spin up new web servers when the number of healthy web servers drops below
+              some threshold.
             </p>
             <p>
-              For now, let's modify our security groups to only allow web traffic to access our load balancer, not our
-              EC2 servers directly. First, let's create a new security group for our ALB:
+              Next, let's modify our security groups. Note that we want no longer want our EC2 instances exposed to
+              public web traffic, only our load balancer. First, let's create a new security group for our ALB:
             </p>
-            <ol>
+            <ol start="10">
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
                   AWS EC2 console
                 </a>{" "}
                 and select <b>Security Groups</b> &gt; <b>Create security group</b>.
@@ -529,13 +550,13 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
             </ol>
 
             <p>
-              Then, let's modify the existing security group for our web servers to only allow web traffic from our ALB,
+              Next, let's modify the existing security group for our web servers to only allow web traffic from our ALB,
               not the open web:
             </p>
-            <ol>
+            <ol start="13">
               <li>
-                Next, navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
+                Navigate to the{" "}
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
                   AWS EC2 console
                 </a>{" "}
                 and select <b>Security Groups</b> &gt; <b>web-server-sg</b>.
@@ -549,20 +570,20 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
               </li>
             </ol>
             <p>
-              Now we're ready to create the AWS Application Load Balancer (ALB) which will distribute traffic to the web
-              servers in our new target group:
+              Finally, we're ready to create the AWS Application Load Balancer (ALB) which will distribute traffic to
+              the web servers in our new target group:
             </p>
-            <ol>
+            <ol start="17">
               <li>
                 Navigate to the{" "}
-                <a className="font-weight-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
+                <a className="fw-bold" target="_blank" href="https://console.aws.amazon.com/ec2/">
                   AWS EC2 console
                 </a>{" "}
                 and select <b>Load Balancers</b> &gt; <b>Create load balancer</b>. Select{" "}
                 <b>Application Load Balancer</b> and <b>Create</b>.
               </li>
               <li>
-                Give it a name such as <b>web-server-alb</b>.
+                Give it a name like <b>web-server-alb</b>.
               </li>
               <li>
                 Select a scheme of <b>Internet-facing</b>.
@@ -575,10 +596,11 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
               </li>
             </ol>
             <p>
-              Now that everything's hooked up, the final step is to point our domain to our ALB instead of to our EC2
-              instance.
+              Note down the IPv4 address of our new load balancer (something like{" "}
+              <code>dualstack.alb-&lt;random-id&gt;.us-west-1.elb.amazonaws.com</code>). Now that everything's hooked
+              up, the final step is to point our domain to our ALB instead of to our single EC2 instance.
             </p>
-            <ol>
+            <ol start="24">
               <li>
                 Select the ALB we just created and navigate to the <b>Details</b> tab. Copy the <b>DNS name</b> of the
                 ALB.
@@ -586,23 +608,30 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
               <li>
                 Navigate to your domain registrar, remove the previous <b>A</b> records that pointed to the EC2 machine,
                 and add an <b>A</b> record that points to the DNS name of the ALB, such as{" "}
-                <code>dualstack.alb-603648898.us-west-1.elb.amazonaws.com</code>.
+                <code>dualstack.alb-&lt;random-id&gt;.us-west-1.elb.amazonaws.com</code>.
               </li>
               <li>
                 Save the changes and test your domain by navigating to it in your browser. You should see your web app.
               </li>
             </ol>
 
-            <p>Well done! We've now enabled multiple web servers and a load balancer to distribute traffic to them.</p>
             <p>
-              The next logical step might be to enable EC2 Auto Scaling, which can automatically terminate unhealthy
-              servers and spin up new ones using our launch template. It can also be configured to scale up and down
-              servers based on the average usage (memory, CPU, or networking traffic) across our servers to keep up with
-              traffic.
+              Well done! We've now enabled multiple web servers and created a load balancer to distribute traffic
+              amongst them.
             </p>
+          </div>
+        </div>
+
+        {/* Next Steps */}
+        <ResponsiveHeading numbering="05">Next Steps</ResponsiveHeading>
+        <div className="row">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
             <p>
-              Congratulations on completing this series of blog posts! I hope you found it helpful. If you have any
-              questions or feedback, please feel free to reach out to me.
+              From here, we could enable tools like EC2 Auto Scaling, which can automatically terminate and spin up
+              servers using our launch template to maintain a certain number of healthy servers at all times. It can
+              also be configured to scale up and down servers based on the average usage (memory, CPU, or networking
+              traffic) across our servers to keep up with traffic. Congratulations on completing this series of blog
+              posts!
             </p>
           </div>
         </div>

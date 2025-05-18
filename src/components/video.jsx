@@ -1,7 +1,7 @@
 export default function Video({ src, title, caption }) {
   return (
     <div className="row">
-      <div className="offset-lg-3 col-lg-6 offset-md-2 col-md-8">
+      <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
         <hr />
         <h3>{title}</h3>
         <div className="video">
