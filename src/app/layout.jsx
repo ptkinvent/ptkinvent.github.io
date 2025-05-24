@@ -4,6 +4,7 @@ import "@/styles/bootstrap/bootstrap.scss";
 import "@/styles/index.scss";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata = {
   title: {
@@ -15,43 +16,48 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-100" data-bs-theme="light">
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <ClerkProvider>
+      <html lang="en" className="h-100" data-bs-theme="light">
+        <head>
+          <meta charSet="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
-        {/* JS */}
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.js"></script>
-        <Script>
-          {`(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          {/* JS */}
+          <script
+            type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+          ></script>
+          <script type="text/javascript" src="/js/bootstrap.js"></script>
+          <Script>
+            {`(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
           ga('create', 'UA-56229856-1', 'auto');
           ga('send', 'pageview');`}
-        </Script>
-        <script type="text/javascript" src="/js/fontawesome-all.js"></script>
+          </Script>
+          <script type="text/javascript" src="/js/fontawesome-all.js"></script>
 
-        {/* CSS */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,400,300|Exo+2:400,200"
-          type="text/css"
-        />
-      </head>
-      <body className="h-100">
-        <Header />
+          {/* CSS */}
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,400,300|Exo+2:400,200"
+            type="text/css"
+          />
+        </head>
+        <body className="h-100">
+          <Header />
 
-        <a name="top"></a>
+          <a name="top"></a>
 
-        {children}
+          {children}
 
-        <Footer />
+          <Footer />
 
-        <Analytics />
-      </body>
-    </html>
+          <Analytics />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
