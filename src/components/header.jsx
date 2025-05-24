@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   const pathname = usePathname();
@@ -102,6 +103,16 @@ export default function Header() {
               </Link>
             </li>
             <li className="nav-item d-md-none">
+              <SignedOut>
+                <SignInButton>
+                  <button className="nav-link">Sign in</button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </li>
+            <li className="nav-item d-md-none">
               <div className="form-check form-switch">
                 <input
                   className="form-check-input"
@@ -118,9 +129,21 @@ export default function Header() {
             </li>
           </ul>
         </div>
-        <button className="btn btn-dark d-none d-md-block" onClick={handleChangeTheme}>
-          <FontAwesomeIcon fixedWidth icon={theme === "light" ? faMoon : faSun} />
-        </button>
+
+        <div className="d-none d-md-flex gap-2 align-items-center">
+          <button className="btn btn-dark" onClick={handleChangeTheme}>
+            <FontAwesomeIcon fixedWidth icon={theme === "light" ? faMoon : faSun} />
+          </button>
+
+          <SignedOut>
+            <SignInButton>
+              <button className="btn btn-dark">Sign in</button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
       </div>
     </nav>
   );
