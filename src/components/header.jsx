@@ -93,6 +93,11 @@ export default function Header() {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className={`nav-link ${pathname === "/photography" ? "active" : ""}`} href="/photography">
+                Photography
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link className={`nav-link ${pathname.includes("/blog") ? "active" : ""}`} href="/blog">
                 Blog
               </Link>
