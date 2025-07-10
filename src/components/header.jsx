@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { projects } from "@/data/projects";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
@@ -50,38 +49,6 @@ export default function Header() {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav">
-            <li className={`nav-item d-none d-md-block`}>
-              <Link
-                className={`nav-link ${pathname === "/" || pathname.includes("/portfolio") ? "active" : ""}`}
-                href="/#portfolio"
-              >
-                Portfolio
-              </Link>
-            </li>
-            <li className="nav-item dropdown d-block d-md-none">
-              <Link
-                className="nav-link dropdown-toggle"
-                href="/"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Portfolio
-              </Link>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                {projects
-                  .filter((project) => project.show)
-                  .map((project, index) => (
-                    <div key={index} className="col-lg-3 col-md-4 col-sm-6">
-                      <Link className="dropdown-item" href={`/projects/${project.slug}`}>
-                        <span className="text-danger">{String(index + 1).padStart(2, "0")}</span> {project.title}
-                      </Link>
-                    </div>
-                  ))}
-              </div>
-            </li>
             <li className="nav-item">
               <Link className={`nav-link ${pathname === "/watchlist" ? "active" : ""}`} href="/watchlist">
                 Watchlist
@@ -90,6 +57,11 @@ export default function Header() {
             <li className="nav-item">
               <Link className={`nav-link ${pathname === "/foodlist" ? "active" : ""}`} href="/foodlist">
                 Foodlist
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className={`nav-link ${pathname === "/photography" ? "active" : ""}`} href="/photography">
+                Photography
               </Link>
             </li>
             <li className="nav-item">
