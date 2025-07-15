@@ -1,26 +1,33 @@
 "use client";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTicket, faPlayCircle, faFilm } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTicket, faPlayCircle, faFilm, faPencil, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function MovieModal({ selectedMovie }) {
+  const embed_url = selectedMovie?.trailer_url
+    ? "https://youtube.com/embed/" + selectedMovie.trailer_url.slice(32)
+    : null;
+
   return (
     <div className="modal fade" id="modal" tabIndex="-1">
-      <div className="modal-dialog modal-xl">
+      <div className="modal-dialog modal-dialog-centered modal-xl">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">{selectedMovie?.name}</h5>
-            <button type="button" className="btn-close" data-bs-toggle="modal" data-bs-target="#modal"></button>
+            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div className="modal-body">
-            {selectedMovie?.trailer ? (
-              <div className="video">
-                <iframe src={selectedMovie?.trailer} className="embed-responsive-item" allowFullScreen></iframe>
+            {embed_url ? (
+              <div className="ratio ratio-16x9">
+                <iframe src={embed_url} className="embed-responsive-item" allowFullScreen></iframe>
               </div>
             ) : (
-              <div className="border border-gray-300 rounded text-center">
-                <p className="text-muted my-5">No trailer yet.</p>
+              <div className="ratio ratio-16x9">
+                <div className="border border-gray-300 rounded bg-secondary-subtle d-flex justify-content-center align-items-center">
+                  <p className="text-muted">No trailer yet.</p>
+                </div>
               </div>
             )}
           </div>
@@ -30,7 +37,233 @@ function MovieModal({ selectedMovie }) {
   );
 }
 
+function CreateMovieModal({ selectedMovie, setSelectedMovie, handleCreateMovie }) {
+  function handleChange(e) {
+    setSelectedMovie({ ...selectedMovie, [e.target.name]: e.target.value });
+  }
+
+  return (
+    <div className="modal fade" id="createMovieModal" tabIndex="-1">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Add movie</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form onSubmit={(e) => handleCreateMovie(e, selectedMovie)}>
+            <div className="modal-body">
+              <div className="mb-3">
+                <label className="form-label">Name</label>
+                <input
+                  name="name"
+                  type="text"
+                  className="form-control"
+                  value={selectedMovie?.name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Status</label>
+                <select name="status" className="form-select" value={selectedMovie?.status} onChange={handleChange}>
+                  <option value="unwatched">Unwatched</option>
+                  <option value="watching">Watching</option>
+                  <option value="watched">Watched</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Release date</label>
+                <input
+                  name="release_date"
+                  type="date"
+                  className="form-control"
+                  value={selectedMovie?.release_date}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Image URL</label>
+                <input
+                  name="img_url"
+                  type="text"
+                  className="form-control"
+                  value={selectedMovie?.img_url}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Trailer URL</label>
+                <input
+                  name="trailer_url"
+                  type="text"
+                  className="form-control"
+                  value={selectedMovie?.trailer_url}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Detail URL</label>
+                <input
+                  name="detail_url"
+                  type="text"
+                  className="form-control"
+                  value={selectedMovie?.detail_url}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Notes</label>
+                <textarea
+                  name="notes"
+                  className="form-control"
+                  value={selectedMovie?.notes}
+                  placeholder="Add notes..."
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" className="btn btn-primary">
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function UpdateMovieModal({ selectedMovie, setSelectedMovie, handleUpdateMovie }) {
+  function handleChange(e) {
+    setSelectedMovie({ ...selectedMovie, [e.target.name]: e.target.value });
+  }
+
+  return (
+    <div className="modal fade" id="updateMovieModal" tabIndex="-1">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Edit "{selectedMovie?.name}"</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form onSubmit={(e) => handleUpdateMovie(e, selectedMovie)}>
+            <div className="modal-body">
+              <div className="mb-3">
+                <label className="form-label">Name</label>
+                <input
+                  name="name"
+                  type="text"
+                  className="form-control"
+                  value={selectedMovie?.name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Status</label>
+                <select name="status" className="form-select" value={selectedMovie?.status} onChange={handleChange}>
+                  <option value="unwatched">Unwatched</option>
+                  <option value="watching">Watching</option>
+                  <option value="watched">Watched</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Release date</label>
+                <input
+                  name="release_date"
+                  type="date"
+                  className="form-control"
+                  value={selectedMovie?.release_date}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Image URL</label>
+                <input
+                  name="img_url"
+                  type="text"
+                  className="form-control"
+                  value={selectedMovie?.img_url}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Trailer URL</label>
+                <input
+                  name="trailer_url"
+                  type="text"
+                  className="form-control"
+                  value={selectedMovie?.trailer_url}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Detail URL</label>
+                <input
+                  name="detail_url"
+                  type="text"
+                  className="form-control"
+                  value={selectedMovie?.detail_url}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Notes</label>
+                <textarea
+                  name="notes"
+                  className="form-control"
+                  value={selectedMovie?.notes}
+                  placeholder="Add notes..."
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" className="btn btn-primary">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DeleteMovieModal({ selectedMovie, handleDeleteMovie }) {
+  return (
+    <div className="modal fade" id="deleteMovieModal" tabIndex="-1">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Delete "{selectedMovie?.name}"?</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form onSubmit={(e) => handleDeleteMovie(e, selectedMovie)}>
+            <div className="modal-body">Are you sure you want to delete this movie? This action cannot be undone.</div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" className="btn btn-danger">
+                Delete
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Movie({ movie, setSelectedMovie }) {
+  const { user } = useUser();
+  const isAdmin = user?.publicMetadata?.role === "admin";
   const unreleased = new Date(movie.release_date) > new Date();
 
   return (
@@ -40,12 +273,7 @@ function Movie({ movie, setSelectedMovie }) {
           className="card-img-top ratio object-fit-cover"
           style={{ cursor: "pointer" }}
           src={movie.img_url}
-          onClick={() =>
-            setSelectedMovie({
-              name: movie.name,
-              trailer: movie.trailer_url ? "https://youtube.com/embed/" + movie.trailer_url.slice(32) : null,
-            })
-          }
+          onClick={() => setSelectedMovie(movie)}
           data-bs-toggle="modal"
           data-bs-target="#modal"
         />
@@ -64,7 +292,9 @@ function Movie({ movie, setSelectedMovie }) {
             </>
           )}
         </h5>
-        <p className="card-text">Release date: {new Date(movie.release_date).toLocaleDateString()}</p>
+        <p className="card-text">
+          Release date: {new Date(movie.release_date).toLocaleDateString("en-US", { timeZone: "UTC" })}
+        </p>
 
         {movie.detail_url &&
           (movie.detail_url.includes("fandango") ? (
@@ -106,18 +336,47 @@ function Movie({ movie, setSelectedMovie }) {
             <button
               className="btn btn-outline-danger d-none d-xl-inline-block"
               type="button"
-              onClick={() =>
-                setSelectedMovie({
-                  name: movie.name,
-                  trailer: "https://youtube.com/embed/" + movie.trailer_url.slice(32),
-                })
-              }
+              onClick={() => setSelectedMovie(movie)}
               data-bs-toggle="modal"
               data-bs-target="#modal"
             >
               <FontAwesomeIcon icon={faFilm} /> Trailer
             </button>
           </>
+        )}
+
+        {isAdmin && (
+          <div className="dropdown d-xl-inline-block">
+            <button
+              className="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+            ></button>
+            <ul className="dropdown-menu">
+              <li>
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#updateMovieModal"
+                  onClick={() => setSelectedMovie(movie)}
+                >
+                  <FontAwesomeIcon icon={faPencil} /> Edit
+                </button>
+              </li>
+              <li>
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deleteMovieModal"
+                  onClick={() => setSelectedMovie(movie)}
+                >
+                  <FontAwesomeIcon icon={faTrash} /> Delete
+                </button>
+              </li>
+            </ul>
+          </div>
         )}
       </div>
 
@@ -126,7 +385,9 @@ function Movie({ movie, setSelectedMovie }) {
   );
 }
 
-export default function Watchlist({ watchlist }) {
+export default function Watchlist({ watchlist: initialWatchlist }) {
+  const { user } = useUser();
+  const [watchlist, setWatchlist] = useState(initialWatchlist);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [query, setQuery] = useState("");
   const [statuses, setStatuses] = useState([
@@ -134,6 +395,110 @@ export default function Watchlist({ watchlist }) {
     { displayName: "Watching", name: "watching", color: "warning", checked: false },
     { displayName: "Watched", name: "watched", color: "success", checked: false },
   ]);
+
+  const isAdmin = user?.publicMetadata?.role === "admin";
+
+  async function handleCreateMovie(e, movie) {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/watchlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: movie.id,
+          name: movie.name,
+          status: movie.status,
+          release_date: movie.release_date,
+          img_url: movie.img_url,
+          trailer_url: movie.trailer_url,
+          detail_url: movie.detail_url,
+          notes: movie.notes,
+        }),
+      });
+
+      if (response.ok) {
+        const newMovie = await response.json();
+        setWatchlist((prevWatchlist) => [...prevWatchlist, newMovie]);
+
+        const modal = document.getElementById("createMovieModal");
+        const bootstrapModal = bootstrap.Modal.getInstance(modal);
+        if (bootstrapModal) {
+          bootstrapModal.hide();
+        }
+      } else {
+        console.error("Failed to create movie");
+      }
+    } catch (error) {
+      console.error("Error creating movie:", error);
+    }
+  }
+
+  async function handleUpdateMovie(e, movie) {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/watchlist", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: movie.id,
+          name: movie.name,
+          status: movie.status,
+          release_date: movie.release_date,
+          img_url: movie.img_url,
+          trailer_url: movie.trailer_url,
+          detail_url: movie.detail_url,
+          notes: movie.notes,
+        }),
+      });
+
+      if (response.ok) {
+        const updatedMovie = await response.json();
+        setWatchlist((prevWatchlist) =>
+          prevWatchlist.map((movie) => (movie.id === updatedMovie.id ? updatedMovie : movie))
+        );
+
+        const modal = document.getElementById("updateMovieModal");
+        const bootstrapModal = bootstrap.Modal.getInstance(modal);
+        if (bootstrapModal) {
+          bootstrapModal.hide();
+        }
+      } else {
+        console.error("Failed to update movie");
+      }
+    } catch (error) {
+      console.error("Error updating movie:", error);
+    }
+  }
+
+  async function handleDeleteMovie(e, movie) {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`/api/watchlist?id=${movie.id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setWatchlist((prevWatchlist) => prevWatchlist.filter((m) => m.id !== movie.id));
+
+        const modal = document.getElementById("deleteMovieModal");
+        const bootstrapModal = bootstrap.Modal.getInstance(modal);
+        if (bootstrapModal) {
+          bootstrapModal.hide();
+        }
+      } else {
+        console.error("Failed to delete movie");
+      }
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+    }
+  }
 
   function handleChange(e) {
     setQuery(e.target.value.toLowerCase());
@@ -152,6 +517,31 @@ export default function Watchlist({ watchlist }) {
 
   return (
     <>
+      {isAdmin && (
+        <div className="row mb-4">
+          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
+            <button
+              className="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#createMovieModal"
+              onClick={() =>
+                setSelectedMovie({
+                  name: "",
+                  status: "unwatched",
+                  release_date: "",
+                  img_url: "",
+                  trailer_url: "",
+                  detail_url: "",
+                  notes: "",
+                })
+              }
+            >
+              <FontAwesomeIcon icon={faPlus} /> Add movie
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="row mb-4">
         <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
           <input value={query} onChange={handleChange} className="form-control mb-1" placeholder="Search..." />
@@ -183,6 +573,20 @@ export default function Watchlist({ watchlist }) {
       </div>
 
       <MovieModal selectedMovie={selectedMovie} />
+
+      <CreateMovieModal
+        selectedMovie={selectedMovie}
+        setSelectedMovie={setSelectedMovie}
+        handleCreateMovie={handleCreateMovie}
+      />
+
+      <UpdateMovieModal
+        selectedMovie={selectedMovie}
+        setSelectedMovie={setSelectedMovie}
+        handleUpdateMovie={handleUpdateMovie}
+      />
+
+      <DeleteMovieModal selectedMovie={selectedMovie} handleDeleteMovie={handleDeleteMovie} />
     </>
   );
 }
