@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.23.3",
+    "@clerk/nextjs": "^6.39.3",
     "@clerk/themes": "^2.2.46",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
@@ -22,10 +22,10 @@
     "@vercel/analytics": "^1.4.1",
     "eslint-config-next": "^15.3.2",
     "masonic": "^4.1.0",
-    "next": "^15.3.5",
+    "next": "^15.5.18",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-syntax-highlighter": "^15.6.1"
+    "react-syntax-highlighter": "^16.1.1"
   },
   "devDependencies": {
     "bootstrap": "^5.3.7",
