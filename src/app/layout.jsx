@@ -1,6 +1,6 @@
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
-import "@/styles/index.scss";
+import "@/app/globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -21,13 +21,12 @@ export default function RootLayout({ children }) {
         baseTheme: dark,
       }}
     >
-      <html lang="en" className="h-100" data-bs-theme="light">
+      <html lang="en" className="h-full">
         <head>
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
           {/* JS */}
-          <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" />
           <Script>
             {`(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -37,7 +36,6 @@ export default function RootLayout({ children }) {
           ga('create', 'UA-56229856-1', 'auto');
           ga('send', 'pageview');`}
           </Script>
-          <script type="text/javascript" src="/js/fontawesome-all.js"></script>
 
           {/* CSS */}
           <link
@@ -46,7 +44,7 @@ export default function RootLayout({ children }) {
             type="text/css"
           />
         </head>
-        <body className="h-100">
+        <body className="bg-background text-foreground h-full">
           <Header />
 
           <a name="top"></a>

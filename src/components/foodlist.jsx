@@ -2,682 +2,617 @@
 
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { faMapPin, faPlus, faPencil, faTrash, faCog, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  AlertTriangle,
+  ChevronRight,
+  ExternalLink,
+  Loader2,
+  MapPin,
+  Pencil,
+  Plus,
+  Search,
+  Trash2,
+  X,
+} from "lucide-react";
 
-function CreateRestaurantModal({ isSubmitting, formData, setFormData, cities, handleCreateRestaurant }) {
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+
+const STATUSES = [
+  { name: "unvisited", displayName: "Unvisited", variant: "secondary" },
+  { name: "visited", displayName: "Visited", variant: "success" },
+  { name: "closed", displayName: "Closed", variant: "destructive" },
+];
+
+const selectClassName =
+  "border-input focus-visible:border-ring focus-visible:ring-ring/50 h-9 rounded-md border bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:ring-[3px]";
+
+function statusVariant(status) {
+  return STATUSES.find((s) => s.name === status)?.variant ?? "secondary";
+}
+
+function statusLabel(status) {
+  return STATUSES.find((s) => s.name === status)?.displayName ?? status;
+}
+
+// Cuisines are stored as a single comma-separated string in the `cuisine` column
+// (e.g. "Indian, Fusion") so multi-tag support doesn't require a schema change.
+function parseCuisines(cuisine) {
+  return (cuisine ?? "")
+    .split(",")
+    .map((c) => c.trim())
+    .filter(Boolean);
+}
+
+function TogglePill({ active, onClick, children }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
+        active
+          ? "border-primary bg-primary text-primary-foreground"
+          : "border-input text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+function RestaurantForm({ formData, setFormData, cities }) {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   return (
-    <div className="modal fade" id="createRestaurantModal" tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Add restaurant</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <form onSubmit={(e) => handleCreateRestaurant(e, formData)}>
-            <div className="modal-body">
-              <div className="mb-3">
-                <label className="form-label">Name</label>
-                <input
-                  name="name"
-                  type="text"
-                  className="form-control"
-                  value={formData?.name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">City</label>
-                <select
-                  name="city"
-                  className="form-select"
-                  value={formData?.city}
-                  onChange={handleChange}
-                  placeholder="Select..."
-                >
-                  {cities?.map((city) => (
-                    <option key={city.id} value={city.id}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Order</label>
-                <input
-                  name="order"
-                  type="number"
-                  className="form-control"
-                  value={formData?.order}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Status</label>
-                <select name="status" className="form-select" value={formData?.status} onChange={handleChange}>
-                  <option value="unvisited">Unvisited</option>
-                  <option value="visited">Visited</option>
-                  <option value="closed">Closed</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Description</label>
-                <textarea
-                  name="description"
-                  className="form-control"
-                  value={formData?.description}
-                  placeholder="Add description..."
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Cuisine</label>
-                <input
-                  type="text"
-                  name="cuisine"
-                  className="form-control"
-                  value={formData?.cuisine}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Image URL</label>
-                <input
-                  name="img_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.img_url}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Detail URL</label>
-                <input
-                  name="detail_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.detail_url}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Notes</label>
-                <textarea
-                  name="notes"
-                  className="form-control"
-                  value={formData?.notes}
-                  placeholder="Add notes..."
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Creating...
-                  </>
-                ) : (
-                  "Create"
-                )}
-              </button>
-            </div>
-          </form>
+    <div className="grid gap-4">
+      <div className="grid gap-1.5">
+        <Label htmlFor="name">Name</Label>
+        <Input id="name" name="name" value={formData?.name ?? ""} onChange={handleChange} />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-1.5">
+          <Label htmlFor="city">City</Label>
+          <select id="city" name="city" value={formData?.city ?? ""} onChange={handleChange} className={selectClassName}>
+            {cities?.map((city) => (
+              <option key={city.id} value={city.id}>
+                {city.name}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <div className="grid gap-1.5">
+          <Label htmlFor="status">Status</Label>
+          <select
+            id="status"
+            name="status"
+            value={formData?.status ?? "unvisited"}
+            onChange={handleChange}
+            className={selectClassName}
+          >
+            {STATUSES.map((status) => (
+              <option key={status.name} value={status.name}>
+                {status.displayName}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="order">Order</Label>
+        <Input id="order" name="order" type="number" value={formData?.order ?? 0} onChange={handleChange} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="description">Description</Label>
+        <Textarea
+          id="description"
+          name="description"
+          value={formData?.description ?? ""}
+          placeholder="Add description..."
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="cuisine">Cuisine</Label>
+        <Input
+          id="cuisine"
+          name="cuisine"
+          value={formData?.cuisine ?? ""}
+          placeholder="e.g. Indian, Fusion"
+          onChange={handleChange}
+        />
+        <p className="text-muted-foreground text-xs">Comma-separated if more than one.</p>
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="img_url">Image URL</Label>
+        <Input id="img_url" name="img_url" value={formData?.img_url ?? ""} onChange={handleChange} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="detail_url">Detail URL</Label>
+        <Input id="detail_url" name="detail_url" value={formData?.detail_url ?? ""} onChange={handleChange} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="notes">Notes</Label>
+        <Textarea
+          id="notes"
+          name="notes"
+          value={formData?.notes ?? ""}
+          placeholder="Add notes..."
+          onChange={handleChange}
+        />
       </div>
     </div>
   );
 }
 
-function UpdateRestaurantModal({ isSubmitting, formData, setFormData, cities, handleUpdateRestaurant }) {
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
+function RestaurantRow({ restaurant, cityName, onSelect }) {
+  const cuisines = parseCuisines(restaurant.cuisine);
 
   return (
-    <div className="modal fade" id="updateRestaurantModal" tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Edit restaurant</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <form onSubmit={(e) => handleUpdateRestaurant(e, formData)}>
-            <div className="modal-body">
-              <div className="mb-3">
-                <label className="form-label">Name</label>
-                <input
-                  name="name"
-                  type="text"
-                  className="form-control"
-                  value={formData?.name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">City</label>
-                <select
-                  name="city"
-                  className="form-select"
-                  value={formData?.city}
-                  onChange={handleChange}
-                  placeholder="Select..."
-                >
-                  {cities?.map((city) => (
-                    <option key={city.id} value={city.id}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Order</label>
-                <input
-                  name="order"
-                  type="number"
-                  className="form-control"
-                  value={formData?.order}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Status</label>
-                <select name="status" className="form-select" value={formData?.status} onChange={handleChange}>
-                  <option value="unvisited">Unvisited</option>
-                  <option value="visited">Visited</option>
-                  <option value="closed">Closed</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Description</label>
-                <textarea
-                  name="description"
-                  className="form-control"
-                  value={formData?.description}
-                  placeholder="Add description..."
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Cuisine</label>
-                <input
-                  type="text"
-                  name="cuisine"
-                  className="form-control"
-                  value={formData?.cuisine}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Image URL</label>
-                <input
-                  name="img_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.img_url}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Detail URL</label>
-                <input
-                  name="detail_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.detail_url}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Notes</label>
-                <textarea
-                  name="notes"
-                  className="form-control"
-                  value={formData?.notes}
-                  placeholder="Add notes..."
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Saving...
-                  </>
-                ) : (
-                  "Save"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+    <button
+      type="button"
+      onClick={onSelect}
+      className="hover:bg-accent/50 border-border flex w-full items-center gap-3 border-b px-2 py-2.5 text-left transition-colors last:border-b-0"
+    >
+      <div className="size-14 shrink-0 overflow-hidden rounded-md bg-neutral-800">
+        {restaurant.img_url && (
+          // eslint-disable-next-line @next/next/no-img-element -- arbitrary external host, not known ahead of time
+          <img src={restaurant.img_url} alt="" className="h-full w-full object-cover" />
+        )}
       </div>
-    </div>
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <p className="text-foreground truncate font-medium">{restaurant.name}</p>
+          {restaurant.status && (
+            <Badge variant={statusVariant(restaurant.status)} className="shrink-0">
+              {statusLabel(restaurant.status)}
+            </Badge>
+          )}
+        </div>
+        <p className="text-muted-foreground mt-0.5 flex items-center gap-1 truncate text-xs">
+          <MapPin className="size-3 shrink-0" />
+          <span className="truncate">
+            {cityName}
+            {cuisines.length > 0 && ` · ${cuisines.join(", ")}`}
+          </span>
+        </p>
+      </div>
+
+      <ChevronRight className="text-muted-foreground size-4 shrink-0" />
+    </button>
   );
 }
 
-function DeleteRestaurantModal({ isSubmitting, formData, handleDeleteRestaurant }) {
+function RestaurantDetailsDialog({ restaurant, cityName, isAdmin, open, onOpenChange, onEdit, onDelete }) {
+  if (!restaurant) return null;
+
+  const cuisines = parseCuisines(restaurant.cuisine);
+
   return (
-    <div className="modal fade" id="deleteRestaurantModal" tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Delete restaurant</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="gap-0 overflow-hidden p-0">
+        {restaurant.img_url && (
+          <div className="relative aspect-video w-full bg-neutral-800">
+            <div className="absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-black/50 to-transparent" />
+            {/* eslint-disable-next-line @next/next/no-img-element -- arbitrary external host, not known ahead of time */}
+            <img src={restaurant.img_url} alt={restaurant.name} className="h-full w-full object-cover" />
           </div>
-          <form onSubmit={(e) => handleDeleteRestaurant(e, formData)}>
-            <div className="modal-body">
-              <p>Are you sure you want to delete "{formData.name}"? This action cannot be undone.</p>
+        )}
+
+        <div className="p-6">
+          <div className="flex items-start justify-between gap-2 pr-8">
+            <DialogTitle className="font-display text-xl font-medium">{restaurant.name}</DialogTitle>
+            {restaurant.status && (
+              <Badge variant={statusVariant(restaurant.status)} className="shrink-0">
+                {statusLabel(restaurant.status)}
+              </Badge>
+            )}
+          </div>
+
+          <p className="text-muted-foreground mt-1 flex items-center gap-1 text-sm">
+            <MapPin className="size-3.5" />
+            {cityName}
+          </p>
+
+          {cuisines.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-1">
+              {cuisines.map((cuisine) => (
+                <Badge key={cuisine} variant="outline">
+                  {cuisine}
+                </Badge>
+              ))}
             </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" className="btn btn-danger" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Deleting...
-                  </>
-                ) : (
-                  "Delete"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-}
+          )}
 
-function RestaurantCity({ cityId, city, setFormData }) {
-  return (
-    <div className="accordion-item">
-      <div className="accordion-header">
-        <button
-          className="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target={`#collapse${cityId}`}
-        >
-          <div className="d-flex gap-2 align-items-center">
-            <FontAwesomeIcon icon={faMapPin} />
-            <h4 className="mb-0">{city.name}</h4>
-          </div>
-        </button>
-      </div>
-      <div id={`collapse${cityId}`} className="accordion-collapse collapse">
-        <div className="accordion-body">
-          {city.restaurants.map((restaurant, index) => (
-            <Restaurant key={index} restaurant={restaurant} setFormData={setFormData} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+          {restaurant.description && (
+            <p className="text-muted-foreground mt-3 text-sm">{restaurant.description}</p>
+          )}
 
-function Restaurant({ restaurant, setFormData }) {
-  const { user } = useUser();
-  const isAdmin = user?.publicMetadata?.role === "admin";
+          {restaurant.notes && (
+            <p className="text-foreground/80 border-border mt-3 border-t pt-3 text-sm italic">{restaurant.notes}</p>
+          )}
 
-  let badge = "";
-  switch (restaurant.status) {
-    case "visited":
-      badge = <span className="badge text-bg-success">Visited</span>;
-      break;
-    case "closed":
-      badge = <span className="badge text-bg-danger">Closed</span>;
-      break;
-  }
-
-  return (
-    <div className="card mb-3">
-      <div className="row no-gutters">
-        <div className="col-md-4">
-          <img src={restaurant.img_url} className="w-100" height="180px" style={{ objectFit: "cover" }} />
+          <DialogFooter className="mt-6">
+            {isAdmin && (
+              <>
+                <Button type="button" variant="outline" onClick={onEdit}>
+                  <Pencil className="size-4" />
+                  Edit
+                </Button>
+                <Button type="button" variant="destructive" onClick={onDelete}>
+                  <Trash2 className="size-4" />
+                  Delete
+                </Button>
+              </>
+            )}
+            {restaurant.detail_url && (
+              <Button asChild>
+                <a href={restaurant.detail_url} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="size-4" />
+                  Visit website
+                </a>
+              </Button>
+            )}
+          </DialogFooter>
         </div>
-        <div className="col-md-8">
-          <div className="card-body position-relative">
-            <h5 className="card-title">
-              <a href={restaurant.detail_url} target="_blank">
-                {restaurant.order}. {restaurant.name}
-              </a>{" "}
-              {badge}
-              {isAdmin && (
-                <div className="dropdown position-absolute top-0 end-0 p-2">
-                  <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    <FontAwesomeIcon icon={faCog} />
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <button
-                        type="button"
-                        className="dropdown-item"
-                        data-bs-toggle="modal"
-                        data-bs-target="#updateRestaurantModal"
-                        onClick={() => setFormData(restaurant)}
-                      >
-                        <FontAwesomeIcon icon={faPencil} /> Edit
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        type="button"
-                        className="dropdown-item"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteRestaurantModal"
-                        onClick={() => setFormData(restaurant)}
-                      >
-                        <FontAwesomeIcon icon={faTrash} /> Delete
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </h5>
-            <p className="card-text">{restaurant.description}</p>
-            <p className="card-text">
-              <small className="text-muted">{restaurant.cuisine}</small>
-            </p>
-          </div>
-        </div>
-      </div>
-      {restaurant.notes && <div className="card-footer">{restaurant.notes}</div>}
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
 export default function Foodlist({ cities, foodlist: initialFoodlist }) {
   const { user } = useUser();
+  const isAdmin = user?.publicMetadata?.role === "admin";
+
   const [fetchFailed, setFetchFailed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [foodlist, setFoodlist] = useState(initialFoodlist);
+  const [foodlist, setFoodlist] = useState(initialFoodlist ?? []);
   const [formData, setFormData] = useState({});
   const [query, setQuery] = useState("");
-  const [cuisines, setCuisines] = useState([
-    { name: "Thai", checked: false },
-    { name: "Indian", checked: false },
-    { name: "Chinese", checked: false },
-    { name: "Italian", checked: false },
-    { name: "French", checked: false },
-    { name: "Seafood", checked: false },
-    { name: "Japanese", checked: false },
-    { name: "Korean", checked: false },
-    { name: "Vietnamese", checked: false },
-    { name: "Burmese", checked: false },
-    { name: "Breakfast", checked: false },
-    { name: "Tapas", checked: false },
-    { name: "American", checked: false },
-    { name: "Persian", checked: false },
-    { name: "Latin American", checked: false },
-    { name: "Moroccan", checked: false },
-    { name: "Mediterranean", checked: false },
-    { name: "Pizza", checked: false },
-    { name: "Bakery", checked: false },
-    { name: "Bar", checked: false },
-  ]);
-  const [statuses, setStatuses] = useState([
-    { displayName: "Unvisited", name: "unvisited", color: "secondary", checked: false },
-    { displayName: "Visited", name: "visited", color: "success", checked: false },
-  ]);
+  const [cuisineQuery, setCuisineQuery] = useState("");
+  const [cityQuery, setCityQuery] = useState("");
+  const [activeStatuses, setActiveStatuses] = useState([]);
+  const [viewOpen, setViewOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
-  async function handleCreateRestaurant(e, formData) {
+  const cityById = new Map((cities ?? []).map((city) => [city.id, city]));
+  const allCuisines = Array.from(new Set(foodlist.flatMap((restaurant) => parseCuisines(restaurant.cuisine)))).sort(
+    (a, b) => a.localeCompare(b)
+  );
+
+  function toggle(list, setList, value) {
+    setList(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
+  }
+
+  const hasActiveFilters = query || cuisineQuery || cityQuery || activeStatuses.length > 0;
+
+  function clearFilters() {
+    setQuery("");
+    setCuisineQuery("");
+    setCityQuery("");
+    setActiveStatuses([]);
+  }
+
+  const filteredFoodlist = foodlist
+    .filter((r) => {
+      if (!cityQuery) return true;
+      const cityName = cityById.get(r.city)?.name ?? "";
+      return cityName.toLowerCase().includes(cityQuery.toLowerCase());
+    })
+    .filter((r) => activeStatuses.length === 0 || activeStatuses.includes(r.status))
+    .filter((r) => {
+      if (!cuisineQuery) return true;
+      const q = cuisineQuery.toLowerCase();
+      return parseCuisines(r.cuisine).some((c) => c.toLowerCase().includes(q));
+    })
+    .filter((r) => {
+      const q = query.toLowerCase();
+      if (!q) return true;
+      return (
+        r.name?.toLowerCase().includes(q) ||
+        r.description?.toLowerCase().includes(q) ||
+        r.cuisine?.toLowerCase().includes(q) ||
+        r.notes?.toLowerCase().includes(q)
+      );
+    })
+    .sort((a, b) => {
+      const cityOrderA = cityById.get(a.city)?.order ?? 0;
+      const cityOrderB = cityById.get(b.city)?.order ?? 0;
+      if (cityOrderA !== cityOrderB) return cityOrderA - cityOrderB;
+      return a.order - b.order;
+    });
+
+  async function handleCreateRestaurant(e) {
     e.preventDefault();
-
     try {
       setIsSubmitting(true);
       const response = await fetch("/api/foodlist", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const newRestaurant = await response.json();
-        setFoodlist((prevFoodlist) => [...prevFoodlist, newRestaurant]);
-
-        const modal = document.getElementById("createRestaurantModal");
-        const bootstrapModal = bootstrap.Modal.getInstance(modal);
-        if (bootstrapModal) {
-          bootstrapModal.hide();
-        }
+        setFoodlist((prev) => [...prev, newRestaurant]);
+        setCreateOpen(false);
       } else {
-        console.error("Failed to create restaurant");
         setFetchFailed(true);
       }
-    } catch (error) {
-      console.error("Failed to create restaurant");
+    } catch {
       setFetchFailed(true);
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  async function handleUpdateRestaurant(e, formData) {
+  async function handleUpdateRestaurant(e) {
     e.preventDefault();
-
     try {
       setIsSubmitting(true);
       const response = await fetch("/api/foodlist", {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const updatedRestaurant = await response.json();
-        setFoodlist((prevFoodlist) =>
-          prevFoodlist.map((restaurant) => (restaurant.id === updatedRestaurant.id ? updatedRestaurant : restaurant))
-        );
-
-        const modal = document.getElementById("updateRestaurantModal");
-        const bootstrapModal = bootstrap.Modal.getInstance(modal);
-        if (bootstrapModal) {
-          bootstrapModal.hide();
-        }
+        setFoodlist((prev) => prev.map((r) => (r.id === updatedRestaurant.id ? updatedRestaurant : r)));
+        setUpdateOpen(false);
       } else {
-        console.error("Failed to update restaurant");
         setFetchFailed(true);
       }
-    } catch (error) {
-      console.error("Failed to update restaurant");
+    } catch {
       setFetchFailed(true);
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  async function handleDeleteRestaurant(e, formData) {
+  async function handleDeleteRestaurant(e) {
     e.preventDefault();
-
     try {
       setIsSubmitting(true);
-      const response = await fetch(`/api/foodlist?id=${formData.id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(`/api/foodlist?id=${formData.id}`, { method: "DELETE" });
 
       if (response.ok) {
-        setFoodlist((prevFoodlist) => prevFoodlist.filter((restaurant) => restaurant.id !== formData.id));
-
-        const modal = document.getElementById("deleteRestaurantModal");
-        const bootstrapModal = bootstrap.Modal.getInstance(modal);
-        if (bootstrapModal) {
-          bootstrapModal.hide();
-        }
+        setFoodlist((prev) => prev.filter((r) => r.id !== formData.id));
+        setDeleteOpen(false);
       } else {
-        console.error("Failed to delete restaurant");
         setFetchFailed(true);
       }
-    } catch (error) {
-      console.error("Failed to delete restaurant");
+    } catch {
       setFetchFailed(true);
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  function handleChange(e) {
-    setQuery(e.target.value.toLowerCase());
+  function openCreate() {
+    setFormData({
+      name: "",
+      city: cities?.[0]?.id ?? "",
+      order: 0,
+      status: "unvisited",
+      description: "",
+      cuisine: "",
+      img_url: "",
+      detail_url: "",
+      notes: "",
+    });
+    setCreateOpen(true);
   }
 
-  function handleCheckCuisine(e) {
-    setCuisines((prevCuisines) =>
-      prevCuisines.map((cuisine) =>
-        cuisine.name === e.target.name ? { ...cuisine, checked: !cuisine.checked } : cuisine
-      )
-    );
+  function openView(restaurant) {
+    setFormData(restaurant);
+    setViewOpen(true);
   }
 
-  function handleCheckStatus(e) {
-    setStatuses((prevStatuses) =>
-      prevStatuses.map((status) => (status.name === e.target.name ? { ...status, checked: !status.checked } : status))
-    );
+  function openEdit(restaurant) {
+    setFormData(restaurant);
+    setViewOpen(false);
+    setUpdateOpen(true);
   }
 
-  cities.forEach((city) => {
-    city.restaurants = foodlist.filter((restaurant) => restaurant.city === city.id);
-  });
-
-  const checkedCuisines = cuisines.filter((cuisine) => cuisine.checked).map((cuisine) => cuisine.name.toLowerCase());
-  const checkedStatuses = statuses.filter((status) => status.checked).map((status) => status.name);
-  const filteredFoodlist = cities
-    .map((city) => ({
-      ...city,
-      restaurants: city.restaurants
-        .filter((restaurant) => checkedStatuses.length === 0 || checkedStatuses.includes(restaurant.status))
-        .filter(
-          (restaurant) => checkedCuisines.length === 0 || checkedCuisines.includes(restaurant.cuisine.toLowerCase())
-        )
-        .filter(
-          (restaurant) =>
-            restaurant.name.toLowerCase().includes(query) ||
-            restaurant.description.toLowerCase().includes(query) ||
-            restaurant.cuisine.toLowerCase().includes(query)
-        )
-        .sort((a, b) => a.order - b.order),
-    }))
-    .sort((a, b) => a.order - b.order);
-
-  const isAdmin = user?.publicMetadata?.role === "admin";
+  function openDelete(restaurant) {
+    setFormData(restaurant);
+    setViewOpen(false);
+    setDeleteOpen(true);
+  }
 
   return (
-    <>
-      <div className="row">
-        <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
-          {fetchFailed && (
-            <div className="alert alert-danger" role="alert">
-              <FontAwesomeIcon icon={faExclamationTriangle} /> Something went wrong. Please try again.
-            </div>
-          )}
-
-          <div className="mb-4 mt-2">
-            <input value={query} onChange={handleChange} className="form-control mb-1" placeholder="Search..." />
-
-            {statuses.map((status) => (
-              <div key={status.name} className="form-check form-check-inline">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id={`checkbox-${status.name}`}
-                  name={status.name}
-                  checked={status.checked}
-                  onChange={handleCheckStatus}
-                />
-                <label className="form-check-label uppercase" htmlFor={`checkbox-${status.name}`}>
-                  <span className={`badge text-bg-${status.color}`}>{status.displayName}</span>
-                </label>
-              </div>
-            ))}
-
-            {cuisines.map((cuisine) => (
-              <div key={cuisine.name} className="form-check form-check-inline">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id={`checkbox-${cuisine.name}`}
-                  name={cuisine.name}
-                  checked={cuisine.checked}
-                  onChange={handleCheckCuisine}
-                />
-                <label className="form-check-label uppercase" htmlFor={`checkbox-${cuisine.name}`}>
-                  {cuisine.name}
-                </label>
-              </div>
-            ))}
-          </div>
-
-          {isAdmin && (
-            <div className="mb-4">
-              <button
-                className="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#createRestaurantModal"
-                onClick={() =>
-                  setFormData({
-                    name: "",
-                    city: cities[0].id,
-                    order: 0,
-                    description: "",
-                    cuisine: "",
-                    img_url: "",
-                    detail_url: "",
-                    notes: "",
-                  })
-                }
-              >
-                <FontAwesomeIcon icon={faPlus} /> Add restaurant
-              </button>
-            </div>
-          )}
-
-          <div className="accordion">
-            {filteredFoodlist.map((city, cityId) => (
-              <RestaurantCity key={cityId} city={city} cityId={cityId} setFormData={setFormData} />
-            ))}
-          </div>
+    <div className="mx-auto max-w-3xl px-4 pb-20 sm:px-6">
+      {fetchFailed && (
+        <div className="border-destructive/50 bg-destructive/10 text-destructive mb-4 flex items-center gap-2 rounded-md border px-4 py-3 text-sm">
+          <AlertTriangle className="size-4 shrink-0" />
+          Something went wrong. Please try again.
         </div>
+      )}
+
+      <p className="font-display flex flex-wrap items-baseline gap-x-2 gap-y-1 text-2xl font-light sm:text-3xl">
+        <span>I want to eat</span>
+        <input
+          list="cuisine-options"
+          value={cuisineQuery}
+          onChange={(e) => setCuisineQuery(e.target.value)}
+          placeholder="anything"
+          size={cuisineQuery.length || "anything".length}
+          className="border-muted-foreground/40 focus:border-primary [field-sizing:content] min-w-24 max-w-64 border-b-2 border-dashed bg-transparent px-1 text-red-600 outline-none placeholder:text-red-600/40 dark:text-red-400 dark:placeholder:text-red-400/40"
+        />
+        <span>in</span>
+        <input
+          list="city-options"
+          value={cityQuery}
+          onChange={(e) => setCityQuery(e.target.value)}
+          placeholder="anywhere"
+          size={cityQuery.length || "anywhere".length}
+          className="border-muted-foreground/40 focus:border-primary [field-sizing:content] min-w-24 max-w-64 border-b-2 border-dashed bg-transparent px-1 text-red-600 outline-none placeholder:text-red-600/40 dark:text-red-400 dark:placeholder:text-red-400/40"
+        />
+        <span>.</span>
+      </p>
+
+      <datalist id="cuisine-options">
+        {allCuisines.map((cuisine) => (
+          <option key={cuisine} value={cuisine} />
+        ))}
+      </datalist>
+      <datalist id="city-options">
+        {cities?.map((city) => (
+          <option key={city.id} value={city.name} />
+        ))}
+      </datalist>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <div className="relative flex-1">
+          <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Or search by name..."
+            className="pl-9"
+          />
+        </div>
+
+        {STATUSES.map((status) => (
+          <TogglePill
+            key={status.name}
+            active={activeStatuses.includes(status.name)}
+            onClick={() => toggle(activeStatuses, setActiveStatuses, status.name)}
+          >
+            {status.displayName}
+          </TogglePill>
+        ))}
+
+        {hasActiveFilters && (
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-xs font-medium"
+          >
+            <X className="size-3" />
+            Clear
+          </button>
+        )}
       </div>
 
-      <CreateRestaurantModal
-        isSubmitting={isSubmitting}
-        formData={formData}
-        setFormData={setFormData}
-        cities={cities}
-        handleCreateRestaurant={handleCreateRestaurant}
+      <div className="mt-6 flex items-center justify-between">
+        <p className="text-muted-foreground text-sm">
+          {filteredFoodlist.length} restaurant{filteredFoodlist.length === 1 ? "" : "s"}
+        </p>
+
+        {isAdmin && (
+          <Button type="button" size="sm" onClick={openCreate}>
+            <Plus className="size-4" />
+            Add restaurant
+          </Button>
+        )}
+      </div>
+
+      <div className="border-border divide-border mt-4 divide-y rounded-lg border">
+        {filteredFoodlist.map((restaurant) => (
+          <RestaurantRow
+            key={restaurant.id}
+            restaurant={restaurant}
+            cityName={cityById.get(restaurant.city)?.name ?? ""}
+            onSelect={() => openView(restaurant)}
+          />
+        ))}
+      </div>
+
+      {filteredFoodlist.length === 0 && (
+        <p className="text-muted-foreground mt-12 text-center text-sm">No restaurants match your filters.</p>
+      )}
+
+      <RestaurantDetailsDialog
+        restaurant={formData?.id ? formData : null}
+        cityName={cityById.get(formData?.city)?.name ?? ""}
+        isAdmin={isAdmin}
+        open={viewOpen}
+        onOpenChange={setViewOpen}
+        onEdit={() => openEdit(formData)}
+        onDelete={() => openDelete(formData)}
       />
 
-      <UpdateRestaurantModal
-        isSubmitting={isSubmitting}
-        formData={formData}
-        setFormData={setFormData}
-        cities={cities}
-        handleUpdateRestaurant={handleUpdateRestaurant}
-      />
+      <Dialog open={createOpen} onOpenChange={setCreateOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add restaurant</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleCreateRestaurant} className="grid gap-4">
+            <RestaurantForm formData={formData} setFormData={setFormData} cities={cities} />
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setCreateOpen(false)}>
+                Close
+              </Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+                {isSubmitting ? "Creating..." : "Create"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
-      <DeleteRestaurantModal
-        isSubmitting={isSubmitting}
-        formData={formData}
-        handleDeleteRestaurant={handleDeleteRestaurant}
-      />
-    </>
+      <Dialog open={updateOpen} onOpenChange={setUpdateOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit restaurant</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleUpdateRestaurant} className="grid gap-4">
+            <RestaurantForm formData={formData} setFormData={setFormData} cities={cities} />
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setUpdateOpen(false)}>
+                Close
+              </Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+                {isSubmitting ? "Saving..." : "Save"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete restaurant</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleDeleteRestaurant}>
+            <p className="text-muted-foreground text-sm">
+              Are you sure you want to delete &quot;{formData.name}&quot;? This action cannot be undone.
+            </p>
+            <DialogFooter className="mt-4">
+              <Button type="button" variant="outline" onClick={() => setDeleteOpen(false)}>
+                Close
+              </Button>
+              <Button type="submit" variant="destructive" disabled={isSubmitting}>
+                {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+                {isSubmitting ? "Deleting..." : "Delete"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }

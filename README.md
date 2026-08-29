@@ -2,8 +2,8 @@
 
 Welcome to the source code of my personal website! I developed this website to archive my favorite projects and write
 about my thoughts. The initial version in 2011 was written by hand, but I ported it to [Jekyll](https://jekyllrb.com/),
-a static website generator, in 2018, and then to [Next.js](https://nextjs.org/) in 2025. The site uses [Twitter's
-Bootstrap](https://getbootstrap.com/) for mobile/tablet support.
+a static website generator, in 2018, then to [Next.js](https://nextjs.org/) in 2025, and restyled it with
+[Tailwind CSS](https://tailwindcss.com/) and [shadcn/ui](https://ui.shadcn.com/) in 2026.
 
 My website is hosted at [prateeksahay.com](prateeksahay.com), [psahay.com](psahay.com), and [ptkinvent.com](ptkinvent.com).
 

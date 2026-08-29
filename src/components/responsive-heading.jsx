@@ -1,14 +1,8 @@
-export default function ResponsiveHeading({ numbering, width = 6, children }) {
+export default function ResponsiveHeading({ numbering, children }) {
   return (
-    <div className="row">
-      <div className={`${width === 8 ? "col-lg-2" : "col-xl-3 col-lg-2"} d-none d-lg-block`}>
-        <h2 className="text-danger text-end">{numbering}</h2>
-      </div>
-      <div className={`${width === 8 ? "col-lg-8" : "col-xl-6 col-lg-8"}`}>
-        <h2>
-          <span className="text-danger d-lg-none">{numbering}&ensp;</span> {children}
-        </h2>
-      </div>
-    </div>
+    <h2 className="font-display mt-12 mb-4 flex items-baseline gap-3 text-2xl font-light text-foreground first:mt-0">
+      <span className="text-lg font-normal text-red-600 dark:text-red-400">{numbering}</span>
+      {children}
+    </h2>
   );
 }

@@ -1,7 +1,3 @@
 export default function LandingLayout({ children }) {
-  return (
-    <div className="container-fluid page-banner" style={{ marginTop: "70px" }}>
-      {children}
-    </div>
-  );
+  return <div className="pt-[70px]">{children}</div>;
 }

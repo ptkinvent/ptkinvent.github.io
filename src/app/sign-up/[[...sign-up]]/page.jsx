@@ -2,10 +2,7 @@ import { SignUp } from "@clerk/nextjs";
 
 export default function SignUpPage() {
   return (
-    <div
-      className="bg-dark-subtle bg-gradient d-flex justify-content-center align-items-center h-100"
-      style={{ marginBottom: "-50px" }}
-    >
+    <div className="flex min-h-screen items-center justify-center bg-neutral-950 pt-[70px]">
       <SignUp />
     </div>
   );

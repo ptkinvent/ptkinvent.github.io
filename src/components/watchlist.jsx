@@ -2,639 +2,519 @@
 
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTicket,
-  faPlayCircle,
-  faFilm,
-  faPencil,
-  faTrash,
-  faPlus,
-  faCog,
-  faExclamationTriangle,
-} from "@fortawesome/free-solid-svg-icons";
+import { AlertTriangle, Film, Loader2, Pencil, Play, Plus, Search, Ticket, Trash2, X } from "lucide-react";
 
-function MovieModal({ formData }) {
-  const embed_url = formData?.trailer_url ? "https://youtube.com/embed/" + formData.trailer_url.slice(32) : null;
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
+const STATUSES = [
+  { name: "unwatched", displayName: "Unwatched", variant: "secondary" },
+  { name: "watching", displayName: "Watching", variant: "warning" },
+  { name: "watched", displayName: "Watched", variant: "success" },
+];
+
+const selectClassName =
+  "border-input focus-visible:border-ring focus-visible:ring-ring/50 h-9 rounded-md border bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:ring-[3px]";
+
+function statusVariant(status) {
+  return STATUSES.find((s) => s.name === status)?.variant ?? "secondary";
+}
+
+function statusLabel(status) {
+  return STATUSES.find((s) => s.name === status)?.displayName ?? status;
+}
+
+function TogglePill({ active, onClick, children }) {
   return (
-    <div className="modal fade" id="modal" tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered modal-xl">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">{formData?.name}</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div className="modal-body">
-            {embed_url ? (
-              <div className="ratio ratio-16x9">
-                <iframe src={embed_url} className="embed-responsive-item" allowFullScreen></iframe>
-              </div>
-            ) : (
-              <div className="ratio ratio-16x9">
-                <div className="border border-gray-300 rounded bg-secondary-subtle d-flex justify-content-center align-items-center">
-                  <p className="text-muted">No trailer yet.</p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
+        active
+          ? "border-primary bg-primary text-primary-foreground"
+          : "border-input text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+      )}
+    >
+      {children}
+    </button>
   );
 }
 
-function CreateMovieModal({ isSubmitting, formData, setFormData, handleCreateMovie }) {
+// Cleans up commonly-pasted URL patterns before saving: strips YouTube's
+// tracking param from trailer links, and upsizes a common poster-image size
+// pattern to something bigger.
+function repairFormData(formData) {
+  const trailerParamIndex = formData.trailer_url?.indexOf("&pp=") ?? -1;
+  return {
+    ...formData,
+    trailer_url:
+      trailerParamIndex === -1 ? formData.trailer_url : formData.trailer_url.slice(0, trailerParamIndex),
+    img_url: formData.img_url?.replace("/200/0/", "/400/600/") ?? formData.img_url,
+  };
+}
+
+function MovieForm({ formData, setFormData }) {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   return (
-    <div className="modal fade" id="createMovieModal" tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Add movie</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <form onSubmit={(e) => handleCreateMovie(e, formData)}>
-            <div className="modal-body">
-              <div className="mb-3">
-                <label className="form-label">Name</label>
-                <input
-                  name="name"
-                  type="text"
-                  className="form-control"
-                  value={formData?.name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Status</label>
-                <select name="status" className="form-select" value={formData?.status} onChange={handleChange}>
-                  <option value="unwatched">Unwatched</option>
-                  <option value="watched">Watched</option>
-                  <option value="watching">Watching</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Release date</label>
-                <input
-                  name="release_date"
-                  type="date"
-                  className="form-control"
-                  value={formData?.release_date}
-                  onChange={handleChange}
-                />
-              </div>
-              {formData && formData.img_url.includes("/200/0/") && <div className="alert alert-warning" role="alert">
-                <FontAwesomeIcon icon={faExclamationTriangle} /> Image URL will replace "/200/0/" with "/400/600/"
-              </div>}
-              <div className="mb-3">
-                <label className="form-label">Image URL</label>
-                <input
-                  name="img_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.img_url}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Detail URL</label>
-                <input
-                  name="detail_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.detail_url}
-                  onChange={handleChange}
-                />
-              </div>
-              {formData && formData.trailer_url.includes("&pp=") && <div className="alert alert-warning" role="alert">
-                <FontAwesomeIcon icon={faExclamationTriangle} /> Trailer URL will truncate "&pp=..."
-              </div>}
-              <div className="mb-3">
-                <label className="form-label">Trailer URL</label>
-                <input
-                  name="trailer_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.trailer_url}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Notes</label>
-                <textarea
-                  name="notes"
-                  className="form-control"
-                  value={formData?.notes}
-                  placeholder="Add notes..."
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Creating...
-                  </>
-                ) : (
-                  "Create"
-                )}
-              </button>
-            </div>
-          </form>
+    <div className="grid gap-4">
+      <div className="grid gap-1.5">
+        <Label htmlFor="name">Name</Label>
+        <Input id="name" name="name" value={formData?.name ?? ""} onChange={handleChange} />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-1.5">
+          <Label htmlFor="status">Status</Label>
+          <select
+            id="status"
+            name="status"
+            value={formData?.status ?? "unwatched"}
+            onChange={handleChange}
+            className={selectClassName}
+          >
+            {STATUSES.map((status) => (
+              <option key={status.name} value={status.name}>
+                {status.displayName}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <div className="grid gap-1.5">
+          <Label htmlFor="release_date">Release date</Label>
+          <Input
+            id="release_date"
+            name="release_date"
+            type="date"
+            value={formData?.release_date ?? ""}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      {formData?.img_url?.includes("/200/0/") && (
+        <p className="flex items-center gap-1.5 rounded-md border border-amber-500/50 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
+          <AlertTriangle className="size-3.5 shrink-0" />
+          Image URL will replace "/200/0/" with "/400/600/" on save.
+        </p>
+      )}
+      <div className="grid gap-1.5">
+        <Label htmlFor="img_url">Image URL</Label>
+        <Input id="img_url" name="img_url" value={formData?.img_url ?? ""} onChange={handleChange} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="detail_url">Detail URL</Label>
+        <Input id="detail_url" name="detail_url" value={formData?.detail_url ?? ""} onChange={handleChange} />
+      </div>
+
+      {formData?.trailer_url?.includes("&pp=") && (
+        <p className="flex items-center gap-1.5 rounded-md border border-amber-500/50 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
+          <AlertTriangle className="size-3.5 shrink-0" />
+          Trailer URL will truncate the tracking param on save.
+        </p>
+      )}
+      <div className="grid gap-1.5">
+        <Label htmlFor="trailer_url">Trailer URL</Label>
+        <Input id="trailer_url" name="trailer_url" value={formData?.trailer_url ?? ""} onChange={handleChange} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="notes">Notes</Label>
+        <Textarea
+          id="notes"
+          name="notes"
+          value={formData?.notes ?? ""}
+          placeholder="Add notes..."
+          onChange={handleChange}
+        />
       </div>
     </div>
   );
 }
 
-function UpdateMovieModal({ isSubmitting, formData, setFormData, handleUpdateMovie }) {
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
+function TrailerDialog({ movie, open, onOpenChange }) {
+  if (!movie) return null;
+
+  const embedUrl = movie.trailer_url ? `https://youtube.com/embed/${movie.trailer_url.slice(32)}` : null;
 
   return (
-    <div className="modal fade" id="updateMovieModal" tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Edit movie</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-3xl">
+        <DialogHeader>
+          <DialogTitle>{movie.name}</DialogTitle>
+        </DialogHeader>
+
+        {embedUrl ? (
+          <div className="aspect-video w-full overflow-hidden rounded-md bg-black">
+            <iframe src={embedUrl} className="h-full w-full" allowFullScreen />
           </div>
-          <form onSubmit={(e) => handleUpdateMovie(e, formData)}>
-            <div className="modal-body">
-              <div className="mb-3">
-                <label className="form-label">Name</label>
-                <input
-                  name="name"
-                  type="text"
-                  className="form-control"
-                  value={formData?.name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Status</label>
-                <select name="status" className="form-select" value={formData?.status} onChange={handleChange}>
-                  <option value="unwatched">Unwatched</option>
-                  <option value="watched">Watched</option>
-                  <option value="watching">Watching</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Release date</label>
-                <input
-                  name="release_date"
-                  type="date"
-                  className="form-control"
-                  value={formData?.release_date}
-                  onChange={handleChange}
-                />
-              </div>
-              {formData && formData.img_url.includes("/200/0/") && <div className="alert alert-warning" role="alert">
-                <FontAwesomeIcon icon={faExclamationTriangle} /> Image URL will replace "/200/0/" with "/400/600/"
-              </div>}
-              <div className="mb-3">
-                <label className="form-label">Image URL</label>
-                <input
-                  name="img_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.img_url}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Detail URL</label>
-                <input
-                  name="detail_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.detail_url}
-                  onChange={handleChange}
-                />
-              </div>
-              {formData && formData.trailer_url.includes("&pp=") && <div className="alert alert-warning" role="alert">
-                <FontAwesomeIcon icon={faExclamationTriangle} /> Trailer URL will truncate "&pp=..."
-              </div>}
-              <div className="mb-3">
-                <label className="form-label">Trailer URL</label>
-                <input
-                  name="trailer_url"
-                  type="text"
-                  className="form-control"
-                  value={formData?.trailer_url}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Notes</label>
-                <textarea
-                  name="notes"
-                  className="form-control"
-                  value={formData?.notes}
-                  placeholder="Add notes..."
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Saving...
-                  </>
-                ) : (
-                  "Save"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+        ) : (
+          <div className="bg-muted flex aspect-video w-full items-center justify-center rounded-md">
+            <p className="text-muted-foreground text-sm">No trailer yet.</p>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
 
-function DeleteMovieModal({ isSubmitting, formData, handleDeleteMovie }) {
-  return (
-    <div className="modal fade" id="deleteMovieModal" tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Delete movie</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <form onSubmit={(e) => handleDeleteMovie(e, formData)}>
-            <div className="modal-body">
-              Are you sure you want to delete "{formData?.name}"? This action cannot be undone.
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" className="btn btn-danger" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Deleting...
-                  </>
-                ) : (
-                  "Delete"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Movie({ movie, setFormData }) {
-  const { user } = useUser();
-  const isAdmin = user?.publicMetadata?.role === "admin";
+function MovieCard({ movie, isAdmin, onView, onEdit, onDelete }) {
   const unreleased = new Date(movie.release_date) > new Date();
+  const badge = unreleased
+    ? { variant: "destructive", label: "Unreleased" }
+    : movie.status === "watched"
+      ? { variant: "success", label: "Watched" }
+      : movie.status === "watching"
+        ? { variant: "warning", label: "Watching" }
+        : null;
+  const isFandango = movie.detail_url?.includes("fandango");
 
   return (
-    <div className="card h-100">
-      <div className="card-img-top bg-secondary-subtle bg-gradient position-relative">
-        <div className="ratio" style={{ "--bs-aspect-ratio": "150%", cursor: "pointer" }}>
+    <div className="flex flex-col">
+      <div className="group relative aspect-2/3 w-full overflow-hidden rounded-lg bg-neutral-800">
+        <button type="button" onClick={onView} className="absolute inset-0 cursor-pointer" aria-label={`View ${movie.name}`}>
           {movie.img_url && (
+            // eslint-disable-next-line @next/next/no-img-element -- external poster URL
             <img
-              className="card-img-top ratio object-fit-cover"
               src={movie.img_url}
-              onClick={() => setFormData(movie)}
-              data-bs-toggle="modal"
-              data-bs-target="#modal"
+              alt={movie.name}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           )}
-        </div>
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/30 group-hover:opacity-100">
+            <Play className="size-10 fill-white text-white drop-shadow" />
+          </div>
+        </button>
+
+        {badge && (
+          <Badge variant={badge.variant} className="pointer-events-none absolute top-2 left-2 shadow">
+            {badge.label}
+          </Badge>
+        )}
 
         {isAdmin && (
-          <div className="position-absolute top-0 end-0 p-2">
-            <div className="dropdown">
-              <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                <FontAwesomeIcon icon={faCog} />
-              </button>
-
-              <ul className="dropdown-menu">
-                <li>
-                  <button
-                    className="dropdown-item"
-                    type="button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#updateMovieModal"
-                    onClick={() => setFormData(movie)}
-                  >
-                    <FontAwesomeIcon icon={faPencil} /> Edit
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="dropdown-item"
-                    type="button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteMovieModal"
-                    onClick={() => setFormData(movie)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} /> Delete
-                  </button>
-                </li>
-              </ul>
-            </div>
+          <div className="absolute top-2 right-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+            <Button type="button" size="icon" variant="secondary" className="size-7" onClick={onEdit} aria-label="Edit movie">
+              <Pencil className="size-3.5" />
+            </Button>
+            <Button
+              type="button"
+              size="icon"
+              variant="destructive"
+              className="size-7"
+              onClick={onDelete}
+              aria-label="Delete movie"
+            >
+              <Trash2 className="size-3.5" />
+            </Button>
           </div>
         )}
       </div>
-      <div className="card-body">
-        <h5 className="card-title">
-          <a href={movie.detail_url || null} target="_blank">
-            {movie.name}
-          </a>{" "}
-          {unreleased ? (
-            <span className="badge text-bg-danger">Unreleased</span>
-          ) : (
-            <>
-              {movie.status === "watched" && <span className="badge text-bg-success">Watched</span>}
-              {movie.status === "watching" && <span className="badge text-bg-warning">Watching</span>}
-            </>
-          )}
-        </h5>
-        <p className="card-text">
-          Release date: {new Date(movie.release_date).toLocaleDateString("en-US", { timeZone: "UTC" })}
+
+      <div className="mt-2 flex flex-col gap-0.5">
+        <a
+          href={movie.detail_url || undefined}
+          target={movie.detail_url ? "_blank" : undefined}
+          rel="noopener noreferrer"
+          className={cn("text-foreground text-sm font-medium", movie.detail_url && "hover:underline")}
+        >
+          {movie.name}
+        </a>
+        <p className="text-muted-foreground text-xs">
+          {new Date(movie.release_date).toLocaleDateString("en-US", { timeZone: "UTC" })}
         </p>
 
-        <div className="d-flex flex-column gap-2">
-          <div className="d-flex flex-column flex-md-row gap-2">
-            {movie.trailer_url && (
-              <>
-                <button
-                  className="btn btn-outline-danger w-100"
-                  type="button"
-                  onClick={() => setFormData(movie)}
-                  data-bs-toggle="modal"
-                  data-bs-target="#modal"
-                >
-                  <FontAwesomeIcon icon={faFilm} /> Trailer
-                </button>
-              </>
-            )}
+        {movie.detail_url && (
+          <a
+            href={movie.detail_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-foreground mt-1 inline-flex items-center gap-1 text-xs font-medium"
+          >
+            {isFandango ? <Ticket className="size-3" /> : <Film className="size-3" />}
+            {isFandango ? "Tickets" : "Stream"}
+          </a>
+        )}
 
-            {movie.detail_url &&
-              (movie.detail_url.includes("fandango") ? (
-                <a href={movie.detail_url} target="_blank" className="btn btn-outline-secondary w-100">
-                  <FontAwesomeIcon icon={faTicket} /> Tickets
-                </a>
-              ) : (
-                <a href={movie.detail_url} target="_blank" className="btn btn-outline-secondary w-100">
-                  <FontAwesomeIcon icon={faPlayCircle} /> Stream
-                </a>
-              ))}
-          </div>
-        </div>
+        {movie.notes && <p className="text-muted-foreground mt-1 text-xs italic">{movie.notes}</p>}
       </div>
-
-      {movie.notes && <div className="card-footer">{movie.notes}</div>}
     </div>
   );
 }
 
 export default function Watchlist({ watchlist: initialWatchlist }) {
   const { user } = useUser();
-  const [fetchFailed, setFetchFailed] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [watchlist, setWatchlist] = useState(initialWatchlist);
-  const [formData, setFormData] = useState(null);
-  const [query, setQuery] = useState("");
-  const [statuses, setStatuses] = useState([
-    { displayName: "Unwatched", name: "unwatched", color: "secondary", checked: false },
-    { displayName: "Watching", name: "watching", color: "warning", checked: false },
-    { displayName: "Watched", name: "watched", color: "success", checked: false },
-  ]);
-
   const isAdmin = user?.publicMetadata?.role === "admin";
 
-  async function handleCreateMovie(e, formData) {
+  const [fetchFailed, setFetchFailed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [watchlist, setWatchlist] = useState(initialWatchlist ?? []);
+  const [formData, setFormData] = useState({});
+  const [query, setQuery] = useState("");
+  const [activeStatuses, setActiveStatuses] = useState([]);
+  const [viewOpen, setViewOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  function toggle(list, setList, value) {
+    setList(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
+  }
+
+  const hasActiveFilters = query || activeStatuses.length > 0;
+
+  function clearFilters() {
+    setQuery("");
+    setActiveStatuses([]);
+  }
+
+  const filteredWatchlist = watchlist
+    .filter((movie) => activeStatuses.length === 0 || activeStatuses.includes(movie.status))
+    .filter((movie) => movie.name?.toLowerCase().includes(query.toLowerCase()))
+    .sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+
+  async function handleCreateMovie(e) {
     e.preventDefault();
-
-    // Repair fields
-    const trailerParamIndex = formData.trailer_url.indexOf("&pp=");
-    formData.trailer_url = (trailerParamIndex === -1
-      ? formData.trailer_url
-      : formData.trailer_url.slice(0, trailerParamIndex))
-    formData.img_url = formData.img_url.replace("/200/0/", "/400/600/")
-
     try {
       setIsSubmitting(true);
       const response = await fetch("/api/watchlist", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(repairFormData(formData)),
       });
 
       if (response.ok) {
         const newMovie = await response.json();
-        setWatchlist((prevWatchlist) => [...prevWatchlist, newMovie]);
-
-        const modal = document.getElementById("createMovieModal");
-        const bootstrapModal = bootstrap.Modal.getInstance(modal);
-        if (bootstrapModal) {
-          bootstrapModal.hide();
-        }
+        setWatchlist((prev) => [...prev, newMovie]);
+        setCreateOpen(false);
       } else {
-        console.error("Failed to create movie");
         setFetchFailed(true);
       }
-    } catch (error) {
-      console.error("Error creating movie:", error);
+    } catch {
       setFetchFailed(true);
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  async function handleUpdateMovie(e, formData) {
+  async function handleUpdateMovie(e) {
     e.preventDefault();
-
-    // Repair fields
-    const trailerParamIndex = formData.trailer_url.indexOf("&pp=");
-    formData.trailer_url = (trailerParamIndex === -1
-      ? formData.trailer_url
-      : formData.trailer_url.slice(0, trailerParamIndex))
-    formData.img_url = formData.img_url.replace("/200/0/", "/400/600/")
-
     try {
       setIsSubmitting(true);
       const response = await fetch("/api/watchlist", {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(repairFormData(formData)),
       });
 
       if (response.ok) {
         const updatedMovie = await response.json();
-        setWatchlist((prevWatchlist) =>
-          prevWatchlist.map((movie) => (movie.id === updatedMovie.id ? updatedMovie : movie))
-        );
-
-        const modal = document.getElementById("updateMovieModal");
-        const bootstrapModal = bootstrap.Modal.getInstance(modal);
-        if (bootstrapModal) {
-          bootstrapModal.hide();
-        }
+        setWatchlist((prev) => prev.map((m) => (m.id === updatedMovie.id ? updatedMovie : m)));
+        setUpdateOpen(false);
       } else {
-        console.error("Failed to update movie");
         setFetchFailed(true);
       }
-    } catch (error) {
-      console.error("Error updating movie:", error);
+    } catch {
       setFetchFailed(true);
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  async function handleDeleteMovie(e, formData) {
+  async function handleDeleteMovie(e) {
     e.preventDefault();
-
     try {
       setIsSubmitting(true);
-      const response = await fetch(`/api/watchlist?id=${formData.id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(`/api/watchlist?id=${formData.id}`, { method: "DELETE" });
 
       if (response.ok) {
-        setWatchlist((prevWatchlist) => prevWatchlist.filter((m) => m.id !== movie.id));
-
-        const modal = document.getElementById("deleteMovieModal");
-        const bootstrapModal = bootstrap.Modal.getInstance(modal);
-        if (bootstrapModal) {
-          bootstrapModal.hide();
-        }
+        setWatchlist((prev) => prev.filter((m) => m.id !== formData.id));
+        setDeleteOpen(false);
       } else {
-        console.error("Failed to delete movie");
         setFetchFailed(true);
       }
-    } catch (error) {
-      console.error("Error deleting movie:", error);
+    } catch {
       setFetchFailed(true);
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  function handleChange(e) {
-    setQuery(e.target.value.toLowerCase());
+  function openCreate() {
+    setFormData({
+      name: "",
+      status: "unwatched",
+      release_date: "",
+      img_url: "",
+      trailer_url: "",
+      detail_url: "",
+      notes: "",
+    });
+    setCreateOpen(true);
   }
 
-  function handleCheck(e) {
-    setStatuses((prevStatuses) =>
-      prevStatuses.map((status) => (status.name === e.target.name ? { ...status, checked: !status.checked } : status))
-    );
+  function openView(movie) {
+    setFormData(movie);
+    setViewOpen(true);
   }
 
-  const checkedStatuses = statuses.filter((status) => status.checked).map((status) => status.name);
-  const filteredWatchlist = watchlist
-    .filter((movie) => checkedStatuses.length === 0 || checkedStatuses.includes(movie.status))
-    .filter((movie) => movie.name.toLowerCase().includes(query))
-    .sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+  function openEdit(movie) {
+    setFormData(movie);
+    setViewOpen(false);
+    setUpdateOpen(true);
+  }
+
+  function openDelete(movie) {
+    setFormData(movie);
+    setViewOpen(false);
+    setDeleteOpen(true);
+  }
 
   return (
-    <>
-      {isAdmin && (
-        <div className="row mb-4">
-          <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
-            {fetchFailed && (
-              <div className="alert alert-danger" role="alert">
-                <FontAwesomeIcon icon={faExclamationTriangle} /> Something went wrong. Please try again.
-              </div>
-            )}
-
-            <button
-              className="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#createMovieModal"
-              onClick={() =>
-                setFormData({
-                  name: "",
-                  status: "unwatched",
-                  release_date: "",
-                  img_url: "",
-                  trailer_url: "",
-                  detail_url: "",
-                  notes: "",
-                })
-              }
-            >
-              <FontAwesomeIcon icon={faPlus} /> Add movie
-            </button>
-          </div>
+    <div className="mx-auto max-w-5xl px-4 pb-20 sm:px-6">
+      {fetchFailed && (
+        <div className="border-destructive/50 bg-destructive/10 text-destructive mb-4 flex items-center gap-2 rounded-md border px-4 py-3 text-sm">
+          <AlertTriangle className="size-4 shrink-0" />
+          Something went wrong. Please try again.
         </div>
       )}
 
-      <div className="row mb-4">
-        <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8">
-          <input value={query} onChange={handleChange} className="form-control mb-1" placeholder="Search..." />
-
-          {statuses.map((status) => (
-            <div key={status.name} className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id={`checkbox-${status.name}`}
-                name={status.name}
-                checked={status.checked}
-                onChange={handleCheck}
-              />
-              <label className="form-check-label uppercase" htmlFor={`checkbox-${status.name}`}>
-                <span className={`badge text-bg-${status.color}`}>{status.displayName}</span>
-              </label>
-            </div>
-          ))}
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative flex-1">
+          <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by name..."
+            className="pl-9"
+          />
         </div>
+
+        {STATUSES.map((status) => (
+          <TogglePill
+            key={status.name}
+            active={activeStatuses.includes(status.name)}
+            onClick={() => toggle(activeStatuses, setActiveStatuses, status.name)}
+          >
+            {status.displayName}
+          </TogglePill>
+        ))}
+
+        {hasActiveFilters && (
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-xs font-medium"
+          >
+            <X className="size-3" />
+            Clear
+          </button>
+        )}
       </div>
 
-      <div className="row">
-        {filteredWatchlist.map((movie, index) => (
-          <div key={index} className="col-xl-2 col-lg-3 col-md-4 col-6 mb-3">
-            <Movie key={index} movie={movie} setFormData={setFormData} />
-          </div>
+      <div className="mt-6 flex items-center justify-between">
+        <p className="text-muted-foreground text-sm">
+          {filteredWatchlist.length} title{filteredWatchlist.length === 1 ? "" : "s"}
+        </p>
+
+        {isAdmin && (
+          <Button type="button" size="sm" onClick={openCreate}>
+            <Plus className="size-4" />
+            Add movie
+          </Button>
+        )}
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        {filteredWatchlist.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            isAdmin={isAdmin}
+            onView={() => openView(movie)}
+            onEdit={() => openEdit(movie)}
+            onDelete={() => openDelete(movie)}
+          />
         ))}
       </div>
 
-      <MovieModal formData={formData} />
+      {filteredWatchlist.length === 0 && (
+        <p className="text-muted-foreground mt-12 text-center text-sm">No titles match your filters.</p>
+      )}
 
-      <CreateMovieModal
-        isSubmitting={isSubmitting}
-        formData={formData}
-        setFormData={setFormData}
-        handleCreateMovie={handleCreateMovie}
-      />
+      <TrailerDialog movie={formData?.id ? formData : null} open={viewOpen} onOpenChange={setViewOpen} />
 
-      <UpdateMovieModal
-        isSubmitting={isSubmitting}
-        formData={formData}
-        setFormData={setFormData}
-        handleUpdateMovie={handleUpdateMovie}
-      />
+      <Dialog open={createOpen} onOpenChange={setCreateOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add movie</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleCreateMovie} className="grid gap-4">
+            <MovieForm formData={formData} setFormData={setFormData} />
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setCreateOpen(false)}>
+                Close
+              </Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+                {isSubmitting ? "Creating..." : "Create"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
-      <DeleteMovieModal isSubmitting={isSubmitting} formData={formData} handleDeleteMovie={handleDeleteMovie} />
-    </>
+      <Dialog open={updateOpen} onOpenChange={setUpdateOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit movie</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleUpdateMovie} className="grid gap-4">
+            <MovieForm formData={formData} setFormData={setFormData} />
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setUpdateOpen(false)}>
+                Close
+              </Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+                {isSubmitting ? "Saving..." : "Save"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete movie</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleDeleteMovie}>
+            <p className="text-muted-foreground text-sm">
+              Are you sure you want to delete &quot;{formData.name}&quot;? This action cannot be undone.
+            </p>
+            <DialogFooter className="mt-4">
+              <Button type="button" variant="outline" onClick={() => setDeleteOpen(false)}>
+                Close
+              </Button>
+              <Button type="submit" variant="destructive" disabled={isSubmitting}>
+                {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+                {isSubmitting ? "Deleting..." : "Delete"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }

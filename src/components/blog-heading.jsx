@@ -1,33 +1,29 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+
 import { blogs } from "@/data/blogs";
 import Breadcrumbs from "@/components/breadcrumbs";
-import Image from "next/image";
 
 export default function BlogHeading() {
   const pathname = usePathname();
 
-  let crumbs = [];
   const blog = blogs.find((blog) => blog.slug === pathname.split("/").pop());
-  crumbs = [
+  const crumbs = [
     { label: "Blog", href: "/blog" },
     { label: blog.title, href: null },
   ];
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
-      <div className="row">
-        <div className="offset-lg-2 col-lg-8">
-          <hr style={{ width: "200px", margin: "20px auto" }} />
+    <div className="pt-[70px]">
+      <div className="mx-auto max-w-3xl px-4 pt-10 sm:px-6">
+        <Breadcrumbs crumbs={crumbs} />
 
-          <Breadcrumbs crumbs={crumbs} />
+        <Image src={blog.bannerImg} alt="" placeholder="blur" priority className="h-auto w-full rounded-xl" />
 
-          <Image src={blog.bannerImg} className="w-100 h-auto" alt="" placeholder="blur" />
-
-          <h1 className="mt-3 mb-2">{blog.title}</h1>
-          <p className="text-danger">{blog.date}</p>
-        </div>
+        <h1 className="font-display mt-6 mb-2 text-3xl font-light tracking-wide sm:text-4xl">{blog.title}</h1>
+        <p className="font-medium text-red-600 dark:text-red-400">{blog.date}</p>
       </div>
     </div>
   );
