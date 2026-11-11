@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Moon, Sun } from "lucide-react";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
-const links = [
+const publicLinks = [
   { href: "/watchlist", label: "Watchlist" },
   { href: "/foodlist", label: "Foodlist" },
   { href: "/photography", label: "Photography" },
@@ -25,12 +25,17 @@ const links = [
   { href: "/about", label: "About" },
 ];
 
+const adminLinks = [{ href: "/journal", label: "Journal" }];
+
 function applyTheme(theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
 }
 
 export default function Header() {
   const pathname = usePathname();
+  const { user } = useUser();
+  const isAdmin = user?.publicMetadata?.role === "admin";
+  const links = isAdmin ? [...publicLinks, ...adminLinks] : publicLinks;
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
